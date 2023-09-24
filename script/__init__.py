@@ -132,19 +132,23 @@ if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时�
 
 # 相关实体
 1. 人
+
 actor, org
 
 2. 资源
+
 project: repo, package, submodule
 
 content: dir, file, text
 
 3. **事件**
-type: IssuesEvent, PullRequestEvent, PullRequestReviewEvent, IssueCommentEvent, PullRequestReviewCommentEvent, CommitCommentEvent, PushEvent, ReleaseEvent, GollumEvent
+
+type: IssuesEvent, PullRequestEvent, PullRequestReviewEvent, IssueCommentEvent, PullRequestReviewCommentEvent, CommitCommentEvent, PushEvent, ReleaseEvent, GollumEvent, ForkEvent, MemberEvent, WatchEvent, PublicEvent, CreateEvent, DeleteEvent, ~PullRequestReviewThreadEvent(数据库中无此特征), SponsorshipEvent(数据库中无此特征)~
 
 action: opened, closed, reopened, labeled, created
 
-body: issue_body,...
+body: IssuesEvent issue_title body, IssueCommentEvent body, PullRequestEvent issue_title body, PullRequestReviewEvent body, PullRequestReviewCommentEvent body, PushEvent push_commits.message, CommitCommentEvent body, ReleaseEvent release_body
+
 
 # 事件层次划分
 
@@ -190,7 +194,9 @@ github-event-types doc：https://docs.github.com/en/webhooks-and-events/events/g
   
     GollumEvent
 
+
 # 链接类型
+
 1. resouce and resoure
 
 repo-repo: fork, submodule, import
@@ -218,6 +224,7 @@ person-person: follow
 
 
 # 链接步长
+
 1. 直接链接
 
 repo-repo: fork, submodule, import
@@ -229,7 +236,8 @@ actor-actor: follow
 repo-actor: member
 
 2. 间接链接
-repo-repo: domain, language, ...
+
+repo-repo: same domain, same language, same functionality for a specific software
 
 actor-repo: search, recommend
 
