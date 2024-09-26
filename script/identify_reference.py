@@ -46,14 +46,19 @@ def test_re_ref_patterns(re_ref_patterns):
     # 测试正则
     pattern_keys = list(re_ref_patterns.keys())
     strs = [
-        'href=&quot;https://github-redirect.dependabot.com/python-babel/babel/issues/782&quot;&gt;#782 once.\\n\\nRB#26080 STARTED\nBUG#32134875 "BUG#31553323" href="https://github-redirect.dependabot.com/python-babel/babel/issues/734">#734 test https://github.com/X-lab2017/open-research/issues/123#issue-1406887967 https://github.com/X-lab2017/open-galaxy/pull/2#discussion_r759273374 http://www.github.com/xxx/xx/issues/3221\thttps://github.com/xxx/xx/pull/3221 #3221\nissue#32 test',
+        'href=&quot;https://github-redirect.dependabot.com/python-babel/babel/issues/782&quot;&gt;#782 once.\\n\\nRB#26080 STARTED\nBUG#32134875 "BUG#31553323" href="https://github-redirect.dependabot.com/python-babel/babel/issues/734">#734 test https://github.com/X-lab2017/open-research/issues/123#issue-1406887967 https://github.com/X-lab2017/open-digger/pull/1038#issue-1443186854 https://github.com/X-lab2017/open-galaxy/pull/2#issuecomment-982562221 https://github.com/X-lab2017/open-galaxy/pull/2#pullrequestreview-818986332 https://github.com/openframeworks/openFrameworks/pull/7383#discussion_r1411384813 https://github.com/openframeworks/openFrameworks/pull/7383/files/1f9efefc25685f062c03ebfbd2832c6e47481d01#r1411384813 https://github.com/openframeworks/openFrameworks/pull/7383/files#r1411384813 http://www.github.com/xxx/xx/issues/3221\thttps://github.com/xxx/xx/pull/3221 #3221\nissue#32 test',
         '5c9a6c1 5c9a6c2 5c9a6c12 test https://github.com/X-lab2017/open-galaxy/pull/2/commits/7f9f3706abc7b5a9ad37470519f5066119ba46c2 https://www.github.com/xxx/xx/commit/5c9a6c06871cb9fe42814af9c039eb6da5427a6e\tfile:5c9a6c06871cb9fe42814af9c039eb6da5427a6eX\n test 5c9a6c0',
         '@danxmoran1是 @danxmoran2 @danxmoran3 thank you for your help. @birdflyi是 test [birdflyi](https://github.com/birdflyi) author@abc.com\t@author test @danxmoran4) @danxmoran5',
         'test https://github.com/X-lab2017/open-research igrigorik/gharchive.org test',
+        'https://github.com/openframeworks/openFrameworks/tree/bugfix-hdv\\nhttps://github.com/openframeworks/openFrameworks/tree/master',
+        'https://github.com/JuliaLang/julia/commit/5a904ac97a89506456f5e890b8dabea57bd7a0fa#commitcomment-144873925',
+        'https://github.com/activescaffold/active_scaffold/wiki/API:-FieldSearch',
+        '\thttps://github.com/rails/rails/releases/tag/v7.1.2\\n',
         'https://github.com/roleoroleo/yi-hack-Allwinner/files/5136276/y25ga_0.1.9.tar.gz是 https://github.com/X-lab2017/open-digger/pull/997/files#diff-5cda5bb2aa8682c3b9d4dbf864efdd6100fe1a5f748941d972204412520724e5 https://github.com/birdflyi/Research-Methods-of-Cross-Science/blob/main/%E4%BB%8E%E7%A7%91%E5%AD%A6%E8%B5%B7%E6%BA%90%E7%9C%8B%E4%BA%A4%E5%8F%89%E5%AD%A6%E7%A7%91.md是',
         'test https://github.com/X-lab2017/open-digger/labels/pull%2Fhypertrons test',
+        'https://gist.github.com/birdflyi',
         'test http://sqlite.org/forum/forumpost/fdb0bb7ad0 https://sqlite.org/forum/forumpost/fdb0bb7ad0\n\nhttps://github.com\thttps://www.github.com test'
-        ]
+    ]
 
     CORRESPONDING = 0
     MIXED = 1
@@ -354,7 +359,7 @@ if __name__ == '__main__':
     # 保存实体成功匹配所过滤的substr和rawstr结果
     #   substr
     #   rawstr_filtered（仅保存all_ref_type正则匹配成功子集）
-    UPDATE_REF_MSG_REGEXED_DICT_PKL = False  # UPDATE SAVED RESULTS FLAG
+    UPDATE_REF_MSG_REGEXED_DICT_PKL = True  # UPDATE SAVED RESULTS FLAG
 
     msg_substrs_filename = "repos_ref_type_local_msg_substrs_dict.pkl"
     path_repos_ref_type_local_msg_substrs_dict = os.path.join(

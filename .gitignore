@@ -1,4 +1,2 @@
 .idea/
 *.iml
-etc/profiles.py
-utils/conndb.py
