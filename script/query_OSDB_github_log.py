@@ -33,7 +33,7 @@ def query_repo_log_each_year_to_csv_dir(repo_names, columns, save_dir, sql_param
     columns_str = ', '.join(columns)
     sql_param = sql_param or {}
     sql_param = dict(sql_param)
-    table = sql_param.get("table", "opensource.gh_events")
+    table = sql_param.get("table", "opensource.events")
     start_end_year = sql_param.get("start_end_year", [2022, 2023])
     start_year = start_end_year[0]
     try:
@@ -45,7 +45,7 @@ def query_repo_log_each_year_to_csv_dir(repo_names, columns, save_dir, sql_param
     # query and save
     for year in range(start_year, end_year):
         sql_ref_repo_pattern = f'''
-        SELECT {{columns}} FROM {table} WHERE {get_year_constraint(year)} AND repo_name='{{repo_name}}';
+        SELECT {{columns}} FROM {table} WHERE platform='GitHub' AND {get_year_constraint(year)} AND repo_name='{{repo_name}}';
         '''
         for repo_name in repo_names:
             repo_name_fileformat = repo_name.replace('/', '_')
@@ -58,7 +58,7 @@ def query_repo_log_each_year_to_csv_dir(repo_names, columns, save_dir, sql_param
             if update_exist_data or not os.path.exists(save_path):
                 conndb.sql = sql_ref_repo
                 conndb.execute()
-                conndb.df_rs.to_csv(save_path)
+                conndb.rs.to_csv(save_path)
 
                 print(f"{filename} saved!")
             else:
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     # 1.3 query and save
     save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], "repos")
     sql_param = {
-        "table": "opensource.gh_events",
+        "table": "opensource.events",
         "start_end_year": [2022, 2023],
     }
     query_repo_log_each_year_to_csv_dir(repo_names, columns, save_dir, sql_param, update_exist_data=UPDATE_EXIST_DATA)
