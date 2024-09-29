@@ -83,6 +83,17 @@ def strs_regex(strs, regex):
     return find_res_lists
 
 
+def mask_code(string):
+    # 正则表达式来匹配代码块（用```括起来的）
+    code_block_pattern = re.compile(r'```(.*?)```', re.DOTALL)
+    # 正则表达式来匹配行内代码（用`括起来的）
+    inline_code_pattern = re.compile(r'`([^`]+)`')
+    # 替换代码块
+    string_mask_code__block = re.sub(code_block_pattern, "CODE_BLOCK", string)
+    # 替换行内代码
+    string_mask_code = re.sub(inline_code_pattern, "INLINE_CODE", string_mask_code__block)
+    return string_mask_code
+
 def regex_df(df, regex_columns, regex_pattern, use_data_conf=None):
     if use_data_conf is None:
         use_data_conf = default_use_data_conf  # granularity configuration
@@ -92,7 +103,7 @@ def regex_df(df, regex_columns, regex_pattern, use_data_conf=None):
 
     for column in regex_columns:
         series = df[column].astype(str)
-        find_res_lists = strs_regex(series.values, regex)
+        find_res_lists = strs_regex(series.apply(mask_code).values, regex)
         regexed_series = pd.Series(data=find_res_lists, index=series.index, dtype=object)
         regexed_len_series = regexed_series.apply(len)
         if use_data_conf == USE_RAW_STR:
