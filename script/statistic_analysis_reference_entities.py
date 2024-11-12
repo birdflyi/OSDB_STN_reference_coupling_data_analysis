@@ -6,28 +6,13 @@
 # @Author : 'Lou Zehua'
 # @File   : statistic_analysis_reference_entities.py 
 
-import os
-import sys
-
-if '__file__' not in globals():
-    # !pip install ipynbname  # Remove comment symbols to solve the ModuleNotFoundError
-    import ipynbname
-
-    nb_path = ipynbname.path()
-    __file__ = str(nb_path)
-cur_dir = os.path.dirname(__file__)
-pkg_rootdir = os.path.dirname(cur_dir)  # os.path.dirname()向上一级，注意要对应工程root路径
-if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时的ModuleNotFoundError问题
-    sys.path.append(pkg_rootdir)
-    print('-- Add root directory "{}" to system path.'.format(pkg_rootdir))
-
 import numpy as np
 import pandas as pd
 
 from etc import filePathConf
-from script import body_columns_dict, re_ref_patterns, USE_RAW_STR, USE_REG_SUB_STRS, USE_REG_SUB_STRS_LEN, \
-    event_columns_dict
-from script.identify_reference import load_pickle, substrs2rawstr_in_df_repos_ref_type_local_msg, dump_to_pickle, \
+from GH_CoRE.data_dict_settings import body_columns_dict, re_ref_patterns, USE_RAW_STR, USE_REG_SUB_STRS, \
+    USE_REG_SUB_STRS_LEN, event_columns_dict
+from GH_CoRE.working_flow.identify_reference import load_pickle, substrs2rawstr_in_df_repos_ref_type_local_msg, dump_to_pickle, \
     substrs2rawstr_in_df_repos_all_ref_type_local_msg, add_df_list
 
 
@@ -181,6 +166,8 @@ def union_all_ref_type_df_substrscnt_for_repos(dict_repos_ref_type_df_substrscnt
 
 
 if __name__ == '__main__':
+    import os
+
     # 统计分析
     #   item applymap:
     #     weight: len

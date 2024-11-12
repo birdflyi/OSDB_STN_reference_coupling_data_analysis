@@ -25,11 +25,11 @@ import numpy as np
 import pandas as pd
 
 from etc import filePathConf
-from script import columns_simple, body_columns_dict, event_columns_dict, re_ref_patterns
-from script.body_content_preprocessing import read_csvs, dedup_content
-from script.identify_reference import drop_allNA, find_substrs_in_df_repos_ref_type_local_msg, dump_to_pickle, \
+from GH_CoRE import columns_simple, body_columns_dict, event_columns_dict, re_ref_patterns
+from GH_CoRE.working_flow.body_content_preprocessing import read_csvs, dedup_content
+from GH_CoRE.working_flow.identify_reference import drop_allNA, find_substrs_in_df_repos_ref_type_local_msg, dump_to_pickle, \
     load_pickle, substrs2rawstr_in_df_repos_ref_type_local_msg, substrs2rawstr_in_df_repos_all_ref_type_local_msg
-from script.query_OSDB_github_log import query_repo_log_each_year_to_csv_dir
+from GH_CoRE.working_flow.query_OSDB_github_log import query_repo_log_each_year_to_csv_dir
 from script.statistic_analysis_reference_entities import stat_ref_wight_df_repos_ref_type_msg, \
     union_all_ref_type_df_substrscnt_for_repos, agg_df_dict, concat_df_dict
 
@@ -231,7 +231,7 @@ if __name__ == '__main__':
 
     # query_OSDB_github_log_from_dbserver(key_feats_path=dbms_repos_key_feats_path, save_dir=dbms_repos_raw_content_dir)
 
-    # process_body_content(raw_content_dir=dbms_repos_raw_content_dir, processed_content_dir=dbms_repos_dedup_content_dir)
+    process_body_content(raw_content_dir=dbms_repos_raw_content_dir, processed_content_dir=dbms_repos_dedup_content_dir)
 
     filenames = os.listdir(dbms_repos_dedup_content_dir)
     repo_keys = [os.path.splitext(full_file_name)[0] for full_file_name in filenames]
