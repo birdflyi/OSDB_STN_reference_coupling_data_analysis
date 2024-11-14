@@ -4,7 +4,7 @@
 
 # @Time   : 2023/6/2 1:55
 # @Author : 'Lou Zehua'
-# @File   : statistic_analysis_reference_entities.py 
+# @File   : statistical_analysis_ref_named_entity.py
 
 import numpy as np
 import pandas as pd
