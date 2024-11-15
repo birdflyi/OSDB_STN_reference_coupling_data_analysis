@@ -24,6 +24,10 @@ G_pattern = build_Graph(df_ref_tuples[['source_node_type', 'target_node_type', '
 
 
 if __name__ == '__main__':
+    import os
+
+    from etc import filePathConf
+
     for n in G_pattern.nodes(data=True):
         print(n)
     for e in G_pattern.edges(data=True):
@@ -50,6 +54,7 @@ if __name__ == '__main__':
             width=list(nx.get_edge_attributes(G_pattern, 'weight').values()), font_size=6)
     nx.draw_networkx_edge_labels(G_pattern, pos, edge_labels=edge_labels, font_size=6)
 
-    plt.title('Graph Pattern', fontsize=15)
-    plt.savefig("HIN_pattern_ref_scale1_trunc1.png", format="PNG")
+    plt.title('GH Collab Network Pattern', fontsize=15)
+    plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                             "analysis_results/HIN_pattern_GH_Collab_scale1_trunc1.png"), format="PNG")
     plt.show()

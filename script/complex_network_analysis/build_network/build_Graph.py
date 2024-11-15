@@ -6,8 +6,6 @@
 # @Author : 'Lou Zehua'
 # @File   : build_Graph.py
 
-import re
-
 import networkx as nx
 import numpy as np
 import pandas as pd
@@ -477,6 +475,9 @@ if __name__ == '__main__':
     import matplotlib
     matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt  # matplotlib.use必须在本句执行前运行
+    import os
+
+    from etc import filePathConf
 
     # build pattern test
     HIN_pattern = {
@@ -520,5 +521,6 @@ if __name__ == '__main__':
     nx.draw(G_pattern, pos, labels=node_labels, node_size=node_size, node_color=node_color, edge_color="black")
 
     plt.title('Graph Pattern', fontsize=15)
-    # plt.savefig("HIN_pattern_tensorflow_scale1_trunc1.png", format="PNG")
+    plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                             "analysis_results/HIN_pattern_GH_Collab_simple_scale1_trunc1.png"), format="PNG")
     plt.show()

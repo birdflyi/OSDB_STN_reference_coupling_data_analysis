@@ -41,16 +41,33 @@ if __name__ == '__main__':
                          edge_attrs=pd.Series(df_dbms_repo.to_dict("records")),
                          init_edge_weight=True, et_key_in_attr="edge_type", default_edge_type="event_type", edge_type_canopy=True,
                          attrs_is_shared_key_pdSeries=False, use_df_col_as_default_type=True, w_trunc=1, out_g_type='DG')
-    cnt = 0
-    limit = 10
-    for n in G_repo.nodes(data=True):
-        print(n)
-        cnt += 1
-        if cnt > limit:
-            break
-    cnt = 0
-    for e in G_repo.edges(data=True):
-        print(e)
-        cnt += 1
-        if cnt > limit:
-            break
+
+    import matplotlib
+    matplotlib.use('TkAgg')
+    import matplotlib.pyplot as plt  # matplotlib.use必须在本句执行前运行
+
+    pos = nx.spring_layout(G_repo)
+
+    df_nodes_data = pd.DataFrame(dict(G_repo.nodes(data=True)))
+    df_nodes_type = df_nodes_data.loc["node_type"]
+    node_type_set = set(df_nodes_type)
+    cmap = plt.get_cmap('jet', 15)
+    len_node_types = len(node_type_set)
+    colors = [cmap(i % 15) for i in range(len_node_types)]
+    color_map = dict(zip(node_type_set, colors[:len_node_types]))
+
+    node_color = df_nodes_type.apply(lambda x: color_map[x]).values
+    # node_size = df_nodes_data.apply(lambda x: x["weight"]*200 if pd.notna(x["weight"]) and isinstance(x["weight"], (int, float)) else 10).values
+    # node_size_map = dict(zip(node_type_set, [200] * len_node_types))
+    node_size = pd.DataFrame(G_repo.degree, columns=["entity_id", "degree"])["degree"].values
+
+    node_labels = nx.get_node_attributes(G_repo, 'node_type')
+    edge_labels = nx.get_edge_attributes(G_repo, 'weight')
+
+    nx.draw_networkx_edge_labels(G_repo, pos, edge_labels=edge_labels)
+    nx.draw(G_repo, pos, labels=node_labels, font_size=5, node_size=node_size, node_color=node_color, edge_color="black")
+
+    plt.title(f'Graph of Repo {repo_keys[0]}', fontsize=15)
+    plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                             f"analysis_results/collab_net_{repo_keys[0]}_scale1_trunc1.png"), format="PNG")
+    plt.show()
