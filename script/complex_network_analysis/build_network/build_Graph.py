@@ -6,6 +6,8 @@
 # @Author : 'Lou Zehua'
 # @File   : build_Graph.py
 
+import re
+
 import networkx as nx
 import numpy as np
 import pandas as pd
@@ -19,139 +21,226 @@ def within_keys(k, d):
 
 
 def build_MultiDiGraph(df_src_tar, base_graph=None, src_node_attrs=None, tar_node_attrs=None, default_node_weight=1,
-                       init_node_weight=False, default_node_type=None, node_type_canopy=False,
-                       edge_attrs=None, default_edge_weight=1, init_edge_weight=True):
-    '''
-    :param df_src_tar: type pd.DataFrame, a dataframe with source node column and target node column.
+                       init_node_weight=False, nt_key_in_attr="node_type", default_node_types=None, node_type_canopy=False,
+                       edge_attrs=None, default_edge_weight=1, init_edge_weight=False, et_key_in_attr="edge_type",
+                       default_edge_type=None, attrs_is_pdSeries=True, use_df_col_as_default_type=False):
+    """
+    :param df_src_tar: type pd.DataFrame, a dataframe within source node column and target node column.
     :param base_graph: a base graph can be parsed into nx.MultiGraph type
-    :param src_node_attrs: set attributes to source nodes.
-    :param tar_node_attrs: set attributes to target nodes.
+    :param src_node_attrs: pd.Series or column_name or record_dicts, set attributes to source nodes.
+    :param tar_node_attrs: pd.Series or column_name or record_dicts, set attributes to target nodes.
     :param default_node_weight: 1
     :param init_node_weight: set default node weight to all the node attributes without the key "weight".
-    :param default_node_type: set default node type when there is no "node_type" key in node_attrs.
-        None for no default_node_type, the key "node_type" will not be generated automatically.
-        default_node_type='__node_repr__' use node name as default node type.
-        default_node_type='__column_name__' use the column name of df_src_tar as default node type.
-    :param node_type_canopy: set node_type_canopy=True if you want to use bool flag dict as "node_type" to
-        represent multi-types.
+    :param nt_key_in_attr: node type key in any src_node_attr and tar_node_attr
+    :param default_node_types: set default node type when there is no "node_type" key in node_attrs.
+        The "node_type" in src_node_attrs and tar_node_attrs always take effect first.
+        default_edge_type=None for no default_node_types, the key "node_type" will not be generated automatically.
+        default_node_types=[default_src_node_type_setting, default_tar_node_type_setting] the node type settings can be:
+            "__repr__" use node name as default node type.
+            name_str: if use_df_col_as_default_type=True, use the name_str as column_name of df_src_tar to get a series
+                of default node type, column_name cannot be "__repr__"; else use the name_str as default node type.
+    :param node_type_canopy: set node_type_canopy=True to use bool flag dict as "node_type" to represent multi-types.
     :param edge_attrs:
         type pd.Series: set an edge attribute dict to each edge (u, v);
         type dict or None: set the parameter value of edge_attrs to all edges.
     :param default_edge_weight: 1
     :param init_edge_weight: set default edge weight to edge attributes without the key "weight".
+    :param et_key_in_attr: edge type key in any edge_attr
+    :param default_edge_type: set default edge type when there is no "edge_type" key in edge_attrs.
+        The "edge_type" in edge_attrs always take effect first.
+        default_edge_type=None for no default_edge_type, the key "edge_type" will not be generated automatically.
+        default_edge_type="__repr__" use SrcNodeType_TarNodeType pattern as default edge type for each edge.
+        default_edge_type=name_str: if use_df_col_as_default_type=True, use the name_str as column_name of df_src_tar to
+            get a series of default edge type, column_name cannot be "__repr__"; else use the name_str as default edge type.
+    :param attrs_is_pdSeries: the types of src_node_attrs, tar_node_attrs, edge_attrs are pd.Series if True
+        else list(dict) records.
+    :param use_df_col_as_default_type: if True, use default_edge_type or elements in default_node_types to get
+        the type column in df_src_tar. However, a default settings should not be too complex.
     :return: MDG
-    '''
+    """
     MDG = nx.MultiDiGraph(base_graph) if base_graph is not None else nx.MultiDiGraph()
     node_colname_pair = list(df_src_tar.columns)[0:2]
     src_node_list = df_src_tar[node_colname_pair[0]].values
     tar_node_list = df_src_tar[node_colname_pair[1]].values
-    df_src_default_node_type = None
-    df_tar_default_node_type = None
-    if default_node_type is None:
-        pass
-    elif default_node_type == '__node_repr__':
-        src_node_type_list = [str(n) for n in src_node_list]
-        tar_node_type_list = [str(n) for n in tar_node_list]
-        df_src_default_node_type = pd.DataFrame(np.array([src_node_list, src_node_type_list]).T)
-        df_tar_default_node_type = pd.DataFrame(np.array([tar_node_list, tar_node_type_list]).T)
-    elif default_node_type == '__column_name__':
-        src_node_type_list = [node_colname_pair[0]] * len(src_node_list)
-        tar_node_type_list = [node_colname_pair[1]] * len(tar_node_list)
-        df_src_default_node_type = pd.DataFrame(np.array([src_node_list, src_node_type_list]).T)
-        df_tar_default_node_type = pd.DataFrame(np.array([tar_node_list, tar_node_type_list]).T)
-    else:
-        raise ValueError("default_node_type must be in [None, '__node_repr__', '__column_name__']!")
     uv_list = list(df_src_tar[node_colname_pair].values)
-    MDG = _build_MDG_nodes(MDG, src_node_list, src_node_attrs, default_node_weight, init_node_weight,
-                           df_src_default_node_type, node_type_canopy)
-    MDG = _build_MDG_nodes(MDG, tar_node_list, tar_node_attrs, default_node_weight, init_node_weight,
-                           df_tar_default_node_type, node_type_canopy)
-    MDG = _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight)
-    return MDG
-
-
-def _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight):
-    if type(edge_attrs) is pd.Series:
-        edge_attrs = pd.DataFrame(edge_attrs)
-    if type(edge_attrs) is pd.DataFrame:  # 逐个遍历更新边的属性，可保留原本的边属性
-        if len(uv_list) != len(edge_attrs):
-            raise ValueError("The type of edge_attrs is DataFrame, but it has different length with df_src_tar!")
-        edge_attrs_record_list = edge_attrs.to_dict('records')
-        for uv, e_attr in zip(uv_list, edge_attrs_record_list):
-            u, v = tuple(uv)
-            if init_edge_weight and not within_keys("weight", e_attr):
-                e_attr["weight"] = default_edge_weight
-            MDG.add_edge(u, v, **e_attr)
-    elif type(edge_attrs) is dict:  # 批量重置边的属性为传入的edge_attrs
-        if init_edge_weight and not within_keys("weight", edge_attrs):
-            edge_attrs["weight"] = default_edge_weight
-        MDG.add_edges_from(uv_list, **edge_attrs)
-    elif edge_attrs is None:  # 批量重置边的属性为默认的边属性
-        if init_edge_weight:
-            edge_attrs = {"weight": default_edge_weight}
-        else:
-            edge_attrs = {}
-        MDG.add_edges_from(uv_list, **edge_attrs)
+    if src_node_attrs is None:
+        src_node_attrs = pd.Series([{}] * len(src_node_list))
     else:
-        raise TypeError("Unexpected edge_attrs type! It must be in [None, dict, pandas.Series, pandas.DataFrame]!")
+        if attrs_is_pdSeries:
+            if isinstance(src_node_attrs, str) and src_node_attrs in df_src_tar.columns:
+                try:
+                    src_node_attrs = df_src_tar[src_node_attrs]
+                except Exception:
+                    raise ValueError("src_node_attrs must be a column name in df_src_tar.columns when "
+                                     "src_node_attrs is a str and attrs_is_pdSeries=True!")
+            else:  # must be a instance of pd.Series
+                src_node_attrs = pd.Series(src_node_attrs)
+            src_node_attrs = pd.Series(src_node_attrs.to_frame().to_dict("records"))
+        elif len(src_node_attrs) == len(src_node_list) and all([isinstance(elem, dict) or pd.isna(elem)
+                                                                for elem in src_node_attrs]):
+            src_node_attrs = pd.Series(src_node_attrs)
+        else:
+            raise TypeError("Unexpected src_node_attrs type! The types of src_node_attrs, tar_node_attrs, "
+                            "edge_attrs are pd.Series if attrs_is_pdSeries=True else list(dict) records.")
+
+    if tar_node_attrs is None:
+        tar_node_attrs = pd.Series([{}] * len(tar_node_list))
+    else:
+        if attrs_is_pdSeries:
+            if isinstance(tar_node_attrs, str) and tar_node_attrs in df_src_tar.columns:
+                try:
+                    tar_node_attrs = df_src_tar[tar_node_attrs]
+                except Exception:
+                    raise ValueError("tar_node_attrs must be a column name in df_src_tar.columns when "
+                                     "tar_node_attrs is a str and attrs_is_pdSeries=True!")
+            else:
+                tar_node_attrs = pd.Series(tar_node_attrs)
+            tar_node_attrs = pd.Series(tar_node_attrs.to_frame().to_dict("records"))
+        elif len(tar_node_attrs) == len(tar_node_list) and all([isinstance(elem, dict) or pd.isna(elem)
+                                                                for elem in tar_node_attrs]):
+            tar_node_attrs = pd.Series(tar_node_attrs)
+        else:
+            raise TypeError("Unexpected tar_node_attrs type! The types of src_node_attrs, tar_node_attrs, "
+                            "edge_attrs are pd.Series if attrs_is_pdSeries=True else list(dict) records.")
+
+    if edge_attrs is None:
+        edge_attrs = pd.Series([{}] * len(df_src_tar))
+    else:
+        if attrs_is_pdSeries:
+            if isinstance(edge_attrs, str) and edge_attrs in df_src_tar.columns:
+                try:
+                    edge_attrs = df_src_tar[edge_attrs]
+                except Exception:
+                    raise ValueError("edge_attrs must be a column name in df_src_tar.columns when "
+                                     "edge_attrs is a str and attrs_is_pdSeries=True!")
+            else:
+                edge_attrs = pd.Series(edge_attrs)
+            edge_attrs = pd.Series(edge_attrs.to_frame().to_dict("records"))
+        elif len(edge_attrs) == len(tar_node_list) and all(
+                [isinstance(elem, dict) or pd.isna(elem) for elem in edge_attrs]):
+            edge_attrs = pd.Series(edge_attrs)
+        else:
+            raise TypeError("Unexpected edge_attrs type! The types of src_node_attrs, tar_node_attrs, "
+                            "edge_attrs are pd.Series if attrs_is_pdSeries=True else list(dict) records.")
+
+    # update ser_src_node_type and ser_tar_node_type by default value
+    ser_src_node_type = None
+    ser_tar_node_type = None
+    ser_edge_type = None
+    if default_node_types is None:
+        pass
+    elif isinstance(default_node_types, list) or isinstance(default_node_types, tuple):
+        default_src_node_type, default_tar_node_type = list(default_node_types)[:2]
+        if default_src_node_type is None:
+            pass
+        elif default_src_node_type == '__repr__':
+            src_node_type_list = [str(n) for n in src_node_list]
+            ser_src_node_type = pd.Series(src_node_type_list)
+        elif isinstance(default_src_node_type, str):
+            if use_df_col_as_default_type:
+                type_column_name = default_src_node_type
+                try:
+                    src_node_type_list = df_src_tar[type_column_name].values.tolist()
+                except Exception:
+                    raise ValueError(f"The type name '{type_column_name}' should be in the "
+                                     f"df_src_tar.columns when use_df_col_as_default_type=True!")
+                ser_src_node_type = pd.Series(src_node_type_list)
+            else:
+                src_node_type_list = [default_src_node_type] * len(src_node_list)
+                ser_src_node_type = pd.Series(src_node_type_list)
+        else:
+            raise ValueError("Each default_node_type must be in [None, '__repr__', name_str]!")
+
+        if default_tar_node_type is None:
+            pass
+        elif default_tar_node_type == '__repr__':
+            tar_node_type_list = [str(n) for n in tar_node_list]
+            ser_tar_node_type = pd.Series(tar_node_type_list)
+        elif isinstance(default_tar_node_type, str):
+            if use_df_col_as_default_type:
+                type_column_name = default_tar_node_type
+                try:
+                    tar_node_type_list = df_src_tar[type_column_name].values.tolist()
+                except Exception:
+                    raise ValueError(f"the type name '{type_column_name}' should be in the "
+                                     f"df_src_tar.columns when use_df_col_as_default_type=True!")
+                ser_tar_node_type = pd.Series(tar_node_type_list)
+            else:
+                tar_node_type_list = [default_tar_node_type] * len(tar_node_list)
+                ser_tar_node_type = pd.Series(tar_node_type_list)
+        else:
+            raise ValueError("Each default_node_type must be in [None, '__repr__', name_str]!")
+
+    # update ser_edge_type by default value
+    if default_edge_type is None:
+        pass
+    elif default_edge_type == '__repr__':
+        if ser_src_node_type is None:
+            ser_src_node_type = pd.Series([None] * len(src_node_list))
+        if ser_tar_node_type is None:
+            ser_tar_node_type = pd.Series([None] * len(tar_node_list))
+        assert(len(ser_src_node_type) == len(ser_tar_node_type) == len(df_src_tar))
+        edge_type_list = [str(ser_src_node_type.iloc[i]) + '_' + str(ser_tar_node_type.iloc[i]) for i in range(len(df_src_tar))]
+        ser_edge_type = pd.Series(edge_type_list)
+    elif isinstance(default_edge_type, str):
+        if use_df_col_as_default_type:
+            type_column_name = default_edge_type
+            try:
+                edge_type_list = df_src_tar[type_column_name].values.tolist()
+            except Exception:
+                raise ValueError(f"the type name '{type_column_name}' should be in the "
+                                 f"df_src_tar.columns when use_df_col_as_default_type=True!")
+            ser_edge_type = pd.Series(edge_type_list)
+        else:
+            edge_type_list = [default_edge_type] * len(src_node_list)
+            ser_edge_type = pd.Series(edge_type_list)
+    else:
+        raise ValueError("The default_edge_type must be in [None, '__repr__', name_str]!")
+
+    # build MDG
+    MDG = _build_MDG_nodes(MDG, src_node_list, src_node_attrs, default_node_weight, init_node_weight, ser_src_node_type,
+                           node_type_canopy, nt_key_in_attr)
+    MDG = _build_MDG_nodes(MDG, tar_node_list, tar_node_attrs, default_node_weight, init_node_weight, ser_tar_node_type,
+                           node_type_canopy, nt_key_in_attr)
+    MDG = _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight, ser_edge_type,
+                           et_key_in_attr)
     return MDG
 
 
 def _build_MDG_nodes(MDG, node_list, node_attrs, default_node_weight, init_node_weight,
-                     df_default_node_type: pd.DataFrame or None, node_type_canopy):
-    if type(node_attrs) is pd.Series:
-        node_attrs = pd.DataFrame(node_attrs)
-
-    if df_default_node_type is None:
-        default_node_type__nt_list = [None] * len(node_list)
-    else:
-        default_node_type__n_list = list(df_default_node_type[df_default_node_type.columns[0]].values)
-        default_node_type__nt_list = list(df_default_node_type[df_default_node_type.columns[1]].values)
-        assert (list(default_node_type__n_list) == list(node_list))
-
-    if type(node_attrs) is pd.DataFrame:  # 逐个遍历更新节点的属性，可保留原本的节点属性
-        if len(node_list) != len(node_attrs):
-            raise ValueError("The type of node_attrs is DataFrame, but it has different length with node_list!")
-        node_attrs_record_list = node_attrs.to_dict('records')
-        for i in range(len(node_list)):
-            n, n_attr, n_type = node_list[i], node_attrs_record_list[i], default_node_type__nt_list[i]
-            if init_node_weight and not within_keys("weight", n_attr):
-                n_attr["weight"] = default_node_weight
-            n_attr = update_node_attrs_by_canopy_setting(n_type, n_attr, node_type_canopy)
-            MDG.add_node(n, **n_attr)
-    elif type(node_attrs) is dict:  # 批量重置节点的属性为传入的节点属性
-        if init_node_weight and not within_keys("weight", node_attrs):
-            node_attrs["weight"] = default_node_weight
-        for i in range(len(node_list)):
-            n, n_attr, n_type = node_list[i], node_attrs.copy(), default_node_type__nt_list[i]
-            n_attr = update_node_attrs_by_canopy_setting(n_type, n_attr, node_type_canopy)
-            MDG.add_node(n, **n_attr)
-    elif node_attrs is None:  # 批量重置节点的属性为默认的节点属性
-        if init_node_weight:
-            node_attrs = {"weight": default_node_weight}
-        else:
-            node_attrs = {}
-        for i in range(len(node_list)):
-            n, n_attr, n_type = node_list[i], node_attrs.copy(), default_node_type__nt_list[i]
-            n_attr = update_node_attrs_by_canopy_setting(n_type, n_attr, node_type_canopy)
-            MDG.add_node(n, **n_attr)
-    else:
-        raise TypeError("Unexpected src_node_attrs type! It must be in [None, dict, pandas.Series, pandas.DataFrame]!")
+                     ser_node_type: pd.Series or None, node_type_canopy, nt_key_in_attr="node_type"):
+    try:
+        node_attrs = pd.Series(node_attrs) if node_attrs is not None else pd.Series([{}] * len(node_list))
+        ser_node_type = pd.Series(ser_node_type) if ser_node_type is not None else pd.Series([None] * len(node_list))
+    except TypeError:
+        raise TypeError("Unexpected types of node_attrs or ser_node_type! They must be in [None, pandas.Series]!")
+    assert(len(node_list) == len(node_attrs) == len(ser_node_type))
+    # 逐个遍历更新节点的属性，可保留原本的节点属性
+    for i in range(len(node_list)):
+        n, n_attr, n_type = node_list[i], node_attrs.iloc[i], ser_node_type.iloc[i]
+        n_attr = dict(n_attr) if n_attr is not None else {}
+        if n_type is not None:
+            n_type = str(n_type)
+            n_attr = update_node_attr_by_canopy_setting(n_attr, n_type, node_type_canopy, nt_key_in_attr)
+        if init_node_weight and not within_keys("weight", n_attr):
+            n_attr["weight"] = default_node_weight
+        MDG.add_node(n, **n_attr)
     return MDG
 
 
-def update_node_attrs_by_canopy_setting(n_type: str or None, n_attrs: dict, node_type_canopy: bool):
-    node_type = {} if node_type_canopy else ""  # node_type_canopy = True时用字典表征多标签，用True和False的dict类型表征标签以方便更新标签状态
-    if not within_keys("node_type", n_attrs) and n_type is not None:
+def update_node_attr_by_canopy_setting(n_attr: dict, n_type: str or None, node_type_canopy: bool, nt_key_in_attr: str):
+    nt_key_in_attr = nt_key_in_attr if nt_key_in_attr is not None else "node_type"
+    if n_type is not None:
+        old_node_type = n_attr.get(nt_key_in_attr, None)
+        # node_type_canopy = True时用字典表征多标签，用True和False的dict类型表征标签以方便更新标签状态
         if node_type_canopy:
-            node_type.update({n_type: True})
+            node_type = dict(old_node_type) if old_node_type is not None else {}
+            node_type.update({n_type: True})  # update
         else:
-            node_type = n_type
-        n_attrs["node_type"] = node_type
-    elif node_type_canopy:
-        raise ValueError(
-            "The node_type_canopy cannot be True when node_type in the keys of src_node_attrs or tar_node_types.")
-    return n_attrs
+            node_type = str(old_node_type) if old_node_type is not None else ""
+            node_type = n_type or node_type  # update
+        n_attr[nt_key_in_attr] = node_type
+    return n_attr
 
 
 def set_node_type(G, new_nodes_type, mode="dict"):
@@ -171,12 +260,12 @@ def set_node_type(G, new_nodes_type, mode="dict"):
     return G
 
 
-def reset_node_type(G, reset_as='__node_repr__', apply_filter=None):
+def reset_node_type(G, reset_as='__repr__', apply_filter=None):
     if apply_filter is None:
         apply_filter = lambda x: True
     if reset_as is None:
         return G
-    elif reset_as == '__node_repr__':  # 重置为每个结点的表征值，即每个结点单独一个类型
+    elif reset_as == '__repr__':  # 重置为每个结点的表征值，即每个结点单独一个类型
         for i, v in enumerate(G.nodes()):
             if apply_filter(G.nodes[v]):
                 G.nodes[v]['node_type'] = str(v)
@@ -214,7 +303,65 @@ def Graph_edge_filter(G, w_trunc=None):
     return G
 
 
-def MDG2DG(MDG, multiplicity=True, default_weight=1, default_multiplicity=1):
+def _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight, ser_edge_type: pd.Series or None,
+                     et_key_in_attr="edge_type"):
+    try:
+        edge_attrs = pd.Series(edge_attrs) if edge_attrs is not None else pd.Series([{}] * len(uv_list))
+        ser_edge_type = pd.Series(ser_edge_type) if ser_edge_type is not None else pd.Series([None] * len(uv_list))
+    except TypeError:
+        raise TypeError("Unexpected types of edge_attrs or ser_edge_type! They must be in [None, pandas.Series]!")
+    assert(len(uv_list) == len(edge_attrs) == len(ser_edge_type))
+
+    for i in range(len(uv_list)):
+        uv, e_attr, e_type = uv_list[i], edge_attrs.iloc[i], ser_edge_type.iloc[i]
+        u, v = tuple(uv)
+        e_attr = dict(e_attr) if e_attr is not None else {}
+        if e_type is not None:
+            e_type = str(e_type)
+            old_edge_type = e_attr.get(et_key_in_attr, None)
+            edge_type = str(old_edge_type) if old_edge_type is not None else ""
+            edge_type = e_type or edge_type  # update
+            e_attr[et_key_in_attr] = edge_type
+        if init_edge_weight and not within_keys("weight", e_attr):
+            e_attr["weight"] = default_edge_weight
+        MDG.add_edge(u, v, **e_attr)
+    return MDG
+
+
+def update_edge_attr_by_canopy_setting(e_attr: dict or str, e_type: dict or str or None, edge_type_canopy: bool,
+                                       et_key_in_attr: str):
+
+    et_key_in_attr = et_key_in_attr if et_key_in_attr is not None else "edge_type"
+    if e_type is not None:
+        old_edge_type = e_attr.get(et_key_in_attr, None)
+        if edge_type_canopy:
+            if type(old_edge_type) is str:
+                old_edge_type = {old_edge_type: True}
+            edge_type = dict(old_edge_type) if old_edge_type is not None else {}
+            temp_to_update = {e_type: True} if type(e_type) is str else dict(e_type)
+            edge_type.update(temp_to_update)  # update
+        else:
+            edge_type = str(old_edge_type) if old_edge_type is not None else None
+            try:
+                temp_to_update = e_type if type(e_type) is str else [k for k, v in dict(e_type).items() if v][0]
+            except Exception:
+                temp_to_update = None
+            edge_type = temp_to_update or edge_type  # update
+        e_attr[et_key_in_attr] = edge_type
+    return e_attr
+
+
+def MDG2DG(MDG, multiplicity=True, default_weight=1, default_multiplicity=1, edge_type_canopy=False,
+           et_key_in_attr="edge_type"):
+    """
+    :param MDG:
+    :param multiplicity:
+    :param default_weight:
+    :param default_multiplicity:
+    :param edge_type_canopy: set edge_type_canopy=True to use bool flag dict as "edge_type" to represent multi-types.
+    :param et_key_in_attr: edge type key in any edge_attr, only takes effect when edge_type_canopy=True.
+    :return:
+    """
     if type(MDG) is not nx.MultiDiGraph:
         print('The type of MDG is not MultiDiGraph!')
         return None
@@ -232,6 +379,11 @@ def MDG2DG(MDG, multiplicity=True, default_weight=1, default_multiplicity=1):
             e_dict['weight'] = DG.edges[u, v]['weight'] + e_dict['weight']
             if multiplicity:
                 e_dict['multiplicity'] = int(DG.edges[u, v]['multiplicity']) + int(e_dict['multiplicity'])
+            if edge_type_canopy:
+                e_attr_old = DG.edges[u, v]
+                e_type = e_dict.get(et_key_in_attr, None)
+                e_attr = update_edge_attr_by_canopy_setting(e_attr_old, e_type, edge_type_canopy, et_key_in_attr)
+                e_dict[et_key_in_attr] = e_attr[et_key_in_attr]
             DG.edges[u, v].update(e_dict)
     return DG
 
@@ -274,25 +426,36 @@ def DG2G(DG, only_upper_triangle=False, multiplicity=True, double_self_loop=True
     return G
 
 
-def MDG2G(MDG, multiplicity=True, double_self_loop=True, default_weight=1, default_multiplicity=1):
-    DG = MDG2DG(MDG, multiplicity=multiplicity, default_weight=default_weight, default_multiplicity=default_multiplicity)
-    G = DG2G(DG, only_upper_triangle=False, multiplicity=multiplicity, double_self_loop=double_self_loop, default_weight=default_weight, default_multiplicity=default_multiplicity)
+def MDG2G(MDG, multiplicity=True, double_self_loop=True, default_weight=1, default_multiplicity=1,
+          edge_type_canopy=False, et_key_in_attr="edge_type"):
+    DG = MDG2DG(MDG, multiplicity=multiplicity, default_weight=default_weight, default_multiplicity=default_multiplicity,
+                edge_type_canopy=edge_type_canopy, et_key_in_attr=et_key_in_attr)
+    G = DG2G(DG, only_upper_triangle=False, multiplicity=multiplicity, double_self_loop=double_self_loop,
+             default_weight=default_weight, default_multiplicity=default_multiplicity)
     return G
 
 
-def build_Graph(df_node_pair, base_graph=None, default_node_type='__column_name__', node_type_canopy=False,
-                edge_attrs=None, default_edge_weight=1, init_edge_weight=True, w_trunc=1, out_g_type='G', **kwargs):
-    MDG = build_MultiDiGraph(df_node_pair, base_graph=base_graph, src_node_attrs=kwargs.get("src_node_attrs"),
-                             tar_node_attrs=kwargs.get("tar_node_attrs"),
-                             default_node_weight=kwargs.get("default_node_weight", 1),
-                             init_node_weight=kwargs.get("init_node_weight", False),
-                             default_node_type=default_node_type, node_type_canopy=node_type_canopy,
+def build_Graph(df_src_tar, base_graph=None, src_node_attrs=None, tar_node_attrs=None, default_node_weight=1,
+                init_node_weight=False, default_node_types=None, node_type_canopy=False, edge_attrs=None,
+                default_edge_weight=1, init_edge_weight=False, default_edge_type=None, edge_type_canopy=False,
+                attrs_is_pdSeries=True, w_trunc=1, out_g_type='G', **kwargs):
+    nt_key_in_attr = kwargs.get("nt_key_in_attr", "node_type")
+    et_key_in_attr = kwargs.get("et_key_in_attr", "edge_type")
+    use_df_col_as_default_type = kwargs.get("use_df_col_as_default_type", False)
+    MDG = build_MultiDiGraph(df_src_tar, base_graph=base_graph, src_node_attrs=src_node_attrs,
+                             tar_node_attrs=tar_node_attrs, default_node_weight=default_node_weight,
+                             init_node_weight=init_node_weight,  nt_key_in_attr=nt_key_in_attr,
+                             default_node_types=default_node_types,  node_type_canopy=node_type_canopy,
                              edge_attrs=edge_attrs, default_edge_weight=default_edge_weight,
-                             init_edge_weight=init_edge_weight)
+                             init_edge_weight=init_edge_weight, et_key_in_attr=et_key_in_attr,
+                             default_edge_type=default_edge_type, attrs_is_pdSeries=attrs_is_pdSeries,
+                             use_df_col_as_default_type=use_df_col_as_default_type)
+    et_key_in_attr = edge_attrs if type(edge_attrs) is str else pd.Series(edge_attrs).name
     if out_g_type == 'MDG':
         G = MDG
     elif out_g_type == 'DG':
-        G = MDG2DG(MDG, multiplicity=True, default_weight=default_edge_weight, default_multiplicity=1)
+        G = MDG2DG(MDG, multiplicity=True, default_weight=default_edge_weight, default_multiplicity=1,
+                   edge_type_canopy=edge_type_canopy, et_key_in_attr=et_key_in_attr)
     elif out_g_type == 'G':
         double_self_loop = kwargs.get("double_self_loop", None)
         if double_self_loop is None:
@@ -302,7 +465,8 @@ def build_Graph(df_node_pair, base_graph=None, default_node_type='__column_name_
             else:
                 default_double_self_loop = False
             double_self_loop = default_double_self_loop
-        G = MDG2G(MDG, multiplicity=True, double_self_loop=double_self_loop, default_weight=default_edge_weight, default_multiplicity=1)
+        G = MDG2G(MDG, multiplicity=True, double_self_loop=double_self_loop, default_weight=default_edge_weight,
+                  default_multiplicity=1, edge_type_canopy=edge_type_canopy, et_key_in_attr=et_key_in_attr)
     else:  # 默认不作任何处理
         raise ValueError("The value of out_g_type must be in ['MDG', 'DG', 'G']!")
     G = Graph_edge_filter(G, w_trunc=w_trunc)
@@ -332,23 +496,10 @@ if __name__ == '__main__':
             triples.append([s_type, t_type, s_t_w])
     df_g_pattern_triples = pd.DataFrame(np.array(triples), columns=['src_node_type', 'tar_node_type', 'weight'])
 
-    # MDG_pattern = build_MultiDiGraph(df_g_pattern_triples[['src_node_type', 'tar_node_type']], base_graph=None,
-    #                                  src_node_attrs=pd.Series(df_g_pattern_triples.index, name="src_index"),
-    #                                  tar_node_attrs=pd.Series(df_g_pattern_triples.index, name="tar_index"),
-    #                                  default_node_weight=1, init_node_weight=False, default_node_type="__node_repr__",
-    #                                  node_type_canopy=False, edge_attrs=df_g_pattern_triples[['weight']].astype(int),
-    #                                  default_edge_weight=1, init_edge_weight=True)
-    # # df_node_type_settings = pd.DataFrame(np.array([HIN_pattern["src_node_names"], HIN_pattern["src_node_names"]]).T,
-    # #                                      columns=["node", "node_type"])
-    # # MDG_pattern = set_node_type(MDG_pattern, df_node_type_settings, mode="DataFrame")
-    # G_pattern = MDG2DG(MDG_pattern)
-    # G_pattern = Graph_edge_filter(G_pattern, w_trunc=1)  # 截取权重不为0的边
-
-    G_pattern = build_Graph(df_g_pattern_triples[['src_node_type', 'tar_node_type']],
-                            default_node_type='__node_repr__', node_type_canopy=False,
-                            edge_attrs=df_g_pattern_triples[['weight']].astype(int), default_weight=1, w_trunc=1,
-                            out_g_type='DG')
-
+    df_g_pattern_triples['weight'] = df_g_pattern_triples['weight'].astype(int)
+    G_pattern = build_Graph(df_g_pattern_triples[['src_node_type', 'tar_node_type', 'weight']],
+                            default_node_types=['__repr__', '__repr__'], node_type_canopy=False,
+                            edge_attrs='weight', default_edge_weight=1, w_trunc=1, out_g_type='DG')
     for n in G_pattern.nodes(data=True):
         print(n)
     for e in G_pattern.edges(data=True):
