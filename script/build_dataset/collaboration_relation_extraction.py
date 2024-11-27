@@ -114,22 +114,27 @@ def collaboration_relation_extraction(repo_keys, df_dbms_repos_dict, save_dir, r
 
 if __name__ == '__main__':
     year = 2023
-    repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
+    # repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
+    repo_names = None
+    stop_repo_names = ["apache/doris", "cockroachdb/cockroach", "pingcap/tidb", "TuGraph-family/tugraph-db"]
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
     dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
     dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
     collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
 
     # Get github logs
-    if repo_names:
-        sql_param = {
-            "table": "opensource.events",
-            "start_end_year": [year, year + 1],
-        }
+    sql_param = {
+        "table": "opensource.events",
+        "start_end_year": [year, year + 1],
+    }
+    if repo_names is not None:
         query_repo_log_each_year_to_csv_dir(repo_names, columns=columns_simple, save_dir=dbms_repos_raw_content_dir,
                                             sql_param=sql_param)
     else:
-        query_OSDB_github_log_from_dbserver(key_feats_path=dbms_repos_key_feats_path, save_dir=dbms_repos_raw_content_dir)
+        repo_names = query_OSDB_github_log_from_dbserver(key_feats_path=dbms_repos_key_feats_path,
+                                                         save_dir=dbms_repos_raw_content_dir, sql_param=sql_param)
+    if stop_repo_names:
+        repo_names = [name for name in repo_names if name not in stop_repo_names]
 
     # Filter files
     df_OSDB_github_key_feats = pd.read_csv(dbms_repos_key_feats_path, header='infer', index_col=None)

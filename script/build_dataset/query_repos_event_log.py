@@ -20,7 +20,7 @@ setup_logging(base_dir=pkg_rootdir)
 logger = logging.getLogger(__name__)
 
 
-def query_OSDB_github_log_from_dbserver(key_feats_path=None, save_dir=None, update_exist_data=False):
+def query_OSDB_github_log_from_dbserver(key_feats_path=None, save_dir=None, update_exist_data=False, sql_param=None):
     # 1. 按repo_name分散存储到每一个csv文件中
     UPDATE_EXIST_DATA = update_exist_data  # UPDATE SAVED RESULTS FLAG
     # 1.1 repo reference features as columns of sql
@@ -35,12 +35,12 @@ def query_OSDB_github_log_from_dbserver(key_feats_path=None, save_dir=None, upda
     repo_names = list(df_OSDB_github_key_feats["github_repo_link"].values)
     # 1.3 query and save
     save_dir = save_dir or os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], "repos")
-    sql_param = {
+    sql_param = sql_param or {
         "table": "opensource.gh_events",
         "start_end_year": [2023, 2024],
     }
     query_repo_log_each_year_to_csv_dir(repo_names, columns, save_dir, sql_param, update_exist_data=UPDATE_EXIST_DATA)
-    return
+    return repo_names
 
 
 if __name__ == '__main__':
