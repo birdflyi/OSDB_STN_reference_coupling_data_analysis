@@ -1,0 +1,7 @@
+src_entity_id,src_entity_type,tar_entity_id,tar_entity_type,relation_label_id,relation_type,relation_label_repr,event_id,event_trigger,event_type,event_time,tar_entity_match_text,tar_entity_match_pattern_type,tar_entity_objnt_prop_dict
+288431943#1238,Issue,115639837,Actor,0,EventAction,Issue_OpenedBy_Actor,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,,,
+288431943#1238,Issue,288431943,Repo,1,EventAction,Issue_CreatedIn_Repo,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,,,
+288431943#1238,Issue,288431943#1237,Issue,2,Reference,Issue_unknown_UnknownFromBodyRef,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,#1237,Issue_PR,"{'repo_name': 'X-lab2017/open-digger', 'repo_id': 288431943, 'issue_number': '1237'}"
+288431943#1238,Issue,37795442,Actor,2,Reference,Issue_unknown_UnknownFromBodyRef,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,@xgdyp,Actor,"{'actor_id': 37795442, 'actor_login': 'xgdyp'}"
+288431943#1238,Issue,37795442,Actor,2,Reference,Issue_unknown_UnknownFromBodyRef,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,@xgdyp,Actor,"{'actor_id': 37795442, 'actor_login': 'xgdyp'}"
+288431943#1238,Issue,,Obj,2,Reference,Issue_unknown_UnknownFromBodyRef,27901170588,IssuesEvent::action=opened,IssuesEvent,2023-03-22 14:03:48,https://meeting.tencent.com/dm/2p9cBy32diTG,GitHub_Service_External_Links,

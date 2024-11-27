@@ -19,10 +19,21 @@ DATA_DIR = 0
 GLOBAL_DATA_DIR = 1
 GITHUB_OSDB_DATA_DIR = 2
 
+DBMS_REPOS_RAW_CONTENT_DIR = 10
+DBMS_REPOS_DEDUP_CONTENT_DIR = 11
+DBMS_REPOS_CORE_DIR = 12
+
+DBMS_REPOS_KEY_FEATS_PATH = 100
+
 absPathDict = {
     DATA_DIR: os.path.join(BASE_DIR, 'data/'),
     GLOBAL_DATA_DIR: os.path.join(BASE_DIR, 'data/global_data/'),
     GITHUB_OSDB_DATA_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/'),
+    DBMS_REPOS_RAW_CONTENT_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos'),
+    DBMS_REPOS_DEDUP_CONTENT_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos_dedup_content'),
+    DBMS_REPOS_CORE_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/GitHub_Collaboration_Network_repos'),
+    DBMS_REPOS_KEY_FEATS_PATH: os.path.join(
+        BASE_DIR, "data/github_osdb_data/dbfeatfusion_records_202410_automerged_manulabeled_with_repoid.csv")
 }
 
 fileNameDict = {k: v.replace('\\', '/').split('/')[-1] for k, v in absPathDict.items()}
