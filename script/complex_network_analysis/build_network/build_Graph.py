@@ -21,7 +21,8 @@ def within_keys(k, d):
 def build_MultiDiGraph(df_src_tar, src_tar_colnames=None, base_graph=None, src_node_attrs=None, tar_node_attrs=None, default_node_weight=1,
                        init_node_weight=False, nt_key_in_attr="node_type", default_node_types=None, node_type_canopy=False,
                        edge_attrs=None, default_edge_weight=1, init_edge_weight=False, et_key_in_attr="edge_type",
-                       default_edge_type=None, attrs_is_shared_key_pdSeries=True, use_df_col_as_default_type=False):
+                       default_edge_type=None, attrs_is_shared_key_pdSeries=True, use_df_col_as_default_type=False,
+                       only_build_nodes=False):
     """
     :param df_src_tar: type pd.DataFrame, a dataframe within source node column and target node column.
     :param src_tar_colnames: the source node column name and target node column name in df_src_tar.columns
@@ -55,6 +56,7 @@ def build_MultiDiGraph(df_src_tar, src_tar_colnames=None, base_graph=None, src_n
         else list(dict) or pd.Series(dict) records.
     :param use_df_col_as_default_type: if True, use default_edge_type or elements in default_node_types to get
         the type column in df_src_tar. However, a default settings should not be too complex.
+    :param only_build_nodes: default only_build_nodes=False; if only_build_nodes is True, the edges will not be processed.
     :return: MDG
     """
     MDG = nx.MultiDiGraph(base_graph) if base_graph is not None else nx.MultiDiGraph()
@@ -64,7 +66,9 @@ def build_MultiDiGraph(df_src_tar, src_tar_colnames=None, base_graph=None, src_n
         node_colname_pair = list(df_src_tar.columns)[0:2]
     src_node_list = df_src_tar[node_colname_pair[0]].values
     tar_node_list = df_src_tar[node_colname_pair[1]].values
-    uv_list = list(df_src_tar[node_colname_pair].values)
+    if only_build_nodes is not True:
+        uv_list = list(df_src_tar[node_colname_pair].values)
+
     if src_node_attrs is None:
         src_node_attrs = pd.Series([{}] * len(src_node_list))
     else:
@@ -99,22 +103,23 @@ def build_MultiDiGraph(df_src_tar, src_tar_colnames=None, base_graph=None, src_n
         if attrs_is_shared_key_pdSeries:
             tar_node_attrs = pd.Series(tar_node_attrs.to_frame().to_dict("records"))
 
-    if edge_attrs is None:
-        edge_attrs = pd.Series([{}] * len(df_src_tar))
-    else:
-        if isinstance(edge_attrs, str) and edge_attrs in df_src_tar.columns:
-            try:
-                edge_attrs = df_src_tar[edge_attrs]
-            except Exception:
-                raise ValueError("edge_attrs must be a column name in df_src_tar.columns when edge_attrs is a str!")
-        elif len(edge_attrs) == len(tar_node_list) and all(
-                [isinstance(elem, dict) or pd.isna(elem) for elem in edge_attrs]):
-            edge_attrs = pd.Series(edge_attrs)
+    if only_build_nodes is not True:
+        if edge_attrs is None:
+            edge_attrs = pd.Series([{}] * len(df_src_tar))
         else:
-            raise TypeError("Unexpected src_node_attrs type! The types of src_node_attrs, tar_node_attrs, "
-                            "edge_attrs should be pd.Series or str or list(dict) records.")
-        if attrs_is_shared_key_pdSeries:
-            edge_attrs = pd.Series(edge_attrs.to_frame().to_dict("records"))
+            if isinstance(edge_attrs, str) and edge_attrs in df_src_tar.columns:
+                try:
+                    edge_attrs = df_src_tar[edge_attrs]
+                except Exception:
+                    raise ValueError("edge_attrs must be a column name in df_src_tar.columns when edge_attrs is a str!")
+            elif len(edge_attrs) == len(tar_node_list) and all(
+                    [isinstance(elem, dict) or pd.isna(elem) for elem in edge_attrs]):
+                edge_attrs = pd.Series(edge_attrs)
+            else:
+                raise TypeError("Unexpected src_node_attrs type! The types of src_node_attrs, tar_node_attrs, "
+                                "edge_attrs should be pd.Series or str or list(dict) records.")
+            if attrs_is_shared_key_pdSeries:
+                edge_attrs = pd.Series(edge_attrs.to_frame().to_dict("records"))
 
     # update ser_src_node_type and ser_tar_node_type by default value
     ser_src_node_type = None
@@ -165,38 +170,40 @@ def build_MultiDiGraph(df_src_tar, src_tar_colnames=None, base_graph=None, src_n
             raise ValueError("Each default_node_type must be in [None, '__repr__', name_str]!")
 
     # update ser_edge_type by default value
-    if default_edge_type is None:
-        pass
-    elif default_edge_type == '__repr__':
-        if ser_src_node_type is None:
-            ser_src_node_type = pd.Series([None] * len(src_node_list))
-        if ser_tar_node_type is None:
-            ser_tar_node_type = pd.Series([None] * len(tar_node_list))
-        assert(len(ser_src_node_type) == len(ser_tar_node_type) == len(df_src_tar))
-        edge_type_list = [str(ser_src_node_type.iloc[i]) + '_' + str(ser_tar_node_type.iloc[i]) for i in range(len(df_src_tar))]
-        ser_edge_type = pd.Series(edge_type_list)
-    elif isinstance(default_edge_type, str):
-        if use_df_col_as_default_type:
-            type_column_name = default_edge_type
-            try:
-                edge_type_list = df_src_tar[type_column_name].values.tolist()
-            except Exception:
-                raise ValueError(f"the type name '{type_column_name}' should be in the "
-                                 f"df_src_tar.columns when use_df_col_as_default_type=True!")
+    if only_build_nodes is not True:
+        if default_edge_type is None:
+            pass
+        elif default_edge_type == '__repr__':
+            if ser_src_node_type is None:
+                ser_src_node_type = pd.Series([None] * len(src_node_list))
+            if ser_tar_node_type is None:
+                ser_tar_node_type = pd.Series([None] * len(tar_node_list))
+            assert(len(ser_src_node_type) == len(ser_tar_node_type) == len(df_src_tar))
+            edge_type_list = [str(ser_src_node_type.iloc[i]) + '_' + str(ser_tar_node_type.iloc[i]) for i in range(len(df_src_tar))]
             ser_edge_type = pd.Series(edge_type_list)
+        elif isinstance(default_edge_type, str):
+            if use_df_col_as_default_type:
+                type_column_name = default_edge_type
+                try:
+                    edge_type_list = df_src_tar[type_column_name].values.tolist()
+                except Exception:
+                    raise ValueError(f"the type name '{type_column_name}' should be in the "
+                                     f"df_src_tar.columns when use_df_col_as_default_type=True!")
+                ser_edge_type = pd.Series(edge_type_list)
+            else:
+                edge_type_list = [default_edge_type] * len(src_node_list)
+                ser_edge_type = pd.Series(edge_type_list)
         else:
-            edge_type_list = [default_edge_type] * len(src_node_list)
-            ser_edge_type = pd.Series(edge_type_list)
-    else:
-        raise ValueError("The default_edge_type must be in [None, '__repr__', name_str]!")
+            raise ValueError("The default_edge_type must be in [None, '__repr__', name_str]!")
 
     # build MDG
     MDG = _build_MDG_nodes(MDG, src_node_list, src_node_attrs, default_node_weight, init_node_weight, ser_src_node_type,
                            node_type_canopy, nt_key_in_attr)
     MDG = _build_MDG_nodes(MDG, tar_node_list, tar_node_attrs, default_node_weight, init_node_weight, ser_tar_node_type,
                            node_type_canopy, nt_key_in_attr)
-    MDG = _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight, ser_edge_type,
-                           et_key_in_attr)
+    if only_build_nodes is not True:
+        MDG = _build_MDG_edges(MDG, uv_list, edge_attrs, default_edge_weight, init_edge_weight, ser_edge_type,
+                               et_key_in_attr)
     return MDG
 
 
@@ -431,7 +438,7 @@ def MDG2G(MDG, multiplicity=True, double_self_loop=True, default_weight=1, defau
 def build_Graph(df_src_tar, src_tar_colnames=None, base_graph=None, src_node_attrs=None, tar_node_attrs=None, default_node_weight=1,
                 init_node_weight=False, default_node_types=None, node_type_canopy=False, edge_attrs=None,
                 default_edge_weight=1, init_edge_weight=False, default_edge_type=None, edge_type_canopy=False,
-                attrs_is_shared_key_pdSeries=True, w_trunc=1, out_g_type='G', **kwargs):
+                attrs_is_shared_key_pdSeries=True, w_trunc=1, out_g_type='G', only_build_nodes=False, **kwargs):
     nt_key_in_attr = kwargs.get("nt_key_in_attr", "node_type")
     et_key_in_attr = kwargs.get("et_key_in_attr", "edge_type")
     use_df_col_as_default_type = kwargs.get("use_df_col_as_default_type", False)
@@ -442,7 +449,7 @@ def build_Graph(df_src_tar, src_tar_colnames=None, base_graph=None, src_node_att
                              edge_attrs=edge_attrs, default_edge_weight=default_edge_weight,
                              init_edge_weight=init_edge_weight, et_key_in_attr=et_key_in_attr,
                              default_edge_type=default_edge_type, attrs_is_shared_key_pdSeries=attrs_is_shared_key_pdSeries,
-                             use_df_col_as_default_type=use_df_col_as_default_type)
+                             use_df_col_as_default_type=use_df_col_as_default_type, only_build_nodes=only_build_nodes)
     if et_key_in_attr is None:
         if type(edge_attrs) is str:
             et_key_in_attr = str(edge_attrs)

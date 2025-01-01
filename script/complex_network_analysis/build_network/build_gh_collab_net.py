@@ -19,7 +19,7 @@ from script.complex_network_analysis.build_network.build_Graph import build_Grap
 
 
 if __name__ == '__main__':
-    repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:1]
+    repo_names = ['opengauss-mirror/openGauss-server', "TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:1]
     year = 2023
     relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
                                               'GitHub_Collaboration_Network_repos')
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt  # matplotlib.use必须在本句执行前运行
 
-    pos = nx.spring_layout(G_repo)
+    pos = nx.spring_layout(G_repo, seed=1)
 
     df_nodes_data = pd.DataFrame(dict(G_repo.nodes(data=True)))
     df_nodes_type = df_nodes_data.loc["node_type"]

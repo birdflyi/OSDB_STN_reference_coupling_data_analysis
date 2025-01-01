@@ -21,5 +21,16 @@ if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时�
     sys.path.append(pkg_rootdir)
     print('-- Add root directory "{}" to system path.'.format(pkg_rootdir))
 
+from etc import filePathConf
+from script.build_dataset.collaboration_relation_extraction import collaboration_relation_extraction_service
+
+
 if __name__ == '__main__':
-    pass
+    year = 2023
+    dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
+    dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
+    dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
+    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
+    collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
+                                              dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
+                                              repo_names=None, stop_repo_names=None, year=year)

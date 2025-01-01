@@ -17,7 +17,17 @@ from script.complex_network_analysis.build_network.build_Graph import build_Grap
 
 plt.switch_backend('TkAgg')
 
-G_pattern = build_Graph(df_ref_tuples[['source_node_type', 'target_node_type', 'event_type']], base_graph=None,
+use_all_nodes = True
+if use_all_nodes:
+    base_graph = build_Graph(df_ref_tuples[['source_node_type', 'target_node_type', 'event_type']], base_graph=None,
+                            default_node_types=['__repr__', '__repr__'], node_type_canopy=False,
+                            use_df_col_as_default_type=True, w_trunc=1, out_g_type='MDG', only_build_nodes=True)
+else:
+    base_graph = None
+
+use_relation_types = ["EventAction", "Reference"][:1]
+df_ref_tuples_edge_filtered = df_ref_tuples[df_ref_tuples.apply(lambda s: s["relation_type"] in use_relation_types, axis=1)]
+G_pattern = build_Graph(df_ref_tuples_edge_filtered[['source_node_type', 'target_node_type', 'event_type']], base_graph=base_graph,
                         default_node_types=['__repr__', '__repr__'], node_type_canopy=False,
                         edge_attrs='event_type', default_edge_type="event_type", edge_type_canopy=True,
                         use_df_col_as_default_type=True, w_trunc=1, out_g_type='DG')
@@ -32,6 +42,10 @@ if __name__ == '__main__':
         print(n)
     for e in G_pattern.edges(data=True):
         print(e)
+    df_ref_tuples.to_csv(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                                      'analysis_results/df_ref_tuples.csv'))
+    df_ref_tuples_edge_filtered.to_csv(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                                                    'analysis_results/df_ref_tuples_edge_filtered.csv'))
 
     node_type_set = set(df_ref_tuples["source_node_type"]).union(set(df_ref_tuples["target_node_type"]))
     node_types = list(node_type_set)
@@ -56,5 +70,5 @@ if __name__ == '__main__':
 
     plt.title('GH Collab Network Pattern', fontsize=15)
     plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                             "analysis_results/HIN_pattern_GH_Collab_scale1_trunc1.png"), format="PNG")
+                             "analysis_results/HIN_pattern_GH_Collab_EAct_scale1_trunc1.png"), format="PNG")
     plt.show()

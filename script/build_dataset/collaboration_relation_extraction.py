@@ -112,16 +112,9 @@ def collaboration_relation_extraction(repo_keys, df_dbms_repos_dict, save_dir, r
     return
 
 
-if __name__ == '__main__':
-    year = 2023
-    # repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
-    repo_names = None
-    stop_repo_names = ["apache/doris", "cockroachdb/cockroach", "pingcap/tidb", "TuGraph-family/tugraph-db"]
-    dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
-    dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
-    dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
-    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
-
+def collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
+                                              dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
+                                              repo_names=None, stop_repo_names=None, year=2023):
     # Get github logs
     sql_param = {
         "table": "opensource.events",
@@ -159,7 +152,20 @@ if __name__ == '__main__':
     d_repo_record_length = {k: len(df) for k, df in df_dbms_repos_dict.items()}
     d_repo_record_length_sorted = dict(sorted(d_repo_record_length.items(), key=lambda x: x[1], reverse=False))
     repo_keys = list(d_repo_record_length_sorted.keys())
+    df_dbms_repos_dict = {k: df_dbms_repos_dict[k] for k in repo_keys}
+    logger.log(logging.INFO, msg=f"Validated {len(repo_keys)} repo_keys sorted by the records count: {d_repo_record_length_sorted}")
 
     # Collaboration Relation extraction
-    collaboration_relation_extraction(repo_keys, df_dbms_repos_dict, collaboration_relation_extraction_dir, update_exists=True,
+    collaboration_relation_extraction(repo_keys, df_dbms_repos_dict, collaboration_relation_extraction_dir, update_exists=False,
                                       add_mode_if_exists=True, use_relation_type_list=["EventAction", "Reference"], last_stop_index=-1)
+
+
+if __name__ == '__main__':
+    year = 2023
+    dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
+    dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
+    dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
+    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
+    collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
+                                              dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
+                                              repo_names=None, stop_repo_names=None, year=year)
