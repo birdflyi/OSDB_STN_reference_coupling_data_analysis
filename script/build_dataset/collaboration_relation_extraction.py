@@ -20,28 +20,23 @@ from GH_CoRE.utils.logUtils import setup_logging
 from GH_CoRE.working_flow.body_content_preprocessing import read_csvs, dedup_content
 from GH_CoRE.working_flow.query_OSDB_github_log import query_repo_log_each_year_to_csv_dir
 
-from etc import pkg_rootdir, filePathConf
+from script import pkg_rootdir
 from script.build_dataset.query_repos_event_log import query_OSDB_github_log_from_dbserver
 from script.build_dataset.repo_filter import get_filenames_by_repo_names, get_intersection
 
 setup_logging(base_dir=pkg_rootdir)
 logger = logging.getLogger(__name__)
 
-
-def process_body_content(raw_content_dir=None, processed_content_dir=None, filenames=None, dedup_content_overwrite=False):
+def process_body_content(raw_content_dir, processed_content_dir, filenames=None, dedup_content_overwrite_all=False):
     # reduce_redundancy
     # 读入csv，去除数据库存储时额外复制的重复issue信息
-    dbms_repos_dir = raw_content_dir or os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'repos')
-    df_dbms_repos_raw_dict = read_csvs(dbms_repos_dir, filenames=filenames, index_col=0)
-    # print("len(df_dbms_repos_raw_dict): ", len(df_dbms_repos_raw_dict))
-    DEDUP_CONTENT_OVERWRITE = dedup_content_overwrite  # UPDATE SAVED RESULTS FLAG
-    dbms_repos_dedup_content_dir = processed_content_dir or os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'repos_dedup_content')
+    df_dbms_repos_raw_dict = read_csvs(raw_content_dir, filenames=filenames, index_col=0)
+    if not dedup_content_overwrite_all:
+        print('Skip the exist dedup_content. Only process added files...')
     for repo_key, df_dbms_repo in df_dbms_repos_raw_dict.items():
-        save_path = os.path.join(dbms_repos_dedup_content_dir, "{repo_key}.csv".format(**{"repo_key": repo_key}))
-        if DEDUP_CONTENT_OVERWRITE or not os.path.exists(save_path):
+        save_path = os.path.join(processed_content_dir, "{repo_key}.csv".format(**{"repo_key": repo_key}))
+        if dedup_content_overwrite_all or not os.path.exists(save_path):
             dedup_content(df_dbms_repo).to_csv(save_path, header=True, index=True, encoding='utf-8', lineterminator='\n')
-    if not DEDUP_CONTENT_OVERWRITE:
-        print('skip exist dedup_content...')
     print('dedup_content done!')
     return
 
@@ -165,6 +160,7 @@ def collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_re
 
 
 if __name__ == '__main__':
+    from etc import filePathConf
     year = 2023
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
     dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]

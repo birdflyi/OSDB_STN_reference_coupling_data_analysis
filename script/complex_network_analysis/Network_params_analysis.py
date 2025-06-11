@@ -5,7 +5,6 @@
 # @Time   : 2024/11/17 19:47
 # @Author : 'Lou Zehua'
 # @File   : Network_params_analysis.py
-import copy
 import os
 
 import networkx as nx
@@ -14,79 +13,43 @@ import pandas as pd
 from GH_CoRE.working_flow import get_repo_name_fileformat, get_repo_year_filename, read_csvs
 from matplotlib import pyplot as plt
 
-from etc import filePathConf
-from script.complex_network_analysis.build_network.build_Graph import build_Graph
+from script.complex_network_analysis.build_network.build_Graph import DG2G
+from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
+
+plt.switch_backend('TkAgg')
 
 
-def get_pattern_from_G(G):
-    G_pattern = copy.deepcopy(G)
-    for u, e_dict in G_pattern.nodes(data=True):
-        e_dict['weight'] = 0
-        e_dict['multiplicity'] = 0
+def get_graph_feature(G):
+    graph_feature_record = {
+        "repo_name": repo_keys[0],
+        "len_nodes": len(G.nodes),
+        "len_edges": len(G.edges),
+        "edge_density": 2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1)),
+    }
+    # print(f"G: Nodes: {len(G.nodes)}, Edges: {len(G.edges)}, Edge Density: {2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1))}")
 
-    for u, v, e_dict in G_pattern.edges(data=True):
-        e_dict['weight'] = 0
-        e_dict['multiplicity'] = 0
+    lcc = max(nx.connected_components(G), key=len)  # largest connected components
+    G_max_sub = G.subgraph(lcc)
+    graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
+    graph_feature_record["lcc_len_nodes"] = len(G_max_sub.nodes)
+    graph_feature_record["lcc_len_edges"] = len(G_max_sub.edges)
+    graph_feature_record["lcc_edge_density"] = 2 * len(G_max_sub.edges) / (len(G_max_sub.nodes) * (len(G_max_sub.nodes) - 1))
+    # print(f"Max subgraph nodes ratio: {len(lcc) / len(G.nodes)}")
+    # print(f"G_max_sub: Nodes: {len(G_max_sub.nodes)}, Edges: {len(G_max_sub.edges)}, Edge Density: {2 * len(G_max_sub.edges) / (len(G_max_sub.nodes) * (len(G_max_sub.nodes) - 1))}")
 
-    G = G_max_sub
+    # 宏观统计及zipf分布
+    n = len(G.nodes())
+    e = len(G.edges())
+    e_threshold = n * math.log(n)
+    graph_feature_record["is_sparse"] = e < e_threshold
+    # print('G is a sparse graph:', e < e_threshold)
 
-    # init G.nodes
-    for u, e_dict in G.nodes(data=True):
-        e_dict['weight'] = 1
-        e_dict['multiplicity'] = 1
+    k_avg = 2 * e / n
+    graph_feature_record["k_avg"] = k_avg
+    # print("平均度: k_avg = ", k_avg)
 
-    # count 'weight' and 'multiplicity'
-    for u, e_dict in G.nodes(data=True):
-        u_type = e_dict['node_type']
-        G_pattern.nodes[u_type]['weight'] += e_dict['weight']
-        G_pattern.nodes[u_type]['multiplicity'] += 1
+    return graph_feature_record
 
-    for u, v, e_dict in G.edges(data=True):
-        u_type = G.nodes[u]['node_type']
-        v_type = G.nodes[v]['node_type']
-        if (u_type, v_type) not in G_pattern.edges:
-            (u_type, v_type) = (v_type, u_type)
-        if (u_type, v_type) in G_pattern.edges:
-            G_pattern.edges[u_type, v_type]['weight'] += e_dict['weight']
-            G_pattern.edges[u_type, v_type]['multiplicity'] += 1
-        else:
-            print("Error in <u, v> direction!")
-            break
-
-    for u, e_dict in G_pattern.nodes(data=True):
-        print(G_pattern.nodes[u]['node_type'], e_dict)
-
-    for u, v, e_dict in G_pattern.edges(data=True):
-        print(G_pattern.nodes[u]['node_type'], G_pattern.nodes[v]['node_type'], e_dict)
-
-    return G_pattern
-
-# pos = nx.circular_layout(G_pattern)
-#
-# color_map = {"actor": '#4B0082', 'issue': '#7CFC00', 'pr': '#800000', 'repo': '#FFA500', 'org': 'red'}
-# node_size_map = {"actor": 500, 'issue': 500, 'pr': 500, 'repo': 500, 'org': 500}
-# node_color = []
-# node_size = []
-# for n, d in G_pattern.nodes(data=True):
-#     node_color.append(color_map[d['node_type']])
-#     node_size.append(node_size_map[d['node_type']])
-#
-# node_labels1 = nx.get_node_attributes(G_pattern, 'node_type')
-# node_labels2 = nx.get_node_attributes(G_pattern, 'weight')
-# edge_labels = nx.get_edge_attributes(G_pattern, 'multiplicity')
-#
-# node_labels = {}
-# for k in node_labels1.keys():
-#     node_labels[k] = str(node_labels1[k]) + ": " + str(node_labels2[k])
-# nx.draw_networkx_edge_labels(G_pattern, pos, edge_labels=edge_labels)
-# nx.draw(G_pattern, pos, labels=node_labels, node_size=node_size, node_color=node_color, edge_color="black")
-#
-# plt.title('Graph Pattern', fontsize=15)
-# plt.savefig("HIN_pattern_tensorflow_scale1_trunc1.png", format="PNG")
-# plt.show()
-
-import logging
-logger = logging.getLogger(__name__)
 
 def read_graph(graph_path):
     file_format = graph_path.split(".")[-1]
@@ -103,11 +66,15 @@ def read_graph(graph_path):
     elif file_format == "gpickle":
         return nx.read_gpickle(graph_path)
     else:
-        logging.warning("File format not found, returning empty graph.")
+        print("Warning: File format not found, returning empty graph.")
     return nx.MultiDiGraph()
 
 
 if __name__ == '__main__':
+    import math
+
+    from etc import filePathConf
+
     repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:1]
     year = 2023
     relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
@@ -124,33 +91,13 @@ if __name__ == '__main__':
     # test for 1 repo case
     repo_keys = list(df_dbms_repos_dict.keys())
     df_dbms_repo = df_dbms_repos_dict[repo_keys[0]]
-    G_repo = build_Graph(df_dbms_repo, base_graph=None, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
-                         src_node_attrs=None, tar_node_attrs=None,
-                         init_node_weight=True, nt_key_in_attr="node_type", default_node_types=['src_entity_type', 'tar_entity_type'], node_type_canopy=False,
-                         edge_attrs=pd.Series(df_dbms_repo.to_dict("records")),
-                         init_edge_weight=True, et_key_in_attr="edge_type", default_edge_type="event_type", edge_type_canopy=True,
-                         attrs_is_shared_key_pdSeries=False, use_df_col_as_default_type=True, w_trunc=1, out_g_type='G')
-    G = G_repo
-    lc = max(nx.connected_components(G), key=len)  # max connected components
-    G_max_sub = G.subgraph(lc)
-    print(f"Max subgraph nodes ratio: {len(lc)/len(G.nodes)}")
-    print(f"G: Nodes: {len(G.nodes)}, Edges: {len(G.edges)}, Edge Density: {2*len(G.edges)/(len(G.nodes)*(len(G.nodes)-1))}")
-    print(f"G_max_sub: Nodes: {len(G_max_sub.nodes)}, Edges: {len(G_max_sub.edges)}, Edge Density: {2*len(G_max_sub.edges)/(len(G_max_sub.nodes)*(len(G_max_sub.nodes)-1))}")
+    G_repo = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
+                     default_node_types=['src_entity_type', 'tar_entity_type'], default_edge_type="event_type",
+                     init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='DG')
 
-    # 宏观统计及zipf分布
-    n = len(G.nodes())
-    print('n = ', n)
-    import math
+    G = DG2G(G_repo)
 
-    e_threshold = n * math.log(n)
-    print('e_threshold = ', e_threshold)
-
-    e = len(G.edges())
-    print('e = ', e)
-    print('G_max_sub is a sparse graph:', e < e_threshold)
-
-    k_avg = 2 * e / n
-    print("平均度: k_avg = ", k_avg)
+    graph_feature_record = get_graph_feature(G)
 
     degree_dict = dict(nx.degree(G))
     degree_sequence = sorted(degree_dict.values(), reverse=True)  # degree sequence decrease order

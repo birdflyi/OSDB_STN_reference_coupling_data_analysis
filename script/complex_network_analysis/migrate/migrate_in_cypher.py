@@ -59,10 +59,6 @@ def get_neo4j_Cypher_import_statement_from_G(G, out_type=str, r_edge_var_key='ev
 
 
 if __name__ == '__main__':
-    from script.complex_network_analysis.build_network.build_gh_collab_net_pattern import G_pattern
-
-    # print(get_neo4j_Cypher_import_statement_from_G(G_pattern))
-
     import os
 
     import pandas as pd
