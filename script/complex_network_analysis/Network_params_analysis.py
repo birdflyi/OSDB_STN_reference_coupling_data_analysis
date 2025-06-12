@@ -6,6 +6,7 @@
 # @Author : 'Lou Zehua'
 # @File   : Network_params_analysis.py
 import os
+import math
 
 import networkx as nx
 import numpy as np
@@ -21,99 +22,81 @@ plt.switch_backend('TkAgg')
 
 def get_graph_feature(G):
     graph_feature_record = {
-        "repo_name": repo_keys[0],
         "len_nodes": len(G.nodes),
         "len_edges": len(G.edges),
         "edge_density": 2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1)),
     }
-    # print(f"G: Nodes: {len(G.nodes)}, Edges: {len(G.edges)}, Edge Density: {2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1))}")
-
-    lcc = max(nx.connected_components(G), key=len)  # largest connected components
-    G_max_sub = G.subgraph(lcc)
-    graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
-    graph_feature_record["lcc_len_nodes"] = len(G_max_sub.nodes)
-    graph_feature_record["lcc_len_edges"] = len(G_max_sub.edges)
-    graph_feature_record["lcc_edge_density"] = 2 * len(G_max_sub.edges) / (len(G_max_sub.nodes) * (len(G_max_sub.nodes) - 1))
-    # print(f"Max subgraph nodes ratio: {len(lcc) / len(G.nodes)}")
-    # print(f"G_max_sub: Nodes: {len(G_max_sub.nodes)}, Edges: {len(G_max_sub.edges)}, Edge Density: {2 * len(G_max_sub.edges) / (len(G_max_sub.nodes) * (len(G_max_sub.nodes) - 1))}")
 
     # 宏观统计及zipf分布
     n = len(G.nodes())
     e = len(G.edges())
     e_threshold = n * math.log(n)
     graph_feature_record["is_sparse"] = e < e_threshold
-    # print('G is a sparse graph:', e < e_threshold)
 
-    k_avg = 2 * e / n
-    graph_feature_record["k_avg"] = k_avg
-    # print("平均度: k_avg = ", k_avg)
+    avg_deg = 2 * e / n
+    graph_feature_record["avg_deg"] = avg_deg
+
+    avg_clust = nx.average_clustering(G)
+    graph_feature_record['avg_clustering'] = avg_clust
+
+    # largest connected components
+    lcc = max(nx.connected_components(G), key=len)
+    G_lcc = G.subgraph(lcc)
+    graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
+    graph_feature_record["lcc_len_nodes"] = len(G_lcc.nodes)
+    graph_feature_record["lcc_len_edges"] = len(G_lcc.edges)
+    graph_feature_record["lcc_edge_density"] = 2 * len(G_lcc.edges) / (len(G_lcc.nodes) * (len(G_lcc.nodes) - 1))
+
+    G_lcc_diameter = nx.diameter(G_lcc)
+    G_lcc_avg_dist = nx.average_shortest_path_length(G_lcc)  # 所有节点间平均最短路径长度。
+    graph_feature_record['lcc_diameter'] = G_lcc_diameter
+    graph_feature_record['lcc_avg_dist'] = G_lcc_avg_dist
+
+    G_lcc_assort_coe = nx.degree_assortativity_coefficient(G_lcc)  # 度同配系数
+    graph_feature_record['lcc_assort_coe'] = G_lcc_assort_coe
+
+    G_lcc_deg_centr = nx.degree_centrality(G_lcc)  # 度中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
+    G_lcc_avg_deg_centr = np.mean(list(G_lcc_deg_centr.values()))
+    graph_feature_record['lcc_avg_deg_centr'] = G_lcc_avg_deg_centr
+
+    G_lcc_close_centr = nx.closeness_centrality(G_lcc, distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
+    G_lcc_avg_close_centr = np.mean(list(G_lcc_close_centr.values()))
+    graph_feature_record['lcc_avg_close_centr'] = G_lcc_avg_close_centr
+
+    G_lcc_n_betw_centr = nx.betweenness_centrality(G_lcc, k=None, normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
+    G_lcc_avg_n_betw_centr = np.mean(list(G_lcc_n_betw_centr.values()))
+    graph_feature_record['lcc_avg_n_betw_centr'] = G_lcc_avg_n_betw_centr
+
+    G_lcc_e_betw_centr = nx.edge_betweenness_centrality(G_lcc, k=None, normalized=True)  # 边介数中心性
+    G_lcc_avg_e_betw_centr = np.mean(list(G_lcc_e_betw_centr.values()))
+    graph_feature_record['lcc_avg_e_betw_centr'] = G_lcc_avg_e_betw_centr
+
+    G_lcc_eigvec_centr = nx.eigenvector_centrality_numpy(G_lcc, weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
+    G_lcc_avg_eigvec_centr = np.mean(list(G_lcc_eigvec_centr.values()))
+    graph_feature_record['lcc_avg_eigvec_centr'] = G_lcc_avg_eigvec_centr
 
     return graph_feature_record
 
 
-def read_graph(graph_path):
-    file_format = graph_path.split(".")[-1]
-    if file_format == "graphml":
-        return nx.read_graphml(graph_path)
-    elif file_format == "gml":
-        return nx.read_gml(graph_path)
-    elif file_format == "gexf":
-        return nx.read_gexf(graph_path)
-    elif file_format == "net":
-        return nx.read_pajek(graph_path)
-    elif file_format == "yaml":
-        return nx.read_yaml(graph_path)
-    elif file_format == "gpickle":
-        return nx.read_gpickle(graph_path)
-    else:
-        print("Warning: File format not found, returning empty graph.")
-    return nx.MultiDiGraph()
-
-
-if __name__ == '__main__':
-    import math
-
-    from etc import filePathConf
-
-    repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:1]
-    year = 2023
-    relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                                              'GitHub_Collaboration_Network_repos')
-    filenames_exists = os.listdir(relation_extraction_save_dir)
-    if repo_names:
-        repo_names_fileformat = list(map(get_repo_name_fileformat, repo_names))
-        filenames = [get_repo_year_filename(s, year) for s in repo_names_fileformat]
-        filenames = [filename for filename in filenames if filename in filenames_exists]
-    else:
-        filenames = filenames_exists
-
-    df_dbms_repos_dict = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
-    # test for 1 repo case
-    repo_keys = list(df_dbms_repos_dict.keys())
-    df_dbms_repo = df_dbms_repos_dict[repo_keys[0]]
-    G_repo = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
-                     default_node_types=['src_entity_type', 'tar_entity_type'], default_edge_type="event_type",
-                     init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='DG')
-
-    G = DG2G(G_repo)
-
-    graph_feature_record = get_graph_feature(G)
-
+def plot_as_zipf_distribution(G, save_path=None):
+    save_path = save_path or "./G_Degree_Rank_loglog_zipf.png"
+    # zipf分布
     degree_dict = dict(nx.degree(G))
     degree_sequence = sorted(degree_dict.values(), reverse=True)  # degree sequence decrease order
-    # print(degree_sequence)
-    dmax = max(degree_sequence)
-    # print(degree_sequence)
     plt.loglog(np.array(range(len(degree_sequence))) + 1, degree_sequence, 'b-', marker='o')
     plt.title("Degree Rank Chart")
     plt.ylabel("Degree")
     plt.xlabel("Rank")
 
-    plt.savefig("G_Degree_Rank_loglog_zipf.png")
+    plt.savefig(save_path)
     plt.show()
 
-    # 幂律分布
-    import numpy as np
+
+def plot_as_powerlaw_distribution(G, save_path=None):
+    save_path = save_path or "./G_Degree_Freqency.png"
+    # zipf分布
+    degree_dict = dict(nx.degree(G))
+    degree_sequence = sorted(degree_dict.values(), reverse=True)  # degree sequence decrease order
 
     n = len(degree_sequence)
     degree_set = set(degree_sequence)
@@ -133,11 +116,11 @@ if __name__ == '__main__':
     plt.xlabel("Degree")
     plt.ylabel("Freqency")
 
-    plt.savefig("G_Degree_Freqency.png")
+    plt.savefig(save_path)
     plt.show()
     # print(k_freq_dict)
 
-
+    # -----------拟合-----------
     # 最小二乘拟合
     ##最小二乘法
     from scipy.optimize import leastsq  ##引入最小二乘法算法
@@ -359,38 +342,54 @@ if __name__ == '__main__':
     fig = fit.plot_pdf(marker='o', color='b', linewidth=1)
     fit.power_law.plot_pdf(color='b', linestyle='-', ax=fig)
 
-    # 其他参数
-    G = G_max_sub
-    ac = nx.average_clustering(G)
-    print('average_clustering: ', ac)
 
-    G_dia = nx.diameter(G)
-    G_avg_dist = nx.average_shortest_path_length(G)  # 所有节点间平均最短路径长度。
-    print('diameter：', G_dia)
-    print('average_shortest_path_length：', G_avg_dist)
-    print(nx.assortativity.degree_assortativity_coefficient(G_max_sub))
+def read_graph(graph_path):
+    file_format = graph_path.split(".")[-1]
+    if file_format == "graphml":
+        return nx.read_graphml(graph_path)
+    elif file_format == "gml":
+        return nx.read_gml(graph_path)
+    elif file_format == "gexf":
+        return nx.read_gexf(graph_path)
+    elif file_format == "net":
+        return nx.read_pajek(graph_path)
+    elif file_format == "yaml":
+        return nx.read_yaml(graph_path)
+    elif file_format == "gpickle":
+        return nx.read_gpickle(graph_path)
+    else:
+        print("Warning: File format not found, returning empty graph.")
+    return nx.MultiDiGraph()
 
-    ass_coe = nx.degree_assortativity_coefficient(G)  # 度同配系数
-    print("degree_assortativity_coefficient = ", ass_coe)
 
-    dc = nx.degree_centrality(G)  # 邻点中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
-    print('mean:', np.mean(list(dc.values())))
-    print('degree_centrality = ', dc)
+if __name__ == '__main__':
+    from etc import filePathConf
 
-    cc = nx.closeness_centrality(G,
-                                 distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
-    print('mean:', np.mean(list(cc.values())))
-    print('closeness_centrality = ', cc)
+    repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
+    year = 2023
+    relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                                              'GitHub_Collaboration_Network_repos')
+    filenames_exists = os.listdir(relation_extraction_save_dir)
+    if repo_names:
+        repo_names_fileformat = list(map(get_repo_name_fileformat, repo_names))
+        filenames = [get_repo_year_filename(s, year) for s in repo_names_fileformat]
+        filenames = [filename for filename in filenames if filename in filenames_exists]
+    else:
+        filenames = filenames_exists
 
-    nbc = nx.betweenness_centrality(G, k=None, normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
-    print('mean:', np.mean(list(nbc.values())))
-    print('betweenness_centrality = ', nbc)
-
-    ebc = nx.edge_betweenness_centrality(G, k=None, normalized=True)  # 边介数中心性
-    print('mean:', np.mean(list(ebc.values())))
-    print('edge_betweenness_centrality = ', ebc)
-
-    eigen_cent = nx.eigenvector_centrality_numpy(G,
-                                                 weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
-    print('mean:', np.mean(list(eigen_cent.values())))
-    print('eigenvector_centrality_numpy = ', eigen_cent)
+    df_dbms_repos_dict = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
+    # test for 1 repo case
+    repo_keys = list(df_dbms_repos_dict.keys())
+    repos_feat_dict = {}
+    for repo_key in repo_keys:
+        df_dbms_repo = df_dbms_repos_dict[repo_key]
+        G = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
+                         default_node_types=['src_entity_type', 'tar_entity_type'], default_edge_type="event_type",
+                         init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='G')
+        graph_feature_record = get_graph_feature(G)
+        repos_feat_dict[repo_key] = graph_feature_record
+    df_g_feat = pd.DataFrame.from_dict(repos_feat_dict, orient='index')
+    df_g_feat.reset_index(inplace=True)
+    df_g_feat.rename(columns={'index': 'repo_name'}, inplace=True)
+    g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/df_g_feat.csv')
+    df_g_feat.to_csv(g_feat_path, index=False)

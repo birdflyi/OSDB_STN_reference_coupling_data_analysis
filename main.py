@@ -9,6 +9,13 @@
 import os
 import sys
 
+import pandas as pd
+
+from GH_CoRE.working_flow import get_repo_name_fileformat, get_repo_year_filename, read_csvs
+
+from script.complex_network_analysis.Network_params_analysis import get_graph_feature
+from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
+
 if '__file__' not in globals():
     # !pip install ipynbname  # Remove comment symbols to solve the ModuleNotFoundError
     import ipynbname
@@ -32,6 +39,36 @@ if __name__ == '__main__':
     dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
     dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
     collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
-    collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
-                                              dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
-                                              repo_names=repo_names, stop_repo_names=None, year=year)
+    start_step = 2
+    if start_step <= 1:
+        collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
+                                                  dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
+                                                  repo_names=repo_names, stop_repo_names=None, year=year)
+    if start_step <= 2:
+        # repo_names = None
+        repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
+        relation_extraction_save_dir = collaboration_relation_extraction_dir
+        filenames_exists = os.listdir(relation_extraction_save_dir)
+        if repo_names:
+            repo_names_fileformat = list(map(get_repo_name_fileformat, repo_names))
+            filenames = [get_repo_year_filename(s, year) for s in repo_names_fileformat]
+            filenames = [filename for filename in filenames if filename in filenames_exists]
+        else:
+            filenames = filenames_exists
+
+        df_dbms_repos_dict = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
+        # test for 1 repo case
+        repo_keys = list(df_dbms_repos_dict.keys())
+        repos_feat_dict = {}
+        for repo_key in repo_keys:
+            df_dbms_repo = df_dbms_repos_dict[repo_key]
+            G = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
+                             default_node_types=['src_entity_type', 'tar_entity_type'], default_edge_type="event_type",
+                             init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='G')
+            graph_feature_record = get_graph_feature(G)
+            repos_feat_dict[repo_key] = graph_feature_record
+        df_g_feat = pd.DataFrame.from_dict(repos_feat_dict, orient='index')
+        df_g_feat.reset_index(inplace=True)
+        df_g_feat.rename(columns={'index': 'repo_name'}, inplace=True)
+        g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/df_g_feat.csv')
+        df_g_feat.to_csv(g_feat_path, index=False)
