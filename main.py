@@ -56,19 +56,30 @@ if __name__ == '__main__':
         else:
             filenames = filenames_exists
 
-        df_dbms_repos_dict = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
-        # test for 1 repo case
+        df_dbms_repos_dict_tmp = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
+        df_dbms_repos_dict = {k: df_dbms_repos_dict_tmp[k] for k in sorted(df_dbms_repos_dict_tmp)}
+        g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
+                                   'analysis_results/df_g_feat.csv')
         repo_keys = list(df_dbms_repos_dict.keys())
-        repos_feat_dict = {}
+        if os.path.isfile(g_feat_path):
+            df_g_feat_repo_key_as_index = pd.read_csv(g_feat_path, header="infer", index_col=0)
+            repos_feat_dict = df_g_feat_repo_key_as_index.to_dict(orient="index")
+        else:
+            repos_feat_dict = {}
+
         for repo_key in repo_keys:
+            if repo_key in repos_feat_dict.keys():
+                continue
+
+            graph_feature_record = {"repo_name": repo_key}
             df_dbms_repo = df_dbms_repos_dict[repo_key]
             G = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id', 'tar_entity_id'],
-                             default_node_types=['src_entity_type', 'tar_entity_type'], default_edge_type="event_type",
-                             init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='G')
-            graph_feature_record = get_graph_feature(G)
+                                 default_node_types=['src_entity_type', 'tar_entity_type'],
+                                 default_edge_type="event_type",
+                                 init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='G')
+            graph_feature_record_complex_network = get_graph_feature(G)
+            graph_feature_record.update(graph_feature_record_complex_network)
             repos_feat_dict[repo_key] = graph_feature_record
-        df_g_feat = pd.DataFrame.from_dict(repos_feat_dict, orient='index')
-        df_g_feat.reset_index(inplace=True)
-        df_g_feat.rename(columns={'index': 'repo_name'}, inplace=True)
-        g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/df_g_feat.csv')
-        df_g_feat.to_csv(g_feat_path, index=False)
+            df_g_feat = pd.DataFrame.from_dict(repos_feat_dict, orient='index')
+            df_g_feat.to_csv(g_feat_path, index=False)
+            print(f"{repo_key} saved into df_g_feat!")
