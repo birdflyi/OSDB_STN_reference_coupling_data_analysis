@@ -62,8 +62,10 @@ if __name__ == '__main__':
                                    'analysis_results/df_g_feat.csv')
         repo_keys = list(df_dbms_repos_dict.keys())
         if os.path.isfile(g_feat_path):
-            df_g_feat_repo_key_as_index = pd.read_csv(g_feat_path, header="infer", index_col=0)
-            repos_feat_dict = df_g_feat_repo_key_as_index.to_dict(orient="index")
+            df_g_feat_repo_key_as_index = pd.read_csv(g_feat_path, header="infer", index_col=None)
+            repos_feat_dict_values = df_g_feat_repo_key_as_index.to_dict(orient="records")
+            repos_feat_dict = {repos_feat_dict_values[k].get("repo_name", str(k)): repos_feat_dict_values[k]
+                               for k in range(len(repos_feat_dict_values))}
         else:
             repos_feat_dict = {}
 
