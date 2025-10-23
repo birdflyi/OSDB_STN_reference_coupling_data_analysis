@@ -7,6 +7,7 @@
 # @File   : Network_params_analysis.py
 import os
 import math
+import traceback
 
 import networkx as nx
 import numpy as np
@@ -16,15 +17,31 @@ from matplotlib import pyplot as plt
 
 from script.complex_network_analysis.build_network.build_Graph import DG2G
 from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
+from script.utils.timeout import timeout
 
 plt.switch_backend('TkAgg')
 
 
-def get_graph_feature(G):
+def get_graph_feature(G, timeout_sec=10*60):
     graph_feature_record = {
         "len_nodes": len(G.nodes),
         "len_edges": len(G.edges),
         "edge_density": 2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1)),
+        "is_sparse": None,
+        "avg_deg": None,
+        "avg_clustering": None,
+        "lcc_node_coverage_ratio": None,
+        "lcc_len_nodes": None,
+        "lcc_len_edges": None,
+        "lcc_edge_density": None,
+        "lcc_diameter": None,
+        "lcc_avg_dist": None,
+        "lcc_assort_coe": None,
+        "lcc_avg_deg_centr": None,
+        "lcc_avg_close_centr": None,
+        "lcc_avg_n_betw_centr": None,
+        "lcc_avg_e_betw_centr": None,
+        "lcc_avg_eigvec_centr": None,
     }
 
     # 宏观统计及zipf分布
@@ -40,44 +57,108 @@ def get_graph_feature(G):
     graph_feature_record['avg_clustering'] = avg_clust
 
     # largest connected components
-    lcc = max(nx.connected_components(G), key=len)
-    G_lcc = G.subgraph(lcc)
-    graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
-    graph_feature_record["lcc_len_nodes"] = len(G_lcc.nodes)
-    graph_feature_record["lcc_len_edges"] = len(G_lcc.edges)
-    graph_feature_record["lcc_edge_density"] = 2 * len(G_lcc.edges) / (len(G_lcc.nodes) * (len(G_lcc.nodes) - 1))
+    @timeout(seconds=timeout_sec)
+    def connected_components(G, **kwargs):
+        return nx.connected_components(G, **kwargs)
+    try:
+        lcc = max(connected_components(G), key=len)
+        G_lcc = G.subgraph(lcc)
+        graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
+        graph_feature_record["lcc_len_nodes"] = len(G_lcc.nodes)
+        graph_feature_record["lcc_len_edges"] = len(G_lcc.edges)
+        graph_feature_record["lcc_edge_density"] = 2 * len(G_lcc.edges) / (len(G_lcc.nodes) * (len(G_lcc.nodes) - 1))
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+        return graph_feature_record
 
-    G_lcc_diameter = nx.diameter(G_lcc)
-    G_lcc_avg_dist = nx.average_shortest_path_length(G_lcc)  # 所有节点间平均最短路径长度。
-    graph_feature_record['lcc_diameter'] = G_lcc_diameter
-    graph_feature_record['lcc_avg_dist'] = G_lcc_avg_dist
-
-    G_lcc_assort_coe = nx.degree_assortativity_coefficient(G_lcc)  # 度同配系数
-    graph_feature_record['lcc_assort_coe'] = G_lcc_assort_coe
-
-    G_lcc_deg_centr = nx.degree_centrality(G_lcc)  # 度中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
-    G_lcc_avg_deg_centr = np.mean(list(G_lcc_deg_centr.values()))
-    graph_feature_record['lcc_avg_deg_centr'] = G_lcc_avg_deg_centr
-
-    G_lcc_close_centr = nx.closeness_centrality(G_lcc, distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
-    G_lcc_avg_close_centr = np.mean(list(G_lcc_close_centr.values()))
-    graph_feature_record['lcc_avg_close_centr'] = G_lcc_avg_close_centr
-
-    G_lcc_n_betw_centr = nx.betweenness_centrality(G_lcc, k=None, normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
-    G_lcc_avg_n_betw_centr = np.mean(list(G_lcc_n_betw_centr.values()))
-    graph_feature_record['lcc_avg_n_betw_centr'] = G_lcc_avg_n_betw_centr
-
-    G_lcc_e_betw_centr = nx.edge_betweenness_centrality(G_lcc, k=None, normalized=True)  # 边介数中心性
-    G_lcc_avg_e_betw_centr = np.mean(list(G_lcc_e_betw_centr.values()))
-    graph_feature_record['lcc_avg_e_betw_centr'] = G_lcc_avg_e_betw_centr
+    @timeout(seconds=timeout_sec)
+    def diameter(G, **kwargs):
+        return nx.diameter(G, **kwargs)
 
     try:
-        G_lcc_eigvec_centr = nx.eigenvector_centrality_numpy(G_lcc, weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
+        G_lcc_diameter = diameter(G_lcc)
+        graph_feature_record['lcc_diameter'] = G_lcc_diameter
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+
+    @timeout(seconds=timeout_sec)
+    def average_shortest_path_length(G, **kwargs):
+        return nx.average_shortest_path_length(G, **kwargs)
+
+    try:
+        G_lcc_avg_dist = average_shortest_path_length(G_lcc)  # 所有节点间平均最短路径长度。
+        graph_feature_record['lcc_avg_dist'] = G_lcc_avg_dist
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def degree_assortativity_coefficient(G, **kwargs):
+        return nx.degree_assortativity_coefficient(G, **kwargs)
+
+    try:
+        G_lcc_assort_coe = degree_assortativity_coefficient(G_lcc)  # 度同配系数
+        graph_feature_record['lcc_assort_coe'] = G_lcc_assort_coe
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def degree_centrality(G, **kwargs):
+        return nx.degree_centrality(G, **kwargs)
+
+    try:
+        G_lcc_deg_centr = degree_centrality(G_lcc)  # 度中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
+        G_lcc_avg_deg_centr = np.mean(list(G_lcc_deg_centr.values()))
+        graph_feature_record['lcc_avg_deg_centr'] = G_lcc_avg_deg_centr
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def closeness_centrality(G, **kwargs):
+        return nx.closeness_centrality(G, **kwargs)
+
+    try:
+        G_lcc_close_centr = closeness_centrality(G_lcc, distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
+        G_lcc_avg_close_centr = np.mean(list(G_lcc_close_centr.values()))
+        graph_feature_record['lcc_avg_close_centr'] = G_lcc_avg_close_centr
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def betweenness_centrality(G, **kwargs):
+        return nx.betweenness_centrality(G, **kwargs)
+
+    try:
+        G_lcc_n_betw_centr = betweenness_centrality(G_lcc, k=None,
+                                                    normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
+        G_lcc_avg_n_betw_centr = np.mean(list(G_lcc_n_betw_centr.values()))
+        graph_feature_record['lcc_avg_n_betw_centr'] = G_lcc_avg_n_betw_centr
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def edge_betweenness_centrality(G, **kwargs):
+        return nx.edge_betweenness_centrality(G, **kwargs)
+
+    try:
+        G_lcc_e_betw_centr = edge_betweenness_centrality(G_lcc, k=None, normalized=True)  # 边介数中心性
+        G_lcc_avg_e_betw_centr = np.mean(list(G_lcc_e_betw_centr.values()))
+        graph_feature_record['lcc_avg_e_betw_centr'] = G_lcc_avg_e_betw_centr
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+
+    @timeout(seconds=timeout_sec)
+    def eigenvector_centrality_numpy(G, **kwargs):
+        return nx.eigenvector_centrality_numpy(G, **kwargs)
+
+    try:
+        G_lcc_eigvec_centr = eigenvector_centrality_numpy(G_lcc, weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
         G_lcc_avg_eigvec_centr = np.mean(list(G_lcc_eigvec_centr.values()))
         graph_feature_record['lcc_avg_eigvec_centr'] = G_lcc_avg_eigvec_centr
     except TypeError:
         print("No available eigenvector_centrality!")
-        graph_feature_record['lcc_avg_eigvec_centr'] = None
+    except TimeoutError as e:
+        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
     return graph_feature_record
 

@@ -6,13 +6,19 @@
 # @Author : 'Lou Zehua'
 # @File   : migrate_in_cypher.py
 
+import re
+
+
+def escape_single_quotes(s):
+    return re.sub(r"\'", "\\'", s)
+
 
 # neo4j import
 def get_Cypher_node_statement(node_var, node_prop_dict):
     # e.g. `Actor`{`node_type`: 'Actor'}
     node_var_statement = f"`{node_var}`"
     node_prop_statement = ', '.join(
-        [f"`{node_prop_key}`: '{node_prop_value}'" for node_prop_key, node_prop_value in node_prop_dict.items()])
+        [f"`{node_prop_key}`: '{escape_single_quotes(str(node_prop_value))}'" for node_prop_key, node_prop_value in node_prop_dict.items()])
     node_statement = f"{node_var_statement} {{{node_prop_statement}}}"
     return node_statement
 
@@ -21,7 +27,7 @@ def get_Cypher_edge_statement(edge_var, edge_prop_dict):
     # e.g. `IssuesEvent::closed`{`event_type`:'IssuesEvent::closed', `weight`:'1'}
     edge_var_statement = f"`{edge_var}`"
     edge_prop_statement = ', '.join(
-        [f"`{edge_prop_key}`: '{edge_prop_value}'" for edge_prop_key, edge_prop_value in edge_prop_dict.items()])
+        [f"`{edge_prop_key}`: '{escape_single_quotes(str(edge_prop_value))}'" for edge_prop_key, edge_prop_value in edge_prop_dict.items()])
     edge_statement = f"{edge_var_statement} {{{edge_prop_statement}}}"
     return edge_statement
 
@@ -93,4 +99,7 @@ if __name__ == '__main__':
                          edge_type_canopy=True,
                          attrs_is_shared_key_pdSeries=False, use_df_col_as_default_type=True, w_trunc=1,
                          out_g_type='DG')
-    print(get_neo4j_Cypher_import_statement_from_G(G_repo))
+    statements = get_neo4j_Cypher_import_statement_from_G(G_repo)
+    with open('./temp_db_cypher.txt', 'w') as f:
+        f.write(statements)
+    # print(statements)
