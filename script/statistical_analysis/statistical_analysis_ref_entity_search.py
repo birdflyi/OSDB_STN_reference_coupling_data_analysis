@@ -6,6 +6,7 @@
 # @Author : 'Lou Zehua'
 # @File   : statistical_analysis_ref_entity_search.py
 
+import ast
 import logging
 import os
 
@@ -204,8 +205,6 @@ def get_grouped_ref_ent_cnt(df: pd.DataFrame, groupby_filed):
 
 
 if __name__ == '__main__':
-    import ast
-
     year = 2023
     repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
@@ -224,9 +223,9 @@ if __name__ == '__main__':
 
     # Filter files
     df_OSDB_github_key_feats = pd.read_csv(dbms_repos_key_feats_path, header='infer', index_col=None)
-    df_OSDB_github_key_feats = df_OSDB_github_key_feats[
+    df_OSDB_github_key_feats_has_github_repo_id = df_OSDB_github_key_feats[
         pd.notna(df_OSDB_github_key_feats["github_repo_id"])]  # filter github_repo_id must exist
-    repo_names_has_github_repo_id = list(df_OSDB_github_key_feats["github_repo_link"].values)
+    repo_names_has_github_repo_id = list(df_OSDB_github_key_feats_has_github_repo_id["github_repo_link"].values)
     filenames_has_github_repo_id = get_filenames_by_repo_names(repo_names_has_github_repo_id, year)
     filenames_exists = os.listdir(dbms_repos_raw_content_dir)
     if repo_names is not None:

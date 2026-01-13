@@ -135,9 +135,9 @@ def collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_re
     filenames = get_intersection(filenames_scope_list)
     if validate_OSDB_github_repo_id:
         df_OSDB_github_key_feats = pd.read_csv(dbms_repos_key_feats_path, header='infer', index_col=None)
-        df_OSDB_github_key_feats = df_OSDB_github_key_feats[
+        df_OSDB_github_key_feats_has_github_repo_id = df_OSDB_github_key_feats[
             pd.notna(df_OSDB_github_key_feats["github_repo_id"])]  # filter github_repo_id must exist
-        repo_names_has_github_repo_id = list(df_OSDB_github_key_feats["github_repo_link"].values)
+        repo_names_has_github_repo_id = list(df_OSDB_github_key_feats_has_github_repo_id["github_repo_link"].values)
         filenames_has_github_repo_id = get_filenames_by_repo_names(repo_names_has_github_repo_id, year)
         filenames_scope_list = [filenames, filenames_has_github_repo_id]
         filenames = get_intersection(filenames_scope_list)
