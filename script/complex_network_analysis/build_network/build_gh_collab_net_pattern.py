@@ -120,7 +120,7 @@ if __name__ == '__main__':
         repo_names = ["TuGraph-family/tugraph-db", "facebook/rocksdb", "cockroachdb/cockroach"][0:1]
         year = 2023
         relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                                                  'GitHub_Collaboration_Network_repos')
+                                                  'repos_GH_CoRE')
         filenames_exists = os.listdir(relation_extraction_save_dir)
         if repo_names:
             repo_names_fileformat = list(map(get_repo_name_fileformat, repo_names))

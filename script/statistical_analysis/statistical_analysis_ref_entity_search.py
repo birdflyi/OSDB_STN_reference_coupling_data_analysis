@@ -265,7 +265,7 @@ if __name__ == '__main__':
     print(df_patterns_ref_freq_cumulative)
 
     # Statistics: Types of reference entities
-    relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], "GitHub_Collaboration_Network_repos")
+    relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], "repos_GH_CoRE")
     collaboration_relation_extraction(repo_keys, df_dbms_repos_dict, relation_extraction_save_dir, update_exists=False, add_mode_if_exists=True)
     df_relation_extraction_dict = read_csvs(relation_extraction_save_dir, filenames=filenames)
 

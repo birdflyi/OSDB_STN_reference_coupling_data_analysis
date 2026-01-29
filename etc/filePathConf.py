@@ -21,7 +21,8 @@ GITHUB_OSDB_DATA_DIR = 2
 
 DBMS_REPOS_RAW_CONTENT_DIR = 10
 DBMS_REPOS_DEDUP_CONTENT_DIR = 11
-DBMS_REPOS_CORE_DIR = 12
+DBMS_REPOS_GH_CORE_DIR = 12
+DBMS_REPOS_GH_CORE_REF_NODE_AGG_DIR = 13
 
 DBMS_REPOS_KEY_FEATS_PATH = 100
 
@@ -31,7 +32,8 @@ absPathDict = {
     GITHUB_OSDB_DATA_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/'),
     DBMS_REPOS_RAW_CONTENT_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos'),
     DBMS_REPOS_DEDUP_CONTENT_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos_dedup_content'),
-    DBMS_REPOS_CORE_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/GitHub_Collaboration_Network_repos'),
+    DBMS_REPOS_GH_CORE_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos_GH_CoRE'),
+    DBMS_REPOS_GH_CORE_REF_NODE_AGG_DIR: os.path.join(BASE_DIR, 'data/github_osdb_data/repos_GH_CoRE_ref_node_agg'),
     DBMS_REPOS_KEY_FEATS_PATH: os.path.join(
         BASE_DIR, "data/github_osdb_data/dbfeatfusion_records_202410_automerged_manulabeled_with_repoid.csv")
 }

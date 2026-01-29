@@ -27,15 +27,36 @@ from script.build_dataset.repo_filter import get_filenames_by_repo_names, get_in
 setup_logging(base_dir=pkg_rootdir)
 logger = logging.getLogger(__name__)
 
+
+def filenames_exist_filter(check_dir, full_file_names, keep_part='is_not_file'):
+    assert keep_part in ['all', 'is_file', 'is_not_file']
+    if keep_part == 'all':
+        return full_file_names
+
+    keep_flags_dict = {}
+    for full_file_name in full_file_names:
+        file_path = os.path.join(check_dir, full_file_name)
+        if keep_part == 'is_file':
+            keep_flags_dict[full_file_name] = os.path.isfile(file_path)
+        elif keep_part == 'is_not_file':
+            keep_flags_dict[full_file_name] = not os.path.isfile(file_path)
+        else:
+            raise ValueError(f"keep_part {keep_part} must be in ['all', 'is_file', 'is_not_file']!")
+
+    full_file_names_validated = [full_file_name for full_file_name, keep in keep_flags_dict.items() if keep]
+    return full_file_names_validated
+
+
 def process_body_content(raw_content_dir, processed_content_dir, filenames=None, dedup_content_overwrite_all=False):
-    # reduce_redundancy
-    # 读入csv，去除数据库存储时额外复制的重复issue信息
-    df_dbms_repos_raw_dict = read_csvs(raw_content_dir, filenames=filenames, index_col=0)
+    # reduce_redundancy: remove the additional duplicate issue information
     if not dedup_content_overwrite_all:
         print('Skip the exist dedup_content. Only process added files...')
-    for repo_key, df_dbms_repo in df_dbms_repos_raw_dict.items():
-        save_path = os.path.join(processed_content_dir, "{repo_key}.csv".format(**{"repo_key": repo_key}))
-        if dedup_content_overwrite_all or not os.path.exists(save_path):
+    keep_part = 'all' if dedup_content_overwrite_all else 'is_not_file'
+    filenames_to_update = filenames_exist_filter(processed_content_dir, full_file_names=filenames, keep_part=keep_part)
+    if len(filenames_to_update):
+        df_dbms_repos_raw_dict = read_csvs(raw_content_dir, filenames=filenames_to_update, index_col=0)
+        for repo_key, df_dbms_repo in df_dbms_repos_raw_dict.items():
+            save_path = os.path.join(processed_content_dir, "{repo_key}.csv".format(**{"repo_key": repo_key}))
             dedup_content(df_dbms_repo).to_csv(save_path, header=True, index=True, encoding='utf-8', lineterminator='\n')
     print('dedup_content done!')
     return
@@ -165,7 +186,7 @@ if __name__ == '__main__':
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
     dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
     dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
-    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
+    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_DIR]
     collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
                                               dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
                                               repo_names=None, stop_repo_names=None, year=year)

@@ -22,11 +22,11 @@ from script.utils.timeout import timeout
 plt.switch_backend('TkAgg')
 
 
-def get_graph_feature(G, timeout_sec=10*60):
+def get_graph_feature(G, feat=None, timeout_sec=10*60):
     graph_feature_record = {
         "len_nodes": len(G.nodes),
         "len_edges": len(G.edges),
-        "edge_density": 2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1)),
+        "edge_density": 2 * len(G.edges) / (len(G.nodes) * (len(G.nodes) - 1)) if len(G.nodes) > 1 else 0,
         "is_sparse": None,
         "avg_deg": None,
         "avg_clustering": None,
@@ -35,34 +35,45 @@ def get_graph_feature(G, timeout_sec=10*60):
         "lcc_len_edges": None,
         "lcc_edge_density": None,
         "lcc_diameter": None,
-        "lcc_avg_dist": None,
         "lcc_assort_coe": None,
+        "lcc_avg_dist": None,
         "lcc_avg_deg_centr": None,
         "lcc_avg_close_centr": None,
         "lcc_avg_n_betw_centr": None,
         "lcc_avg_e_betw_centr": None,
         "lcc_avg_eigvec_centr": None,
     }
+    if feat is None:
+        feat = list(graph_feature_record.keys())
 
     # 宏观统计及zipf分布
     n = len(G.nodes())
     e = len(G.edges())
-    e_threshold = n * math.log(n)
+    e_threshold = n * math.log(n) if n > 0 else 0
     graph_feature_record["is_sparse"] = e < e_threshold
 
-    avg_deg = 2 * e / n
+    avg_deg = 2 * e / n if n > 0 else 0
     graph_feature_record["avg_deg"] = avg_deg
 
-    avg_clust = nx.average_clustering(G)
-    graph_feature_record['avg_clustering'] = avg_clust
+    if "avg_clustering" in feat:
+        avg_clust = nx.average_clustering(G)
+        graph_feature_record['avg_clustering'] = avg_clust
+
+    # higher complexity below
+    if not any(["lcc_" in s for s in feat]):
+        return {f: graph_feature_record[f] if f in graph_feature_record else None for f in feat}
 
     # largest connected components
     @timeout(seconds=timeout_sec)
     def connected_components(G, **kwargs):
         return nx.connected_components(G, **kwargs)
+
     try:
-        lcc = max(connected_components(G), key=len)
-        G_lcc = G.subgraph(lcc)
+        if nx.is_connected(G):
+            G_lcc = G.copy()
+        else:
+            lcc = max(connected_components(G), key=len)
+            G_lcc = G.subgraph(lcc).copy()
         graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
         graph_feature_record["lcc_len_nodes"] = len(G_lcc.nodes)
         graph_feature_record["lcc_len_edges"] = len(G_lcc.edges)
@@ -71,95 +82,103 @@ def get_graph_feature(G, timeout_sec=10*60):
         print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
         return graph_feature_record
 
-    @timeout(seconds=timeout_sec)
-    def diameter(G, **kwargs):
-        return nx.diameter(G, **kwargs)
+    if 'lcc_diameter' in feat:
+        @timeout(seconds=timeout_sec)
+        def diameter(G, **kwargs):
+            return nx.diameter(G, **kwargs)
 
-    try:
-        G_lcc_diameter = diameter(G_lcc)
-        graph_feature_record['lcc_diameter'] = G_lcc_diameter
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+        try:
+            G_lcc_diameter = diameter(G_lcc)
+            graph_feature_record['lcc_diameter'] = G_lcc_diameter
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
+    if 'lcc_assort_coe' in feat:
+        @timeout(seconds=timeout_sec)
+        def degree_assortativity_coefficient(G, **kwargs):
+            return nx.degree_assortativity_coefficient(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def average_shortest_path_length(G, **kwargs):
-        return nx.average_shortest_path_length(G, **kwargs)
+        try:
+            G_lcc_assort_coe = degree_assortativity_coefficient(G_lcc)  # 度同配系数
+            graph_feature_record['lcc_assort_coe'] = G_lcc_assort_coe
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_avg_dist = average_shortest_path_length(G_lcc)  # 所有节点间平均最短路径长度。
-        graph_feature_record['lcc_avg_dist'] = G_lcc_avg_dist
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_dist' in feat:
+        @timeout(seconds=timeout_sec)
+        def average_shortest_path_length(G, **kwargs):
+            return nx.average_shortest_path_length(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def degree_assortativity_coefficient(G, **kwargs):
-        return nx.degree_assortativity_coefficient(G, **kwargs)
+        try:
+            G_lcc_avg_dist = average_shortest_path_length(G_lcc)  # 所有节点间平均最短路径长度。
+            graph_feature_record['lcc_avg_dist'] = G_lcc_avg_dist
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_assort_coe = degree_assortativity_coefficient(G_lcc)  # 度同配系数
-        graph_feature_record['lcc_assort_coe'] = G_lcc_assort_coe
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_deg_centr' in feat:
+        @timeout(seconds=timeout_sec)
+        def degree_centrality(G, **kwargs):
+            return nx.degree_centrality(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def degree_centrality(G, **kwargs):
-        return nx.degree_centrality(G, **kwargs)
+        try:
+            G_lcc_deg_centr = degree_centrality(G_lcc)  # 度中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
+            G_lcc_avg_deg_centr = np.mean(list(G_lcc_deg_centr.values()))
+            graph_feature_record['lcc_avg_deg_centr'] = G_lcc_avg_deg_centr
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_deg_centr = degree_centrality(G_lcc)  # 度中心性 degree_v / (len(G) - 1), 度上限为len(G) - 1
-        G_lcc_avg_deg_centr = np.mean(list(G_lcc_deg_centr.values()))
-        graph_feature_record['lcc_avg_deg_centr'] = G_lcc_avg_deg_centr
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_close_centr' in feat:
+        @timeout(seconds=timeout_sec)
+        def closeness_centrality(G, **kwargs):
+            return nx.closeness_centrality(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def closeness_centrality(G, **kwargs):
-        return nx.closeness_centrality(G, **kwargs)
+        try:
+            G_lcc_close_centr = closeness_centrality(G_lcc, distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
+            G_lcc_avg_close_centr = np.mean(list(G_lcc_close_centr.values()))
+            graph_feature_record['lcc_avg_close_centr'] = G_lcc_avg_close_centr
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_close_centr = closeness_centrality(G_lcc, distance='weight')  # 接近中心性 C(u) = \frac{n - 1}{\sum_{v=1}^{n-1} d(v, u)}, s.t. n = len(G) - 1.0
-        G_lcc_avg_close_centr = np.mean(list(G_lcc_close_centr.values()))
-        graph_feature_record['lcc_avg_close_centr'] = G_lcc_avg_close_centr
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_n_betw_centr' in feat:
+        @timeout(seconds=timeout_sec)
+        def betweenness_centrality(G, **kwargs):
+            return nx.betweenness_centrality(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def betweenness_centrality(G, **kwargs):
-        return nx.betweenness_centrality(G, **kwargs)
+        try:
+            G_lcc_n_betw_centr = betweenness_centrality(G_lcc, k=None,
+                                                        normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
+            G_lcc_avg_n_betw_centr = np.mean(list(G_lcc_n_betw_centr.values()))
+            graph_feature_record['lcc_avg_n_betw_centr'] = G_lcc_avg_n_betw_centr
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_n_betw_centr = betweenness_centrality(G_lcc, k=None,
-                                                    normalized=True)  # 点介数中心性：k=None表示全图，不限制跳数normalized=True表示用完全图边数作分母标准化
-        G_lcc_avg_n_betw_centr = np.mean(list(G_lcc_n_betw_centr.values()))
-        graph_feature_record['lcc_avg_n_betw_centr'] = G_lcc_avg_n_betw_centr
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_e_betw_centr' in feat:
+        @timeout(seconds=timeout_sec)
+        def edge_betweenness_centrality(G, **kwargs):
+            return nx.edge_betweenness_centrality(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def edge_betweenness_centrality(G, **kwargs):
-        return nx.edge_betweenness_centrality(G, **kwargs)
+        try:
+            G_lcc_e_betw_centr = edge_betweenness_centrality(G_lcc, k=None, normalized=True)  # 边介数中心性
+            G_lcc_avg_e_betw_centr = np.mean(list(G_lcc_e_betw_centr.values()))
+            graph_feature_record['lcc_avg_e_betw_centr'] = G_lcc_avg_e_betw_centr
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_e_betw_centr = edge_betweenness_centrality(G_lcc, k=None, normalized=True)  # 边介数中心性
-        G_lcc_avg_e_betw_centr = np.mean(list(G_lcc_e_betw_centr.values()))
-        graph_feature_record['lcc_avg_e_betw_centr'] = G_lcc_avg_e_betw_centr
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
+    if 'lcc_avg_eigvec_centr' in feat:
+        @timeout(seconds=timeout_sec)
+        def eigenvector_centrality_numpy(G, **kwargs):
+            return nx.eigenvector_centrality_numpy(G, **kwargs)
 
-    @timeout(seconds=timeout_sec)
-    def eigenvector_centrality_numpy(G, **kwargs):
-        return nx.eigenvector_centrality_numpy(G, **kwargs)
+        try:
+            G_lcc_eigvec_centr = eigenvector_centrality_numpy(G_lcc, weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
+            G_lcc_avg_eigvec_centr = np.mean(list(G_lcc_eigvec_centr.values()))
+            graph_feature_record['lcc_avg_eigvec_centr'] = G_lcc_avg_eigvec_centr
+        except TypeError:
+            print("No available eigenvector_centrality!")
+        except TimeoutError as e:
+            print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
 
-    try:
-        G_lcc_eigvec_centr = eigenvector_centrality_numpy(G_lcc, weight='weight')  # 特征向量中心性（Eigenvector Centrality）。一个节点的重要性既取决于其邻居节点的数量（即该节点的度），也取决于其邻居节点的重要性。
-        G_lcc_avg_eigvec_centr = np.mean(list(G_lcc_eigvec_centr.values()))
-        graph_feature_record['lcc_avg_eigvec_centr'] = G_lcc_avg_eigvec_centr
-    except TypeError:
-        print("No available eigenvector_centrality!")
-    except TimeoutError as e:
-        print(e.__str__() + '\r\n' + "".join(traceback.format_tb(e.__traceback__)))
-
+    graph_feature_record = {f: graph_feature_record[f] if f in graph_feature_record else None for f in feat}
     return graph_feature_record
 
 
@@ -453,7 +472,7 @@ if __name__ == '__main__':
     repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
     year = 2023
     relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                                              'GitHub_Collaboration_Network_repos')
+                                              'repos_GH_CoRE')
     filenames_exists = os.listdir(relation_extraction_save_dir)
     if repo_names:
         repo_names_fileformat = list(map(get_repo_name_fileformat, repo_names))

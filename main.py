@@ -38,15 +38,15 @@ if __name__ == '__main__':
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
     dbms_repos_raw_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_RAW_CONTENT_DIR]
     dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
-    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_CORE_DIR]
+    collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_DIR]
     start_step = 2
     if start_step <= 1:
         collaboration_relation_extraction_service(dbms_repos_key_feats_path, dbms_repos_raw_content_dir,
                                                   dbms_repos_dedup_content_dir, collaboration_relation_extraction_dir,
                                                   repo_names=repo_names, stop_repo_names=None, year=year)
     if start_step <= 2:
-        # repo_names = None
-        repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
+        repo_names = None
+        # repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
         relation_extraction_save_dir = collaboration_relation_extraction_dir
         filenames_exists = os.listdir(relation_extraction_save_dir)
         if repo_names:
