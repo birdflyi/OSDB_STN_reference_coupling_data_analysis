@@ -7,6 +7,7 @@ import json
 # @File   : reference_descriptive_analysis.py
 
 import os
+import pickle
 import sys
 import traceback
 
@@ -265,6 +266,32 @@ def granu_agg(row: pd.Series, repo_id=None):
     return row
 
 
+def write_gexf_with_forced_types(G, filepath, forced_types=None, repl_None_str=""):
+    """
+    强制指定GEXF文件中属性的类型，避免NetworkX自动推断错误。
+    适用于如 'tar_entity_id'、'src_entity_id' 等本应为字符串却因存在None被误判为 double 的场景。
+
+    :param G: NetworkX 图对象
+    :param filepath: 输出文件路径
+    :param forced_types: 字典，格式为 {属性名: 类型字符串}，如 {'tar_entity_id': 'string'}
+    """
+    if forced_types is None:
+        forced_types = {}
+
+    # 为图添加自定义元数据，NetworkX 会读取此信息来覆盖自动推断
+    G.graph['_attribute_types'] = forced_types
+
+    # 确保所有指定属性的值都是字符串（避免数值型干扰）
+    for _, _, edge_data in G.edges(data=True):
+        for attr_name in forced_types:
+            if attr_name in edge_data:
+                edge_data[attr_name] = str(edge_data[attr_name]) if edge_data[attr_name] is not None else repl_None_str
+
+    # 保存GEXF文件
+    nx.write_gexf(G, filepath)
+    return G
+
+
 if __name__ == '__main__':
     year = 2023
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
@@ -272,6 +299,7 @@ if __name__ == '__main__':
     dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
     dbms_repos_gh_core_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_DIR]
     dbms_repos_gh_core_ref_node_agg_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_REF_NODE_AGG_DIR]
+    graph_network_dir = filePathConf.absPathDict[filePathConf.GRAPH_NETWORK_DIR]
     flag_skip_existing_files = True
     ref_dedup_by_event_id = False
 
@@ -317,6 +345,7 @@ if __name__ == '__main__':
     logger.info(f"Collaboration relation extraction completed.")
 
     # 步骤3: 引用耦合网络构建
+    logger.info(f"-----------Step 3. Build Reference Network-----------")
     # 边ref去重、结点repo actor粒度聚合
     if not flag_skip_existing_files:
         # read relations
@@ -337,40 +366,104 @@ if __name__ == '__main__':
             df_dbms_repo_ref_node_agg.to_csv(temp_save_path, header=True, index=False, encoding='utf-8')
             df_dbms_repos_ref_node_agg_dict[repo_key] = df_dbms_repo_ref_node_agg
     else:
+        pass
+    logger.info("Node granularity has been aggregated.")
+
+    # build reference network
+    logger.info("Build reference network...")
+    use_repo_nodes_only = True
+    dg_dbms_repos_ref_net_node_agg_filename = "dg_dbms_repos_ref_net_node_agg.gexf"
+    homo_dg_dbms_repos_ref_net_node_agg_filename = "homo_dg_dbms_repos_ref_net_node_agg.gexf"
+    dg_dbms_repos_ref_net_node_agg_path = os.path.join(graph_network_dir, dg_dbms_repos_ref_net_node_agg_filename)
+    homo_dg_dbms_repos_ref_net_node_agg_path = os.path.join(graph_network_dir, homo_dg_dbms_repos_ref_net_node_agg_filename)
+    forced_types = {'src_entity_id': 'string', 'tar_entity_id': 'string'}
+    if not flag_skip_existing_files:
         # read aggregated relations
         df_dbms_repos_ref_node_agg_dict = read_csvs(dbms_repos_gh_core_ref_node_agg_dir, filenames=filenames, index_col=None)
-    logger.info(f"Node granularity has been aggregated.")
+        # descent order by records length
+        temp_repoKey_recLen_dict = {k: len(df) for k, df in df_dbms_repos_ref_node_agg_dict.items()}
+        temp_repoKey_recLen_sorted_dict = dict(sorted(temp_repoKey_recLen_dict.items(), key=lambda x: x[1], reverse=True))
+        repo_keys = list(temp_repoKey_recLen_sorted_dict.keys())
+        df_dbms_repos_ref_node_agg_dict = {k: df_dbms_repos_ref_node_agg_dict[k] for k in repo_keys}
+        # Merge the graph_network of multiple repos
+        base_graph = nx.MultiDiGraph()
+        G_repo = base_graph
+        for repo_key, df_dbms_repo in list(df_dbms_repos_ref_node_agg_dict.items()):
+            if df_dbms_repo is not None:
+                if len(df_dbms_repo):
+                    df_dbms_repo = df_dbms_repo.dropna(subset=['src_entity_id_agg', 'tar_entity_id_agg'], how='any')
+                    # build graph_network
+                    G_repo = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id_agg', 'tar_entity_id_agg'], base_graph=base_graph,
+                                              default_node_types=['src_entity_type_agg', 'tar_entity_type_agg'], default_edge_type="event_type",
+                                              init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='DG')
+                    base_graph = G_repo
+        write_gexf_with_forced_types(G_repo, dg_dbms_repos_ref_net_node_agg_path, forced_types=forced_types)
+        logger.info(f"{dg_dbms_repos_ref_net_node_agg_path} saved!")
+        if use_repo_nodes_only:
+            nodes_to_remove = [n for n, data in G_repo.nodes(data=True) if data.get('node_type') != 'Repo']
+            G_repo.remove_nodes_from(nodes_to_remove)
+            write_gexf_with_forced_types(G_repo, homo_dg_dbms_repos_ref_net_node_agg_path, forced_types=forced_types)
+            logger.info(f"{homo_dg_dbms_repos_ref_net_node_agg_path} saved!")
+    else:
+        if use_repo_nodes_only and os.path.exists(homo_dg_dbms_repos_ref_net_node_agg_path):
+            G_repo = nx.read_gexf(homo_dg_dbms_repos_ref_net_node_agg_path)
+            logger.info(f"{homo_dg_dbms_repos_ref_net_node_agg_path} already exists!")
+        else:
+            G_repo = nx.read_gexf(dg_dbms_repos_ref_net_node_agg_path)
+            logger.info(f"Read {homo_dg_dbms_repos_ref_net_node_agg_path} ...")
+            if use_repo_nodes_only:
+                nodes_to_remove = [n for n, data in G_repo.nodes(data=True) if data.get('node_type') != 'Repo']
+                G_repo.remove_nodes_from(nodes_to_remove)
+                write_gexf_with_forced_types(G_repo, homo_dg_dbms_repos_ref_net_node_agg_path, forced_types=forced_types)
+                logger.info(f"{homo_dg_dbms_repos_ref_net_node_agg_path} saved!")
 
-    # descent order by records length
-    temp_repoKey_recLen_dict = {k: len(df) for k, df in df_dbms_repos_ref_node_agg_dict.items()}
-    temp_repoKey_recLen_sorted_dict = dict(sorted(temp_repoKey_recLen_dict.items(), key=lambda x: x[1], reverse=True))
-    repo_keys = list(temp_repoKey_recLen_sorted_dict.keys())
-    df_dbms_repos_ref_node_agg_dict = {k: df_dbms_repos_ref_node_agg_dict[k] for k in repo_keys}
-    # Merge the network of multiple repos
-    use_repo_nodes_only = False
-    base_graph = nx.MultiDiGraph()
-    G_repo = base_graph
-    for repo_key, df_dbms_repo in list(df_dbms_repos_ref_node_agg_dict.items())[:]:
-        if df_dbms_repo is not None:
-            if len(df_dbms_repo):
-                df_dbms_repo = df_dbms_repo.dropna(subset=['src_entity_id_agg', 'tar_entity_id_agg'], how='any')
-                if use_repo_nodes_only:
-                    df_dbms_repo = df_dbms_repo[(df_dbms_repo["src_entity_type_agg"] == "Repo") & (df_dbms_repo["tar_entity_type_agg"] == "Repo")]
-                # build network
-                G_repo = build_collab_net(df_dbms_repo, src_tar_colnames=['src_entity_id_agg', 'tar_entity_id_agg'], base_graph=base_graph,
-                                          default_node_types=['src_entity_type_agg', 'tar_entity_type_agg'], default_edge_type="event_type",
-                                          init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='DG')
-                base_graph = G_repo
-    nx.write_gexf(G_repo, "./data/github_osdb_data/network/dbms_repos_ref_net_node_agg.gexf")
-    G_repo = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
+    G_repo_ud = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
     feat = ["len_nodes", "len_edges", "edge_density", "is_sparse", "avg_deg", "avg_clustering",
             "lcc_node_coverage_ratio", "lcc_len_nodes", "lcc_len_edges", "lcc_edge_density", "lcc_diameter",
             "lcc_assort_coe", "lcc_avg_dist"]
-    graph_feature_record_complex_network = get_graph_feature(G_repo, feat=feat)
-    df_dbms_repos_ref_node_agg_g_feat = pd.DataFrame.from_dict(graph_feature_record_complex_network, orient='index')
-    df_dbms_repos_ref_node_agg_g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/df_dbms_repos_ref_node_agg_g_feat.csv')
-    df_dbms_repos_ref_node_agg_g_feat.to_csv(df_dbms_repos_ref_node_agg_g_feat_path, index=False)
-    logger.info(f"{repo_key} saved into df_dbms_repos_ref_node_agg_g_feat.csv!")
+    # graph_feature_record_complex_network = get_graph_feature(G_repo_ud, feat=feat)
+    # df_dbms_repos_ref_net_node_agg_feat = pd.DataFrame.from_dict(graph_feature_record_complex_network, orient='index')
+    # df_dbms_repos_ref_net_node_agg_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/homo_dbms_repos_ref_net_node_agg_feat.csv')
+    # df_dbms_repos_ref_net_node_agg_feat.to_csv(df_dbms_repos_ref_net_node_agg_feat_path, header=False, index=True)
+    # logger.info(f"{df_dbms_repos_ref_net_node_agg_feat_path} saved!")
+
+    # add node attributes: "degree", "repo_name"
+    degrees = dict(G_repo.degree())
+    nx.set_node_attributes(G_repo, degrees, 'degree')
+
+    df_target_repos["repo_id"] = df_target_repos["repo_id"].astype(str)
+    df_filtered = df_target_repos.dropna(subset=['repo_id'])  # 去除key列为空值的行
+    df_filtered = df_filtered.drop_duplicates(subset=['repo_id'], keep='first')  # 去除key列重复值的行，保留第一次出现的
+    # show the repo_name in df_target_repos as node labels
+    repo_id_name_dict = df_filtered.set_index('repo_id')['repo_name'].to_dict()
+    for node in G_repo.nodes():
+        if str(node).startswith("R_"):
+            repo_id = node.split("_")[1]
+            G_repo.nodes[node]['repo_name'] = repo_id_name_dict.get(repo_id, "")
+
+    # filter nodes and edges
+    only_dbms_repo = True
+    drop_self_loop = True
+    node_w_threshold = 1
+    edge_w_threshold = 1
+    if only_dbms_repo:
+        rm_nodes = [n for n, d in G_repo.nodes.items() if d["degree"] < node_w_threshold or not d.get("repo_name")]
+    else:
+        rm_nodes = [n for n, d in G_repo.nodes.items() if d["degree"] < node_w_threshold]
+    G_repo.remove_nodes_from(rm_nodes)
+
+    if drop_self_loop:
+        rm_edges = [(u, v) for u, v, d in G_repo.edges(data=True) if d['weight'] < edge_w_threshold or u == v]
+    else:
+        rm_edges = [(u, v) for u, v, d in G_repo.edges(data=True) if d['weight'] < edge_w_threshold]
+    G_repo.remove_edges_from(rm_edges)
+
+    G_repo_ud = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
+    graph_feature_record_complex_network = get_graph_feature(G_repo_ud, feat=feat)
+    df_only_dbms_repos_ref_net_node_agg_dsl_feat = pd.DataFrame.from_dict(graph_feature_record_complex_network, orient='index')
+    df_only_dbms_repos_ref_net_node_agg_dsl_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/homo_only_dbms_repos_ref_net_node_agg_dsl_feat.csv')
+    df_only_dbms_repos_ref_net_node_agg_dsl_feat.to_csv(df_only_dbms_repos_ref_net_node_agg_dsl_feat_path, header=False, index=True)
+    logger.info(f"{df_only_dbms_repos_ref_net_node_agg_dsl_feat_path} saved!")
 
     # # 步骤4: 网络拓扑特征分析
     # analyze_degree_distribution(G_repo)

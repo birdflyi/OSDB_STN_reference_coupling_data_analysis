@@ -74,7 +74,7 @@ def get_graph_feature(G, feat=None, timeout_sec=10*60):
         else:
             lcc = max(connected_components(G), key=len)
             G_lcc = G.subgraph(lcc).copy()
-        graph_feature_record["lcc_node_coverage_ratio"] = len(lcc) / len(G.nodes)
+        graph_feature_record["lcc_node_coverage_ratio"] = len(G_lcc.nodes) / len(G.nodes)
         graph_feature_record["lcc_len_nodes"] = len(G_lcc.nodes)
         graph_feature_record["lcc_len_edges"] = len(G_lcc.edges)
         graph_feature_record["lcc_edge_density"] = 2 * len(G_lcc.edges) / (len(G_lcc.nodes) * (len(G_lcc.nodes) - 1))

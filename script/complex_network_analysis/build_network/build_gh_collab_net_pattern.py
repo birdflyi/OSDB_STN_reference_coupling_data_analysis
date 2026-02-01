@@ -22,7 +22,7 @@ plt.switch_backend('TkAgg')
 
 def get_pattern_from_ER_config_df_ref_tuples(df_src_tar=None, use_all_nodes=True):
     df_src_tar = df_src_tar if df_src_tar is not None else df_ref_tuples
-    if use_all_nodes:  # init all nodes based on the network pattern dataframe df_ref_tuples with only_build_nodes=True
+    if use_all_nodes:  # init all nodes based on the graph_network pattern dataframe df_ref_tuples with only_build_nodes=True
         base_graph = build_Graph(df_src_tar[['source_node_type', 'target_node_type', 'event_type']], base_graph=None,
                                 default_node_types=['__repr__', '__repr__'], node_type_canopy=False,
                                 use_df_col_as_default_type=True, w_trunc=1, out_g_type='MDG', only_build_nodes=True)
