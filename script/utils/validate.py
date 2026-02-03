@@ -22,13 +22,14 @@ if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时�
     print('-- Add root directory "{}" to system path.'.format(pkg_rootdir))
 
 import re
-
 import pandas as pd
 
 from collections import Iterable
+from datetime import datetime
 
 from GH_CoRE.model import Attribute_getter
 from GH_CoRE.utils.request_api import RequestGitHubAPI
+
 
 class ValidateFunc:
 
@@ -247,14 +248,15 @@ def get_license_name_by_repo_id(repo_id):
 
 def complete_license_info(row_ser, update_license_by_API=False):
     row_ser = pd.Series(row_ser)
-    if not pd.isna(row_ser["License_info"]) and not update_license_by_API:
-        license_name = row_ser["License_info"]
+    old_value = row_ser.get("License_info", None)
+    if not pd.isna(old_value) and not update_license_by_API:
+        license_name = old_value
     else:
         github_repo_link = row_ser["github_repo_link"]
         if pd.isna(github_repo_link):
-            license_name = None if pd.isna(row_ser["License_info"]) else row_ser["License_info"]
+            license_name = None if pd.isna(old_value) else old_value
         elif github_repo_link == "-":
-            license_name = "-" if pd.isna(row_ser["License_info"]) else row_ser["License_info"]
+            license_name = "-" if pd.isna(old_value) else old_value
         elif '/' in github_repo_link:
             repo_id = row_ser.get("github_repo_id", None)
             if pd.isna(repo_id):
@@ -265,10 +267,11 @@ def complete_license_info(row_ser, update_license_by_API=False):
     return license_name
 
 
-def complete_github_repo_id(row_ser):
+def complete_github_repo_id(row_ser, update_repo_id_by_API=False):
     row_ser = pd.Series(row_ser)
-    if not pd.isna(row_ser["github_repo_id"]):
-        repo_id = row_ser["github_repo_id"]
+    old_value = row_ser.get("github_repo_id", None)
+    if not pd.isna(old_value) and not update_repo_id_by_API:
+        repo_id = old_value
     else:
         github_repo_link = row_ser["github_repo_link"]
         if pd.isna(github_repo_link):
@@ -281,6 +284,43 @@ def complete_github_repo_id(row_ser):
         else:
             raise ValueError("github_repo_link should be separated by '/' or set to a value in ['-', None]!")
     return repo_id
+
+
+def get_repo_created_at_by_repo_id(repo_id, auto_parse=False):
+    repo_created_at = None
+    requestGitHubAPI = RequestGitHubAPI(url_pat_mode="id")
+    url = requestGitHubAPI.get_url("repo", params={"repo_id": repo_id})
+    response = requestGitHubAPI.request(url)
+    if response is not None and hasattr(response, "json"):
+        data = response.json()
+        created_at_str = data.get("created_at", None)
+        if isinstance(created_at_str, str):
+            repo_created_at = datetime.strptime(created_at_str, '%Y-%m-%dT%H:%M:%SZ') if auto_parse else created_at_str
+    else:
+        repo_created_at = '-'
+        print(f"repo_id: {repo_id}. Empty data.")
+    return repo_created_at
+
+
+def complete_repo_created_at(row_ser, update_repo_created_at_by_API=False):
+    row_ser = pd.Series(row_ser)
+    old_value = row_ser.get("repo_created_at", None)
+    if not pd.isna(old_value) and not update_repo_created_at_by_API:
+        repo_created_at = old_value
+    else:
+        github_repo_link = row_ser["github_repo_link"]
+        if pd.isna(github_repo_link):
+            repo_created_at = None if pd.isna(old_value) else old_value
+        elif github_repo_link == "-":
+            repo_created_at = "-" if pd.isna(old_value) else old_value
+        elif '/' in github_repo_link:
+            repo_id = row_ser.get("github_repo_id", None)
+            if pd.isna(repo_id):
+                repo_id = Attribute_getter.__get_repo_id_by_repo_full_name(github_repo_link)
+            repo_created_at = get_repo_created_at_by_repo_id(repo_id, auto_parse=False)
+        else:
+            raise ValueError("github_repo_link should be separated by '/' or set to a value in ['-', None]!")
+    return repo_created_at
 
 
 if __name__ == '__main__':

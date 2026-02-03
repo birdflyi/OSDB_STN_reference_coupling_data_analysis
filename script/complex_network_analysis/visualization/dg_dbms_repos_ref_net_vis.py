@@ -44,7 +44,6 @@ if __name__ == '__main__':
     year = 2023
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
     df_target_repos = select_target_repos(dbms_repos_key_feats_path, year, re_preprocess=False, ret="dataframe")
-    use_repo_nodes_only = True
     homo_dg_dbms_repos_ref_net_node_agg_filename = "homo_dg_dbms_repos_ref_net_node_agg.gexf"
     graph_network_dir = filePathConf.absPathDict[filePathConf.GRAPH_NETWORK_DIR]
     homo_dg_dbms_repos_ref_net_node_agg_path = os.path.join(graph_network_dir,
@@ -89,7 +88,7 @@ if __name__ == '__main__':
     np.random.seed(seed)
     logger.info(f"Calculate networkx position with seed={seed}...")
     layout_dir = os.path.join(graph_network_dir, 'visualization')
-    layout_filename = 'spring_layout_only_dbms_repo.pkl' if only_dbms_repo else 'spring_layout.pkl'
+    layout_filename = f"homo_dg{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}_spring_layout.pkl"
     layout_path = os.path.join(layout_dir, layout_filename)
     if not flag_skip_existing_files or not os.path.exists(layout_path):
         pos = nx.spring_layout(G_repo, seed=seed)
@@ -118,7 +117,7 @@ if __name__ == '__main__':
     nx.draw_networkx_edge_labels(G_repo, pos, font_size=5, edge_labels=edge_labels)
     nx.draw(G_repo, pos, node_size=node_size, node_color=node_color, labels=node_labels, font_size=5, edge_color="gray")
 
-    plt.title(f'Homogeneous DBMS Repos Reference Network(edge_weight >= {edge_w_threshold})', fontsize=15)
+    plt.title(f"Homogeneous{' Only' if only_dbms_repo else ' '} DBMS Repos Reference Network({'Drop Self Loop, ' if drop_self_loop else ''}edge_weight >= {edge_w_threshold})", fontsize=15)
     plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                             f"analysis_results/homo_only_dbms_repos_ref_net_scale1_trunc1__edge_w_gt_{edge_w_threshold}.png"), format="PNG")
+                             f"analysis_results/homo{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}_scale1_trunc1__edge_w_ge_{edge_w_threshold}.png"), format="PNG")
     plt.show()

@@ -1,10 +1,10 @@
-len_nodes,6515
+len_nodes,6514
 len_edges,9846
-edge_density,0.00046401033396161194
+edge_density,0.0004641528213971905
 is_sparse,True
-avg_deg,3.02256331542594
-avg_clustering,0.0412975806601821
-lcc_node_coverage_ratio,0.9786646201074444
+avg_deg,3.0230273257599016
+avg_clustering,0.04130392047913515
+lcc_node_coverage_ratio,0.9788148603008904
 lcc_len_nodes,6376
 lcc_len_edges,9710
 lcc_edge_density,0.00047777203729672545

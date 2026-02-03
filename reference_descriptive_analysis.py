@@ -43,24 +43,31 @@ from GH_CoRE.working_flow import query_repo_log_each_year_to_csv_dir, read_csvs,
     get_repo_year_filename
 
 from etc import filePathConf
-from script.utils.validate import ValidateFunc, complete_license_info, complete_github_repo_id
+from script.utils.validate import ValidateFunc, complete_license_info, complete_github_repo_id, complete_repo_created_at
 from script.complex_network_analysis.Network_params_analysis import get_graph_feature
 
 setup_logging(base_dir=pkg_rootdir)
 logger = logging.getLogger(__name__)
 
 
-def get_matched_repo_name(row: pd.Series, reponame_repoid_dict: dict):
+def get_matched_repo_name(row: pd.Series, df_ref: pd.DataFrame, repo_name_colname='github_repo_link',
+                          repo_id_colname='github_repo_id', copy_columns=None):
+    new_row_index = list(row.index) + ["repo_name"]
+    if copy_columns is not None:
+        copy_columns = list(copy_columns)
+        new_row_index += copy_columns
+    new_row = row.reindex(new_row_index, fill_value = None)
     latest_repo_id = str(row["repo_id"])
     repo_name_used = row["repo_name_used"]
-    row["repo_name"] = None  # need to check
-    for repo_name, repo_id in reponame_repoid_dict.items():
-        if repo_name_used == repo_name and latest_repo_id == repo_id:
-            row["repo_name"] = repo_name
+    for index_ref, row_ref in df_ref.iterrows():
+        if repo_name_used == row_ref[repo_name_colname] and latest_repo_id == row_ref[repo_id_colname]:
+            new_row["repo_name"] = row_ref[repo_name_colname]
+            if copy_columns is not None:
+                new_row.update(row_ref[copy_columns])
             break
         else:
             continue
-    return row
+    return new_row
 
 
 # 步骤2: 数据收集与预处理
@@ -74,11 +81,11 @@ def select_target_repos(dbms_repos_key_feats_path, year=2023, re_preprocess=Fals
     df_OSDB_github_key_feats = pd.read_csv(dbms_repos_key_feats_path, header='infer', index_col=None, dtype=str)
     if re_preprocess:
         # Complete github_repo_id data with github_repo_link by GitHub API
-        df_OSDB_github_key_feats["github_repo_id"] = df_OSDB_github_key_feats.apply(complete_github_repo_id, axis=1)
-        df_OSDB_github_key_feats.to_csv(dbms_repos_key_feats_path, header=True, index=False)
-
+        df_OSDB_github_key_feats["github_repo_id"] = df_OSDB_github_key_feats.apply(complete_github_repo_id, update_repo_id_by_API=False, axis=1)
         # Complete License_info data by GitHub API
         df_OSDB_github_key_feats["License_info"] = df_OSDB_github_key_feats.apply(complete_license_info, update_license_by_API=False, axis=1)
+        # Complete License_info data by GitHub API
+        df_OSDB_github_key_feats["repo_created_at"] = df_OSDB_github_key_feats.apply(complete_repo_created_at, update_repo_created_at_by_API=False, axis=1)
         df_OSDB_github_key_feats.to_csv(dbms_repos_key_feats_path, header=True, index=False)
 
     # 2. Has common open source license
@@ -122,8 +129,9 @@ def select_target_repos(dbms_repos_key_feats_path, year=2023, re_preprocess=Fals
         conndb.execute()
         df_repo_i_pr_rec_cnt = conndb.rs  # columns: ["repo_id", "repo_name_used", "i_pr_rec_cnt"]
         # 由于存在仓库更名，不同的repo_name可以对应相同的repo_id，不能直接对repo_id set_index。
-        df_repo_i_pr_rec_cnt = df_repo_i_pr_rec_cnt.apply(get_matched_repo_name, reponame_repoid_dict=df_OSDB_github_key_feats.set_index('github_repo_link')['github_repo_id'], axis=1)
-        df_repo_i_pr_rec_cnt = df_repo_i_pr_rec_cnt[["repo_id", "repo_name", "repo_name_used", "i_pr_rec_cnt"]]
+        copy_columns = ["repo_created_at"]
+        df_repo_i_pr_rec_cnt = df_repo_i_pr_rec_cnt.apply(get_matched_repo_name, df_ref=df_OSDB_github_key_feats, copy_columns=copy_columns, axis=1, result_type='expand')
+        df_repo_i_pr_rec_cnt = df_repo_i_pr_rec_cnt[["repo_id", "repo_name", "repo_name_used", "i_pr_rec_cnt"] + copy_columns]
         df_repo_i_pr_rec_cnt.to_csv(repo_i_pr_rec_cnt_path, header=True, index=False, encoding='utf-8')
     else:
         df_repo_i_pr_rec_cnt = pd.read_csv(repo_i_pr_rec_cnt_path, index_col=None)
@@ -266,6 +274,22 @@ def granu_agg(row: pd.Series, repo_id=None):
     return row
 
 
+def set_entity_type_fine_grained(row: pd.Series):
+    ent_type = "GitHub_Service_External_Links"
+    if row["tar_entity_type_agg"] == "Object":  # GitHub_Other_Service and GitHub_Service_External_Links and other wrong pattern has no id
+        if row["tar_entity_match_pattern_type"] in ["GitHub_Other_Service", "GitHub_Service_External_Links"]:
+            ent_type = row["tar_entity_match_pattern_type"]
+        else:
+            pass  # Can not get a valid node response from GitHub REST API or GitHub GraphQL. Regard as GitHub_Service_External_Links.
+    else:  # row["tar_entity_type"] have Fine grained type when row["tar_entity_type"] != "Object", especially for Issue_PR and SHA pattern
+        if row["tar_entity_type"] == "Object":
+            ent_type = row["tar_entity_match_pattern_type"]
+        else:
+            ent_type = row["tar_entity_type"]  # for Issue, IssueComment, PullRequest, PullRequestReviewComment and Commit
+    row["tar_entity_type_fine_grained"] = ent_type
+    return row
+
+
 def write_gexf_with_forced_types(G, filepath, forced_types=None, repl_None_str=""):
     """
     强制指定GEXF文件中属性的类型，避免NetworkX自动推断错误。
@@ -362,6 +386,7 @@ if __name__ == '__main__':
             repo_id_match_flags = df_target_repos.apply(lambda row: row['repo_id'] if is_reponame_repokey_matched(row['repo_name'], repo_key) else None, axis=1)
             repo_id = repo_id_match_flags.dropna().iloc[0] if not repo_id_match_flags.dropna().empty else None
             df_dbms_repo_ref_node_agg = df_dbms_repo_ref.apply(granu_agg, axis=1, repo_id=repo_id)  # repo_id as source repo id
+            df_dbms_repo_ref_node_agg = df_dbms_repo_ref_node_agg.apply(set_entity_type_fine_grained, axis=1)
             temp_save_path = os.path.join(dbms_repos_gh_core_ref_node_agg_dir, f'{repo_key}.csv')
             df_dbms_repo_ref_node_agg.to_csv(temp_save_path, header=True, index=False, encoding='utf-8')
             df_dbms_repos_ref_node_agg_dict[repo_key] = df_dbms_repo_ref_node_agg
@@ -460,21 +485,22 @@ if __name__ == '__main__':
 
     G_repo_ud = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
     graph_feature_record_complex_network = get_graph_feature(G_repo_ud, feat=feat)
-    df_only_dbms_repos_ref_net_node_agg_dsl_feat = pd.DataFrame.from_dict(graph_feature_record_complex_network, orient='index')
-    df_only_dbms_repos_ref_net_node_agg_dsl_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], 'analysis_results/homo_only_dbms_repos_ref_net_node_agg_dsl_feat.csv')
-    df_only_dbms_repos_ref_net_node_agg_dsl_feat.to_csv(df_only_dbms_repos_ref_net_node_agg_dsl_feat_path, header=False, index=True)
-    logger.info(f"{df_only_dbms_repos_ref_net_node_agg_dsl_feat_path} saved!")
+    df_dbms_repos_ref_net_node_agg_feat = pd.DataFrame.from_dict(graph_feature_record_complex_network, orient='index')
+    feat_filename = f"homo{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}_feat.csv"
+    df_dbms_repos_ref_net_node_agg_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], f'analysis_results/{feat_filename}')
+    df_dbms_repos_ref_net_node_agg_feat.to_csv(df_dbms_repos_ref_net_node_agg_feat_path, header=False, index=True)
+    logger.info(f"{df_dbms_repos_ref_net_node_agg_feat_path} saved!")
+
+    # # 步骤5: 描述性指标分析
+    # analyze_reference_type_distribution(dbms_repos_gh_core_ref_node_agg_dir, filenames=filenames)
+    # calculate_issue_metrics(target_repos)
+    # study_time_evolution(target_repos)
 
     # # 步骤4: 网络拓扑特征分析
     # analyze_degree_distribution(G_repo)
     # calculate_centrality_measures(G_repo)
     # detect_community_structure(G_repo)
     # compute_clustering_coefficient(G_repo)
-    #
-    # # 步骤5: 描述性指标分析
-    # analyze_reference_type_distribution()
-    # calculate_issue_metrics(target_repos)
-    # study_time_evolution(target_repos)
     #
     # # 步骤6: 结果汇总与可视化
     # generate_experiment_report()
