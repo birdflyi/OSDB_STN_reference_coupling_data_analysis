@@ -5619,7 +5619,7 @@ if __name__ == '__main__':
             G_repo.nodes[node]["repo_name"] = repo_id_name_dict.get(repo_id, "")
 
     # filter nodes and edges
-    only_dbms_repo = True
+    only_dbms_repo = False
     drop_self_loop = True
     node_w_threshold = 1
     edge_w_threshold = 1
