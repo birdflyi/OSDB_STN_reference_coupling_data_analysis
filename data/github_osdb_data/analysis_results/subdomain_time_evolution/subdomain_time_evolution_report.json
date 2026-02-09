@@ -1,0 +1,430 @@
+{
+    "analysis_summary": {
+        "total_projects_analyzed": 291,
+        "subdomains_analyzed": [
+            "Key-value",
+            "Relational",
+            "Document",
+            "Search Engine",
+            "Vector",
+            "Object Oriented",
+            "Wide column",
+            "Time Series",
+            "Graph",
+            "Hierarchical",
+            "Array",
+            "Native XML",
+            "Event",
+            "Spatial",
+            "RDF",
+            "Columnar",
+            "Content",
+            "Multivalue"
+        ],
+        "subdomain_distribution": {
+            "Relational": 71,
+            "Document": 60,
+            "Key-value": 52,
+            "Graph": 23,
+            "Time Series": 19,
+            "Object Oriented": 17,
+            "Vector": 14,
+            "Wide column": 9,
+            "RDF": 8,
+            "Spatial": 3,
+            "Search Engine": 3,
+            "Array": 3,
+            "Hierarchical": 2,
+            "Event": 2,
+            "Native XML": 2,
+            "Columnar": 1,
+            "Content": 1,
+            "Multivalue": 1
+        },
+        "overall_statistics": {
+            "mean_project_age": 6.504352571204114,
+            "median_project_age": 6.535249828884326,
+            "mean_external_ref_ratio": 0.5861413808858759,
+            "median_external_ref_ratio": 0.609375
+        }
+    },
+    "subdomain_detailed_analysis": {
+        "Key-value": {
+            "age_statistics": {
+                "count": 52,
+                "mean_age": 6.922655715263517,
+                "median_age": 6.38466803559206,
+                "min_age": 0.840520191649555,
+                "max_age": 14.77618069815195
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.6504522256344532,
+                "median_external_ref": 0.668427345066834,
+                "std_external_ref": 0.20788947907853966,
+                "min_external_ref": 0.15920949647795457,
+                "max_external_ref": 1.0
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.07746247383541502,
+                "p_value": 0.5851811935167286,
+                "regression_slope": 0.004248211943535162,
+                "regression_intercept": 0.6210433169438887,
+                "r_squared": 0.006000434852702361,
+                "significant": false
+            },
+            "sample_size": 52
+        },
+        "Relational": {
+            "age_statistics": {
+                "count": 71,
+                "mean_age": 5.393296121699397,
+                "median_age": 5.3114305270362765,
+                "min_age": 0.3394934976043806,
+                "max_age": 14.609171800136892
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5975814744789385,
+                "median_external_ref": 0.632183908045977,
+                "std_external_ref": 0.23485266961261672,
+                "min_external_ref": 0.140625,
+                "max_external_ref": 1.0
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.1583969119795764,
+                "p_value": 0.18705812373892136,
+                "regression_slope": 0.011032518099721266,
+                "regression_intercept": 0.5380798373991333,
+                "r_squared": 0.025089581724665688,
+                "significant": false
+            },
+            "sample_size": 71
+        },
+        "Document": {
+            "age_statistics": {
+                "count": 60,
+                "mean_age": 6.761350673054986,
+                "median_age": 7.2060232717316905,
+                "min_age": 0.10403832991101986,
+                "max_age": 14.954140999315538
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5829787320368319,
+                "median_external_ref": 0.6098823051948052,
+                "std_external_ref": 0.25824724982235275,
+                "min_external_ref": 0.0,
+                "max_external_ref": 1.0
+            },
+            "correlation_analysis": {
+                "pearson_correlation": -0.18135799022217575,
+                "p_value": 0.16551128353318945,
+                "regression_slope": -0.010452233901434837,
+                "regression_intercept": 0.6536499507612266,
+                "r_squared": 0.03289072061742684,
+                "significant": false
+            },
+            "sample_size": 60
+        },
+        "Search Engine": {
+            "age_statistics": {
+                "count": 3,
+                "mean_age": 5.455624001825234,
+                "median_age": 6.505133470225872,
+                "min_age": 2.915811088295688,
+                "max_age": 6.945927446954141
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.6875301985796817,
+                "median_external_ref": 0.695746214852199,
+                "std_external_ref": 0.04365944188290484,
+                "min_external_ref": 0.6403464470025485,
+                "max_external_ref": 0.7264979338842975
+            },
+            "correlation_analysis": null,
+            "sample_size": 3
+        },
+        "Vector": {
+            "age_statistics": {
+                "count": 14,
+                "mean_age": 2.5911802092500245,
+                "median_age": 1.5742642026009581,
+                "min_age": 0.09856262833675565,
+                "max_age": 7.750855578370979
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5171478422545795,
+                "median_external_ref": 0.5478378047286537,
+                "std_external_ref": 0.26508450401375994,
+                "min_external_ref": 0.02197802197802201,
+                "max_external_ref": 0.8735998691848582
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.6760980820109062,
+                "p_value": 0.007940948605085157,
+                "regression_slope": 0.07926545647089163,
+                "regression_intercept": 0.31175676017003584,
+                "r_squared": 0.457108616498826,
+                "significant": true
+            },
+            "sample_size": 14
+        },
+        "Object Oriented": {
+            "age_statistics": {
+                "count": 17,
+                "mean_age": 6.887466280146556,
+                "median_age": 6.929500342231348,
+                "min_age": 0.5010266940451745,
+                "max_age": 13.607118412046544
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.4819349158662709,
+                "median_external_ref": 0.5059094625734037,
+                "std_external_ref": 0.2868650599041241,
+                "min_external_ref": 0.0,
+                "max_external_ref": 0.9692952639927487
+            },
+            "correlation_analysis": {
+                "pearson_correlation": -0.0014757660427147934,
+                "p_value": 0.9955149401084619,
+                "regression_slope": -9.228769793202107e-05,
+                "regression_intercept": 0.48257054427385004,
+                "r_squared": 2.177885412829876e-06,
+                "significant": false
+            },
+            "sample_size": 17
+        },
+        "Wide column": {
+            "age_statistics": {
+                "count": 9,
+                "mean_age": 8.875808046239259,
+                "median_age": 11.184120465434633,
+                "min_age": 1.7713894592744694,
+                "max_age": 14.609171800136892
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5368822452981443,
+                "median_external_ref": 0.5576678573590845,
+                "std_external_ref": 0.21793296148364108,
+                "min_external_ref": 0.23612622415669204,
+                "max_external_ref": 0.8795977771897328
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.2993085376902486,
+                "p_value": 0.4339587220230486,
+                "regression_slope": 0.014415889912874624,
+                "regression_intercept": 0.40892957361575233,
+                "r_squared": 0.08958560073427492,
+                "significant": false
+            },
+            "sample_size": 9
+        },
+        "Time Series": {
+            "age_statistics": {
+                "count": 19,
+                "mean_age": 7.274469541409992,
+                "median_age": 7.846680355920602,
+                "min_age": 1.5085557837097878,
+                "max_age": 13.34154688569473
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5404652922394548,
+                "median_external_ref": 0.5898305084745763,
+                "std_external_ref": 0.213232936610687,
+                "min_external_ref": 0.11173184357541899,
+                "max_external_ref": 0.8490853658536586
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.2711294542437145,
+                "p_value": 0.2615282482346316,
+                "regression_slope": 0.014864738443901845,
+                "regression_intercept": 0.4323322051882647,
+                "r_squared": 0.07351118095849446,
+                "significant": false
+            },
+            "sample_size": 19
+        },
+        "Graph": {
+            "age_statistics": {
+                "count": 23,
+                "mean_age": 6.688331398982234,
+                "median_age": 6.885694729637235,
+                "min_age": 1.3470225872689938,
+                "max_age": 12.177960301163587
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.58967885687837,
+                "median_external_ref": 0.6060131537738804,
+                "std_external_ref": 0.17488328752006946,
+                "min_external_ref": 0.18181818181818177,
+                "max_external_ref": 0.8311096098631988
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.11443079146335469,
+                "p_value": 0.603133406580846,
+                "regression_slope": 0.0066935250234041324,
+                "regression_intercept": 0.5449103432944629,
+                "r_squared": 0.013094406034929775,
+                "significant": false
+            },
+            "sample_size": 23
+        },
+        "Hierarchical": {
+            "sample_size": 2,
+            "insufficient_data": true
+        },
+        "Array": {
+            "age_statistics": {
+                "count": 3,
+                "mean_age": 5.1234314396532055,
+                "median_age": 6.74880219028063,
+                "min_age": 0.47638603696098564,
+                "max_age": 8.145106091718
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.45348088138101605,
+                "median_external_ref": 0.2608859922546519,
+                "std_external_ref": 0.38200741218148576,
+                "min_external_ref": 0.20610687022900764,
+                "max_external_ref": 0.8934497816593887
+            },
+            "correlation_analysis": null,
+            "sample_size": 3
+        },
+        "Native XML": {
+            "sample_size": 2,
+            "insufficient_data": true
+        },
+        "Event": {
+            "sample_size": 2,
+            "insufficient_data": true
+        },
+        "Spatial": {
+            "age_statistics": {
+                "count": 3,
+                "mean_age": 10.349075975359343,
+                "median_age": 10.757015742642025,
+                "min_age": 8.684462696783026,
+                "max_age": 11.605749486652977
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.7073747417504559,
+                "median_external_ref": 0.7578277886497065,
+                "std_external_ref": 0.2876367763037059,
+                "min_external_ref": 0.3978494623655914,
+                "max_external_ref": 0.9664469742360696
+            },
+            "correlation_analysis": null,
+            "sample_size": 3
+        },
+        "RDF": {
+            "age_statistics": {
+                "count": 8,
+                "mean_age": 7.641341546885695,
+                "median_age": 7.990417522245037,
+                "min_age": 3.1950718685831623,
+                "max_age": 10.984257357973991
+            },
+            "external_ref_statistics": {
+                "mean_external_ref": 0.5769134694892174,
+                "median_external_ref": 0.5858846985671804,
+                "std_external_ref": 0.16734990248267684,
+                "min_external_ref": 0.34504792332268375,
+                "max_external_ref": 0.7647058823529412
+            },
+            "correlation_analysis": {
+                "pearson_correlation": 0.817117810886414,
+                "p_value": 0.01327093538910605,
+                "regression_slope": 0.04757861765971299,
+                "regression_intercept": 0.21334900162266313,
+                "r_squared": 0.6676815168678051,
+                "significant": true
+            },
+            "sample_size": 8
+        },
+        "Columnar": {
+            "sample_size": 1,
+            "insufficient_data": true
+        },
+        "Content": {
+            "sample_size": 1,
+            "insufficient_data": true
+        },
+        "Multivalue": {
+            "sample_size": 1,
+            "insufficient_data": true
+        }
+    },
+    "trend_comparison": [
+        {
+            "subdomain": "RDF",
+            "sample_size": 8,
+            "correlation": 0.817117810886414,
+            "r_squared": 0.6676815168678051,
+            "slope": 0.04757861765971299,
+            "significant": true
+        },
+        {
+            "subdomain": "Vector",
+            "sample_size": 14,
+            "correlation": 0.6760980820109062,
+            "r_squared": 0.457108616498826,
+            "slope": 0.07926545647089163,
+            "significant": true
+        },
+        {
+            "subdomain": "Wide column",
+            "sample_size": 9,
+            "correlation": 0.2993085376902486,
+            "r_squared": 0.08958560073427492,
+            "slope": 0.014415889912874624,
+            "significant": false
+        },
+        {
+            "subdomain": "Time Series",
+            "sample_size": 19,
+            "correlation": 0.2711294542437145,
+            "r_squared": 0.07351118095849446,
+            "slope": 0.014864738443901845,
+            "significant": false
+        },
+        {
+            "subdomain": "Relational",
+            "sample_size": 71,
+            "correlation": 0.1583969119795764,
+            "r_squared": 0.025089581724665688,
+            "slope": 0.011032518099721266,
+            "significant": false
+        },
+        {
+            "subdomain": "Graph",
+            "sample_size": 23,
+            "correlation": 0.11443079146335469,
+            "r_squared": 0.013094406034929775,
+            "slope": 0.0066935250234041324,
+            "significant": false
+        },
+        {
+            "subdomain": "Key-value",
+            "sample_size": 52,
+            "correlation": 0.07746247383541502,
+            "r_squared": 0.006000434852702361,
+            "slope": 0.004248211943535162,
+            "significant": false
+        },
+        {
+            "subdomain": "Object Oriented",
+            "sample_size": 17,
+            "correlation": -0.0014757660427147934,
+            "r_squared": 2.177885412829876e-06,
+            "slope": -9.228769793202107e-05,
+            "significant": false
+        },
+        {
+            "subdomain": "Document",
+            "sample_size": 60,
+            "correlation": -0.18135799022217575,
+            "r_squared": 0.03289072061742684,
+            "slope": -0.010452233901434837,
+            "significant": false
+        }
+    ]
+}

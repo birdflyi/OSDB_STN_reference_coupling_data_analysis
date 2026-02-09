@@ -1,0 +1,254 @@
+{
+    "subdomain_summary": {
+        "num_subdomains": 18,
+        "subdomains_analyzed": [
+            "Relational",
+            "Search Engine",
+            "Vector",
+            "Document",
+            "Key-value",
+            "Object Oriented",
+            "Wide column",
+            "Time Series",
+            "Graph",
+            "Hierarchical",
+            "Array",
+            "Native XML",
+            "Event",
+            "Spatial",
+            "RDF",
+            "Columnar",
+            "Content",
+            "Multivalue"
+        ],
+        "total_repositories_analyzed": 294,
+        "total_references_analyzed": 3748078
+    },
+    "reference_type_summary": {
+        "total_reference_types": 19,
+        "reference_types_analyzed": [
+            "Actor",
+            "Branch",
+            "Branch_Tag_GHDir",
+            "Commit",
+            "CommitComment",
+            "GitHub_Files_FileChanges",
+            "GitHub_GenSer_Other_Links",
+            "GitHub_Other_Service",
+            "GitHub_Service_External_Links",
+            "Gollum",
+            "Issue",
+            "IssueComment",
+            "Issue_PR",
+            "PullRequest",
+            "PullRequestReview",
+            "PullRequestReviewComment",
+            "Release",
+            "Repo",
+            "Tag"
+        ]
+    },
+    "chi2_test_results": {
+        "chi2_statistic": 773813.5701483227,
+        "p_value": 0.0,
+        "degrees_of_freedom": 306,
+        "significant": true,
+        "effect_size_cramers_v": 0.11020198060740745
+    },
+    "top_reference_types_by_subdomain": {
+        "Relational": {
+            "top_types": {
+                "GitHub_Service_External_Links": 970767,
+                "PullRequest": 351181,
+                "Actor": 284687,
+                "Issue": 212554,
+                "Commit": 152839
+            },
+            "repo_count": 77,
+            "total_references": 2189921
+        },
+        "Search Engine": {
+            "top_types": {
+                "GitHub_Service_External_Links": 77253,
+                "PullRequest": 46931,
+                "Repo": 42580,
+                "Actor": 33830,
+                "GitHub_Files_FileChanges": 26243
+            },
+            "repo_count": 7,
+            "total_references": 273395
+        },
+        "Vector": {
+            "top_types": {
+                "GitHub_Service_External_Links": 101708,
+                "Actor": 46853,
+                "PullRequest": 30267,
+                "GitHub_Files_FileChanges": 16785,
+                "Commit": 13243
+            },
+            "repo_count": 14,
+            "total_references": 234429
+        },
+        "Document": {
+            "top_types": {
+                "GitHub_Service_External_Links": 165081,
+                "Commit": 39362,
+                "PullRequest": 30884,
+                "Actor": 15062,
+                "Issue": 12381
+            },
+            "repo_count": 55,
+            "total_references": 278753
+        },
+        "Key-value": {
+            "top_types": {
+                "GitHub_Service_External_Links": 98298,
+                "PullRequest": 34997,
+                "Actor": 26243,
+                "Issue": 9679,
+                "Commit": 7059
+            },
+            "repo_count": 49,
+            "total_references": 193744
+        },
+        "Object Oriented": {
+            "top_types": {
+                "GitHub_Service_External_Links": 59207,
+                "PullRequest": 41873,
+                "Issue": 11507,
+                "Actor": 7434,
+                "Commit": 2976
+            },
+            "repo_count": 17,
+            "total_references": 128125
+        },
+        "Wide column": {
+            "top_types": {
+                "GitHub_Service_External_Links": 33732,
+                "PullRequest": 21035,
+                "Actor": 14977,
+                "GitHub_Files_FileChanges": 5026,
+                "Commit": 3565
+            },
+            "repo_count": 9,
+            "total_references": 86770
+        },
+        "Time Series": {
+            "top_types": {
+                "PullRequest": 46423,
+                "GitHub_Service_External_Links": 35247,
+                "Actor": 30858,
+                "Issue": 7817,
+                "Commit": 4834
+            },
+            "repo_count": 19,
+            "total_references": 140637
+        },
+        "Graph": {
+            "top_types": {
+                "PullRequest": 43868,
+                "GitHub_Service_External_Links": 32265,
+                "Actor": 10016,
+                "Commit": 4872,
+                "GitHub_GenSer_Other_Links": 4248
+            },
+            "repo_count": 23,
+            "total_references": 104900
+        },
+        "Hierarchical": {
+            "top_types": {
+                "GitHub_Service_External_Links": 54838,
+                "PullRequest": 8731,
+                "Actor": 1541,
+                "GitHub_GenSer_Other_Links": 512,
+                "Commit": 410
+            },
+            "repo_count": 2,
+            "total_references": 66608
+        },
+        "Array": {
+            "top_types": {
+                "PullRequest": 7685,
+                "GitHub_Service_External_Links": 2258,
+                "Actor": 826,
+                "GitHub_GenSer_Other_Links": 302,
+                "Commit": 291
+            },
+            "repo_count": 4,
+            "total_references": 12146
+        },
+        "Native XML": {
+            "top_types": {
+                "GitHub_Service_External_Links": 17581,
+                "Actor": 1088,
+                "PullRequest": 707,
+                "GitHub_GenSer_Other_Links": 590,
+                "Repo": 430
+            },
+            "repo_count": 2,
+            "total_references": 21150
+        },
+        "Event": {
+            "top_types": {
+                "PullRequest": 2686,
+                "GitHub_Service_External_Links": 650,
+                "Actor": 294,
+                "Commit": 164,
+                "GitHub_GenSer_Other_Links": 72
+            },
+            "repo_count": 2,
+            "total_references": 4112
+        },
+        "Spatial": {
+            "top_types": {
+                "GitHub_Service_External_Links": 2629,
+                "PullRequest": 432,
+                "Actor": 325,
+                "GitHub_Files_FileChanges": 125,
+                "GitHub_Other_Service": 83
+            },
+            "repo_count": 3,
+            "total_references": 3806
+        },
+        "RDF": {
+            "top_types": {
+                "PullRequest": 2513,
+                "GitHub_Service_External_Links": 1867,
+                "Actor": 1063,
+                "Issue": 739,
+                "GitHub_Files_FileChanges": 663
+            },
+            "repo_count": 8,
+            "total_references": 7729
+        },
+        "Columnar": {
+            "top_types": {
+                "PullRequest": 975,
+                "GitHub_Service_External_Links": 351,
+                "Commit": 146,
+                "Actor": 94,
+                "GitHub_Files_FileChanges": 6
+            },
+            "repo_count": 1,
+            "total_references": 1576
+        },
+        "Content": {
+            "top_types": {
+                "GitHub_Service_External_Links": 239,
+                "GitHub_GenSer_Other_Links": 7,
+                "GitHub_Other_Service": 7,
+                "Repo": 6,
+                "PullRequest": 5
+            },
+            "repo_count": 1,
+            "total_references": 269
+        },
+        "Multivalue": {
+            "top_types": {
+                "PullRequest": 8
+            },
+            "repo_count": 1,
+            "total_references": 8
+        }
+    }
+}

@@ -1,0 +1,1346 @@
+{
+    "degree_centrality": {
+        "top_nodes": [
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.05512052817442039,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.04867188699524029,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.04759711346537694,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.04713649623829265,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.04176262858897589,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.035774604636880085,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.03362505757715339,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.028865346230615693,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.028558268079226165,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.02779057270075234,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.027483494549362813,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.024105634884078,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.022263165975740826,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_3786237",
+                "centrality_value": 0.021802548748656534,
+                "in_lcc": true,
+                "repo_name": "hazelcast/hazelcast",
+                "repo_id": "3786237",
+                "degree": 144,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_351806852",
+                "centrality_value": 0.021188392445877478,
+                "in_lcc": true,
+                "repo_name": "neondatabase/neon",
+                "repo_id": "351806852",
+                "degree": 140,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_114619105",
+                "centrality_value": 0.020113618916014125,
+                "in_lcc": true,
+                "repo_name": "apache/kyuubi",
+                "repo_id": "114619105",
+                "degree": 134,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_302827809",
+                "centrality_value": 0.01949946261323507,
+                "in_lcc": true,
+                "repo_name": "datafuselabs/databend",
+                "repo_id": "302827809",
+                "degree": 132,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_19961085",
+                "centrality_value": 0.01919238446184554,
+                "in_lcc": true,
+                "repo_name": "apache/pinot",
+                "repo_id": "19961085",
+                "degree": 128,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_385634291",
+                "centrality_value": 0.018885306310456013,
+                "in_lcc": true,
+                "repo_name": "grafana/mimir",
+                "repo_id": "385634291",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.018578228159066484,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.00045052899797815856,
+            "median": 0.00015353907569476432,
+            "std": 0.0021054863967228106,
+            "max": 0.05512052817442039,
+            "min": 0.0
+        },
+        "based_on_all_nodes": true
+    },
+    "closeness_centrality": {
+        "top_nodes": [
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.36002710792342013,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.3535185493262352,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_197814629",
+                "centrality_value": 0.3524436090225564,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "197814629",
+                "degree": 34,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.3523462112419168,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.35089167767503304,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.3492002629272568,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6934395",
+                "centrality_value": 0.3481703986892409,
+                "in_lcc": true,
+                "repo_name": "facebook/rocksdb",
+                "repo_id": "6934395",
+                "degree": 69,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_23357588",
+                "centrality_value": 0.34678779306968394,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "23357588",
+                "degree": 21,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.34641091126446777,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_190416463",
+                "centrality_value": 0.3462415815772322,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "190416463",
+                "degree": 24,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.34494886640333317,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.34346209794730886,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.3430001076078769,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_51905353",
+                "centrality_value": 0.3420798454603992,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "51905353",
+                "degree": 28,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_99919302",
+                "centrality_value": 0.3401451285881976,
+                "in_lcc": true,
+                "repo_name": "apache/doris",
+                "repo_id": "99919302",
+                "degree": 73,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.33943879452638304,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.3382501193823951,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_150954997",
+                "centrality_value": 0.3374087011749762,
+                "in_lcc": true,
+                "repo_name": "VictoriaMetrics/VictoriaMetrics",
+                "repo_id": "150954997",
+                "degree": 122,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_9342529",
+                "centrality_value": 0.3370697403902078,
+                "in_lcc": true,
+                "repo_name": "crate/crate",
+                "repo_id": "9342529",
+                "degree": 64,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.3360746481100743,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.23893212774819592,
+            "median": 0.24716008219284302,
+            "std": 0.04294730728574163,
+            "max": 0.36002710792342013,
+            "min": 0.0
+        },
+        "based_on_all_nodes": true
+    },
+    "betweenness_centrality": {
+        "top_nodes": [
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.09407010662083172,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.09382518941979877,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.0910773632649413,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.08038149290022878,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.06876456726909438,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.06405869200703986,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.0636809186828554,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.059544357671567176,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.05506927243151354,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.05166289901333412,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.04922779375334514,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_130688011",
+                "centrality_value": 0.04449698258510404,
+                "in_lcc": true,
+                "repo_name": "meilisearch/meilisearch",
+                "repo_id": "130688011",
+                "degree": 117,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_19961085",
+                "centrality_value": 0.04408659392404416,
+                "in_lcc": true,
+                "repo_name": "apache/pinot",
+                "repo_id": "19961085",
+                "degree": 128,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_197814629",
+                "centrality_value": 0.04291933390712466,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "197814629",
+                "degree": 34,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_357707809",
+                "centrality_value": 0.03609388313540822,
+                "in_lcc": true,
+                "repo_name": "quickwit-oss/quickwit",
+                "repo_id": "357707809",
+                "degree": 119,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_619008516",
+                "centrality_value": 0.03444180313511286,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "619008516",
+                "degree": 42,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_351806852",
+                "centrality_value": 0.0342771984949516,
+                "in_lcc": true,
+                "repo_name": "neondatabase/neon",
+                "repo_id": "351806852",
+                "degree": 140,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_52855516",
+                "centrality_value": 0.033708718956731686,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "52855516",
+                "degree": 21,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.033697824604641304,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.03354064741845283,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.0004826844609778741,
+            "median": 0.0,
+            "std": 0.0038389716108955586,
+            "max": 0.09407010662083172,
+            "min": 0.0
+        },
+        "based_on_all_nodes": true
+    },
+    "eigenvector_centrality": {
+        "top_nodes": [
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.2517765629221029,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.24372566200997278,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.24182187886101134,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.17616238315329497,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.16090928293307474,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.15804864385720047,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.13766971076229448,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.1187504477889073,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.11859856836224873,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.11093853221848157,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_114619105",
+                "centrality_value": 0.11056748392277232,
+                "in_lcc": true,
+                "repo_name": "apache/kyuubi",
+                "repo_id": "114619105",
+                "degree": 134,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.11032022955944214,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.10957198097809856,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.10701314422246677,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_19961085",
+                "centrality_value": 0.10473834681055233,
+                "in_lcc": true,
+                "repo_name": "apache/pinot",
+                "repo_id": "19961085",
+                "degree": 128,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_302827809",
+                "centrality_value": 0.10129461814036965,
+                "in_lcc": true,
+                "repo_name": "datafuselabs/databend",
+                "repo_id": "302827809",
+                "degree": 132,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_3786237",
+                "centrality_value": 0.09878143118415197,
+                "in_lcc": true,
+                "repo_name": "hazelcast/hazelcast",
+                "repo_id": "3786237",
+                "degree": 144,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_99919302",
+                "centrality_value": 0.0985613791242752,
+                "in_lcc": true,
+                "repo_name": "apache/doris",
+                "repo_id": "99919302",
+                "degree": 73,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_357707809",
+                "centrality_value": 0.09809134357393248,
+                "in_lcc": true,
+                "repo_name": "quickwit-oss/quickwit",
+                "repo_id": "357707809",
+                "degree": 119,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.09524750599204557,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.00567698818176821,
+            "median": 0.0033865105381065876,
+            "std": 0.011013897248094566,
+            "max": 0.2517765629221029,
+            "min": 1.3145067140551303e-47
+        },
+        "based_on_all_nodes": true
+    },
+    "pagerank": {
+        "top_nodes": [
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.02717244124158309,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.01686510909406909,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.014779857261292694,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.013942822578668024,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.013476848639097852,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.012942868430298592,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_3786237",
+                "centrality_value": 0.012003966837809863,
+                "in_lcc": true,
+                "repo_name": "hazelcast/hazelcast",
+                "repo_id": "3786237",
+                "degree": 144,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.011906565984367975,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_385634291",
+                "centrality_value": 0.011278583338848482,
+                "in_lcc": true,
+                "repo_name": "grafana/mimir",
+                "repo_id": "385634291",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.009550026235617787,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.009097392426679783,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_130688011",
+                "centrality_value": 0.008875602098442275,
+                "in_lcc": true,
+                "repo_name": "meilisearch/meilisearch",
+                "repo_id": "130688011",
+                "degree": 117,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.008672993905838127,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.008568220398869066,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.008547662880222488,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.008216337190840693,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_77385607",
+                "centrality_value": 0.007861407829114155,
+                "in_lcc": true,
+                "repo_name": "JanusGraph/janusgraph",
+                "repo_id": "77385607",
+                "degree": 91,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.007488711262388602,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_351806852",
+                "centrality_value": 0.0074272981651240765,
+                "in_lcc": true,
+                "repo_name": "neondatabase/neon",
+                "repo_id": "351806852",
+                "degree": 140,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11008207",
+                "centrality_value": 0.006417985705272979,
+                "in_lcc": true,
+                "repo_name": "vitessio/vitess",
+                "repo_id": "11008207",
+                "degree": 97,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.00015351550506601167,
+            "median": 3.6287281616892675e-05,
+            "std": 0.0007676175236581359,
+            "max": 0.02717244124158309,
+            "min": 2.311479578077928e-05
+        },
+        "based_on_all_nodes": true
+    },
+    "weighted_degree_centrality": {
+        "top_nodes": [
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 6.69353600491325,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_3786237",
+                "centrality_value": 0.7703055427606326,
+                "in_lcc": true,
+                "repo_name": "hazelcast/hazelcast",
+                "repo_id": "3786237",
+                "degree": 144,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.769998464609243,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.729003531398741,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.6536158452326117,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_130688011",
+                "centrality_value": 0.643635805312452,
+                "in_lcc": true,
+                "repo_name": "meilisearch/meilisearch",
+                "repo_id": "130688011",
+                "degree": 117,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_385634291",
+                "centrality_value": 0.5713189006602181,
+                "in_lcc": true,
+                "repo_name": "grafana/mimir",
+                "repo_id": "385634291",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_290227969",
+                "centrality_value": 0.5266390296330417,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "290227969",
+                "degree": 3,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_77385607",
+                "centrality_value": 0.4572393674190081,
+                "in_lcc": true,
+                "repo_name": "JanusGraph/janusgraph",
+                "repo_id": "77385607",
+                "degree": 91,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_195619075",
+                "centrality_value": 0.38277291570704747,
+                "in_lcc": true,
+                "repo_name": "vdaas/vald",
+                "repo_id": "195619075",
+                "degree": 14,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11008207",
+                "centrality_value": 0.36542300015353907,
+                "in_lcc": true,
+                "repo_name": "vitessio/vitess",
+                "repo_id": "11008207",
+                "degree": 97,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_71133469",
+                "centrality_value": 0.3585137417472747,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "71133469",
+                "degree": 4,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.3430062951021035,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_927442",
+                "centrality_value": 0.3377859665284815,
+                "in_lcc": true,
+                "repo_name": "postgres/postgres",
+                "repo_id": "927442",
+                "degree": 23,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_168736310",
+                "centrality_value": 0.3342545677875019,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "168736310",
+                "degree": 1,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_50874442",
+                "centrality_value": 0.3253493013972056,
+                "in_lcc": true,
+                "repo_name": "citusdata/citus",
+                "repo_id": "50874442",
+                "degree": 28,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_357707809",
+                "centrality_value": 0.3187471211423307,
+                "in_lcc": true,
+                "repo_name": "quickwit-oss/quickwit",
+                "repo_id": "357707809",
+                "degree": 119,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.3175188085367726,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_354090893",
+                "centrality_value": 0.3136803316444035,
+                "in_lcc": true,
+                "repo_name": "",
+                "repo_id": "354090893",
+                "degree": 3,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.3127590971902349,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.00655489757359705,
+            "median": 0.00030707815138952864,
+            "std": 0.08998538967179086,
+            "max": 6.69353600491325,
+            "min": 0.0
+        },
+        "based_on_all_nodes": true
+    },
+    "weighted_pagerank": {
+        "top_nodes": [
+            {
+                "node_id": "R_334274271",
+                "centrality_value": 0.02717244124158309,
+                "in_lcc": true,
+                "repo_name": "opensearch-project/OpenSearch",
+                "repo_id": "334274271",
+                "degree": 311,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_16563587",
+                "centrality_value": 0.01686510909406909,
+                "in_lcc": true,
+                "repo_name": "cockroachdb/cockroach",
+                "repo_id": "16563587",
+                "degree": 276,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_60246359",
+                "centrality_value": 0.014779857261292694,
+                "in_lcc": true,
+                "repo_name": "ClickHouse/ClickHouse",
+                "repo_id": "60246359",
+                "degree": 370,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_388946490",
+                "centrality_value": 0.013942822578668024,
+                "in_lcc": true,
+                "repo_name": "facebookincubator/velox",
+                "repo_id": "388946490",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.013476848639097852,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_268163609",
+                "centrality_value": 0.012942868430298592,
+                "in_lcc": true,
+                "repo_name": "qdrant/qdrant",
+                "repo_id": "268163609",
+                "degree": 181,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_3786237",
+                "centrality_value": 0.012003966837809863,
+                "in_lcc": true,
+                "repo_name": "hazelcast/hazelcast",
+                "repo_id": "3786237",
+                "degree": 144,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.011906565984367975,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_385634291",
+                "centrality_value": 0.011278583338848482,
+                "in_lcc": true,
+                "repo_name": "grafana/mimir",
+                "repo_id": "385634291",
+                "degree": 126,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.009550026235617787,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_138754790",
+                "centrality_value": 0.009097392426679783,
+                "in_lcc": true,
+                "repo_name": "duckdb/duckdb",
+                "repo_id": "138754790",
+                "degree": 224,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_130688011",
+                "centrality_value": 0.008875602098442275,
+                "in_lcc": true,
+                "repo_name": "meilisearch/meilisearch",
+                "repo_id": "130688011",
+                "degree": 117,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_166515022",
+                "centrality_value": 0.008672993905838127,
+                "in_lcc": true,
+                "repo_name": "trinodb/trino",
+                "repo_id": "166515022",
+                "degree": 196,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_358917318",
+                "centrality_value": 0.008568220398869066,
+                "in_lcc": true,
+                "repo_name": "apache/arrow-datafusion",
+                "repo_id": "358917318",
+                "degree": 188,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_507775",
+                "centrality_value": 0.008547662880222488,
+                "in_lcc": true,
+                "repo_name": "elastic/elasticsearch",
+                "repo_id": "507775",
+                "degree": 161,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_6838921",
+                "centrality_value": 0.008216337190840693,
+                "in_lcc": true,
+                "repo_name": "prometheus/prometheus",
+                "repo_id": "6838921",
+                "degree": 193,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_77385607",
+                "centrality_value": 0.007861407829114155,
+                "in_lcc": true,
+                "repo_name": "JanusGraph/janusgraph",
+                "repo_id": "77385607",
+                "degree": 91,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_41986369",
+                "centrality_value": 0.007488711262388602,
+                "in_lcc": true,
+                "repo_name": "pingcap/tidb",
+                "repo_id": "41986369",
+                "degree": 148,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_351806852",
+                "centrality_value": 0.0074272981651240765,
+                "in_lcc": true,
+                "repo_name": "neondatabase/neon",
+                "repo_id": "351806852",
+                "degree": 140,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11008207",
+                "centrality_value": 0.006417985705272979,
+                "in_lcc": true,
+                "repo_name": "vitessio/vitess",
+                "repo_id": "11008207",
+                "degree": 97,
+                "node_type": "Repo"
+            }
+        ],
+        "statistics": {
+            "mean": 0.00015351550506601167,
+            "median": 3.6287281616892675e-05,
+            "std": 0.0007676175236581359,
+            "max": 0.02717244124158309,
+            "min": 2.311479578077928e-05
+        },
+        "based_on_all_nodes": true
+    }
+}

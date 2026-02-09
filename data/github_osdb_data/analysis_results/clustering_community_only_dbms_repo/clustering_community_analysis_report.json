@@ -1,0 +1,28 @@
+{
+    "network_info": {
+        "num_nodes": 158,
+        "num_edges": 372,
+        "is_connected": true,
+        "based_on_lcc": true
+    },
+    "clustering_coefficient_analysis": {
+        "global_clustering_coefficient": 0.1713197969543147,
+        "average_clustering_coefficient": 0.18104539745801068,
+        "local_clustering_distribution": {
+            "mean": 0.1810453974580107,
+            "median": 0.036616161616161616,
+            "std": 0.26610308468206256,
+            "min": 0.0,
+            "max": 1.0,
+            "num_nodes_with_clustering": 80
+        }
+    },
+    "community_analysis": {
+        "num_communities": 8,
+        "max_community_size": 28,
+        "min_community_size": 7,
+        "avg_community_size": 19.75,
+        "median_community_size": 23.0,
+        "modularity": 0.5963872878941311
+    }
+}

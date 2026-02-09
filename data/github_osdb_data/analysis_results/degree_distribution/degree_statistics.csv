@@ -1,0 +1,2 @@
+min_degree,max_degree,mean_degree,median_degree,std_degree,skewness,kurtosis,num_nodes,num_edges,power_law_gamma,power_law_C,power_law_r_squared,is_scale_free
+0.0,359.0,2.934295363831747,1.0,13.711980279869708,14.601213595656542,270.0995021709348,6514,9557,3.227427937493777,0.8072884714027556,0.9996276331814119,True

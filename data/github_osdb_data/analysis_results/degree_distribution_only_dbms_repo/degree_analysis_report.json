@@ -1,0 +1,25 @@
+{
+    "graph_basic_info": {
+        "number_of_nodes": 294,
+        "number_of_edges": 381,
+        "density": 0.008845859162777739,
+        "is_connected": false
+    },
+    "degree_distribution": {
+        "min": 0.0,
+        "max": 25.0,
+        "mean": 2.5918367346938775,
+        "median": 1.0,
+        "std": 4.165382281565011,
+        "skewness": 2.5613190623900226,
+        "kurtosis": 7.430886088431931
+    },
+    "scale_free_properties": {
+        "gamma_estimate": 1.050715189291089,
+        "r_squared": 0.9616657049211117,
+        "is_scale_free": true
+    },
+    "degree_correlation": {
+        "assortativity": -0.056495946194575736
+    }
+}

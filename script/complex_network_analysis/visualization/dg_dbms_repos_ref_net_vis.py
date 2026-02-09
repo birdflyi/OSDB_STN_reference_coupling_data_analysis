@@ -9,6 +9,11 @@
 import os
 import sys
 
+from GH_CoRE.working_flow import read_csvs
+
+from script.build_dataset.repo_filter import get_filenames_by_repo_names
+from script.utils.df_mem_opt import merge_dict_dfs_memory_efficient
+
 if '__file__' not in globals():
     # !pip install ipynbname  # Remove comment symbols to solve the ModuleNotFoundError
     import ipynbname
@@ -43,13 +48,20 @@ if __name__ == '__main__':
     flag_skip_existing_files = True
     year = 2023
     dbms_repos_key_feats_path = filePathConf.absPathDict[filePathConf.DBMS_REPOS_KEY_FEATS_PATH]
+    dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
     df_target_repos = select_target_repos(dbms_repos_key_feats_path, year, re_preprocess=False, ret="dataframe")
-    homo_dg_dbms_repos_ref_net_node_agg_filename = "homo_dg_dbms_repos_ref_net_node_agg.gexf"
+
+    use_repo_nodes_only = True
+    only_dbms_repo = True
+    drop_self_loop = True
+    graph_type = "dg"
+    dg_name = f"{'homo_' if use_repo_nodes_only else ''}{graph_type}{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}"
+    dg_filename = f"{dg_name}.gexf"
     graph_network_dir = filePathConf.absPathDict[filePathConf.GRAPH_NETWORK_DIR]
-    homo_dg_dbms_repos_ref_net_node_agg_path = os.path.join(graph_network_dir,
-                                                            homo_dg_dbms_repos_ref_net_node_agg_filename)
-    G_repo = nx.read_gexf(homo_dg_dbms_repos_ref_net_node_agg_path)
-    logger.info(f"Load {homo_dg_dbms_repos_ref_net_node_agg_path}...")
+    dg_path = os.path.join(graph_network_dir, dg_filename)
+    G_repo = nx.read_gexf(dg_path)
+    logger.info(f"Load {dg_path}...")
+
     # add node attributes: "degree", "repo_name"
     degrees = dict(G_repo.degree())
     nx.set_node_attributes(G_repo, degrees, 'degree')
@@ -59,14 +71,33 @@ if __name__ == '__main__':
     df_filtered = df_filtered.drop_duplicates(subset=['repo_id'], keep='first')  # 去除key列重复值的行，保留第一次出现的
     # show the repo_name in df_target_repos as node labels
     repo_id_name_dict = df_filtered.set_index('repo_id')['repo_name'].to_dict()
-    for node in G_repo.nodes():
-        if str(node).startswith("R_"):
-            repo_id = node.split("_")[1]
-            G_repo.nodes[node]['repo_name'] = repo_id_name_dict.get(repo_id, "")
+    if not use_repo_nodes_only:
+        repo_names = df_target_repos["repo_name"].to_list()
+        filenames = get_filenames_by_repo_names(repo_names, year)
+        logger.info(f"Read data from {dbms_repos_dedup_content_dir}. This may take a lot of time...")
+        df_dbms_repos_dict = read_csvs(dbms_repos_dedup_content_dir, filenames=filenames, index_col=0)
+        logger.info(f"Read completed.")
+        df_actor_id_login = merge_dict_dfs_memory_efficient(df_dbms_repos_dict, k_col="actor_id", v_cols=["actor_login"])
+        actor_id_login_dict = df_actor_id_login.set_index('actor_id')['actor_login'].to_dict()
+        for node in G_repo.nodes():
+            node_str = str(node)
+            if node_str.startswith("R_"):
+                repo_id = node_str.lstrip("R_")
+                G_repo.nodes[node]["repo_id"] = repo_id
+                G_repo.nodes[node]["repo_name"] = repo_id_name_dict.get(repo_id, "")
+            elif node_str.startswith("A_"):
+                actor_id = node_str.lstrip("A_")
+                G_repo.nodes[node]["actor_id"] = actor_id
+                G_repo.nodes[node]["actor_login"] = actor_id_login_dict.get(actor_id, "")
+    else:
+        for node in G_repo.nodes():
+            node_str = str(node)
+            if node_str.startswith("R_"):
+                repo_id = node_str.lstrip("R_")
+                G_repo.nodes[node]["repo_id"] = repo_id
+                G_repo.nodes[node]["repo_name"] = repo_id_name_dict.get(repo_id, "")
 
     # filter nodes and edges
-    only_dbms_repo = True
-    drop_self_loop = True
     node_w_threshold = 1
     edge_w_threshold = 1
     if only_dbms_repo:
@@ -88,7 +119,7 @@ if __name__ == '__main__':
     np.random.seed(seed)
     logger.info(f"Calculate networkx position with seed={seed}...")
     layout_dir = os.path.join(graph_network_dir, 'visualization')
-    layout_filename = f"homo_dg{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}_spring_layout.pkl"
+    layout_filename = f"{dg_name}_spring_layout.pkl"
     layout_path = os.path.join(layout_dir, layout_filename)
     if not flag_skip_existing_files or not os.path.exists(layout_path):
         pos = nx.spring_layout(G_repo, seed=seed)
@@ -117,7 +148,7 @@ if __name__ == '__main__':
     nx.draw_networkx_edge_labels(G_repo, pos, font_size=5, edge_labels=edge_labels)
     nx.draw(G_repo, pos, node_size=node_size, node_color=node_color, labels=node_labels, font_size=5, edge_color="gray")
 
-    plt.title(f"Homogeneous{' Only' if only_dbms_repo else ' '} DBMS Repos Reference Network({'Drop Self Loop, ' if drop_self_loop else ''}edge_weight >= {edge_w_threshold})", fontsize=15)
+    plt.title(f"{'Homogeneous' if use_repo_nodes_only else 'Heterogeneous'}{' Only' if only_dbms_repo else ' '} DBMS Repos Reference Network({'Drop Self Loop, ' if drop_self_loop else ''}edge_weight >= {edge_w_threshold})", fontsize=15)
     plt.savefig(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                             f"analysis_results/homo{'_only' if only_dbms_repo else ''}_dbms_repos_ref_net_node_agg{'_dsl' if drop_self_loop else ''}_scale1_trunc1__edge_w_ge_{edge_w_threshold}.png"), format="PNG")
+                             f"analysis_results/{dg_name}_scale1_trunc1__edge_w_ge_{edge_w_threshold}.png"), format="PNG")
     plt.show()

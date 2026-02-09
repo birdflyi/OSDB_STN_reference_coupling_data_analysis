@@ -1,0 +1,11 @@
+repo_name,self_ref_ratio,project_age_years,i_pr_rec_cnt,category
+vanilladb/vanillacore,1.0,7.537303216974675,28,high_self_ref
+ncannasse/castle,1.0,11.268993839835728,21,high_self_ref
+etoile/CoreObject,1.0,10.061601642710473,19,high_self_ref
+patx/pickledb,1.0,12.172484599589323,10,high_self_ref
+awa-ai/awadb,0.978021978021978,0.6160164271047228,170,high_self_ref
+ideawu/ssdb,0.0,10.965092402464066,14,low_self_ref
+GreatSQL/GreatSQL,0.0,2.809034907597536,13,low_self_ref
+bigchaindb/bigchaindb,0.0,7.8904859685147155,13,low_self_ref
+endatabas/endb,0.0,0.9691991786447639,13,low_self_ref
+lingo-db/lingo-db,0.0,1.4976043805612593,13,low_self_ref
