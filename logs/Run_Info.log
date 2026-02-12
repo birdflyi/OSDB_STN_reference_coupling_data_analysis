@@ -1,1 +1,1194 @@
-[2024-11-27 23:24:20 - INFO - collaboration_relation_extraction.py:line 147]: Use 2 filenames: ['facebook_rocksdb_2023.csv', 'TuGraph-family_tugraph-db_2023.csv']
+[2026-02-13 00:09:23 - INFO - reference_descriptive_analysis.py:line 5788]: -------------Step 1. Data preprocessing-------------
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5791]: Selected 301 DBMS projects.
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5796]: Missing 7 DBMS projects in old sample data. Repo num loss ratio: 2.33%
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5800]: Use 294 filenames: ['pingcap_tidb_2023.csv', 'cockroachdb_cockroach_2023.csv', 'apache_doris_2023.csv', 'elastic_elasticsearch_2023.csv', 'ClickHouse_ClickHouse_2023.csv', 'opensearch-project_OpenSearch_2023.csv', 'apache_spark_2023.csv', 'milvus-io_milvus_2023.csv', 'facebookincubator_velox_2023.csv', 'trinodb_trino_2023.csv', 'risingwavelabs_risingwave_2023.csv', 'apple_foundationdb_2023.csv', 'matrixorigin_matrixone_2023.csv', 'apache_arrow-datafusion_2023.csv', 'apache_flink_2023.csv', 'hazelcast_hazelcast_2023.csv', 'datafuselabs_databend_2023.csv', 'neondatabase_neon_2023.csv', 'apache_shardingsphere_2023.csv', 'greenplum-db_gpdb_2023.csv', 'tikv_tikv_2023.csv', 'prestodb_presto_2023.csv', 'grafana_mimir_2023.csv', 'apache_druid_2023.csv', 'vitessio_vitess_2023.csv', 'apache_pinot_2023.csv', 'duckdb_duckdb_2023.csv', 'GreptimeTeam_greptimedb_2023.csv', 'yugabyte_yugabyte-db_2023.csv', 'wiredtiger_wiredtiger_2023.csv', 'FerretDB_FerretDB_2023.csv', 'apache_hive_2023.csv', 'tarantool_tarantool_2023.csv', 'etcd-io_etcd_2023.csv', 'arangodb_arangodb_2023.csv', 'apache_kyuubi_2023.csv', 'vespa-engine_vespa_2023.csv', 'ravendb_ravendb_2023.csv', 'apache_iotdb_2023.csv', 'apache_cassandra_2023.csv', 'redis_redis_2023.csv', 'taosdata_TDengine_2023.csv', 'timescale_timescaledb_2023.csv', 'crate_crate_2023.csv', 'VictoriaMetrics_VictoriaMetrics_2023.csv', 'qdrant_qdrant_2023.csv', 'facebook_rocksdb_2023.csv', 'apache_hbase_2023.csv', 'chroma-core_chroma_2023.csv', 'apache_lucene_2023.csv', 'prometheus_prometheus_2023.csv', 'questdb_questdb_2023.csv', 'apache_accumulo_2023.csv', 'dolthub_dolt_2023.csv', 'kuzudb_kuzu_2023.csv', 'citusdata_citus_2023.csv', 'quickwit-oss_quickwit_2023.csv', 'realm_realm-core_2023.csv', 'edgedb_edgedb_2023.csv', 'CUBRID_cubrid_2023.csv', 'infinispan_infinispan_2023.csv', 'nuclia_nucliadb_2023.csv', 'vdaas_vald_2023.csv', 'delta-io_delta_2023.csv', 'TileDB-Inc_TileDB_2023.csv', 'GlareDB_glaredb_2023.csv', 'meilisearch_meilisearch_2023.csv', 'apache_age_2023.csv', 'MariaDB_server_2023.csv', 'apache_ignite_2023.csv', 'dgraph-io_dgraph_2023.csv', '4paradigm_OpenMLDB_2023.csv', 'apache_couchdb_2023.csv', 'activeloopai_deeplake_2023.csv', 'authzed_spicedb_2023.csv', 'ByConity_ByConity_2023.csv', 'eXist-db_exist_2023.csv', 'cnosdb_cnosdb_2023.csv', 'quickwit-oss_tantivy_2023.csv', 'tigrisdata_tigris_2023.csv', 'FirebirdSQL_firebird_2023.csv', 'oceanbase_oceanbase_2023.csv', 'EventStore_EventStore_2023.csv', 'marqo-ai_marqo_2023.csv', 'vesoft-inc_nebula_2023.csv', 'apache_tinkerpop_2023.csv', 'speedb-io_speedb_2023.csv', 'pubkey_rxdb_2023.csv', 'apache_incubator-hugegraph_2023.csv', 'bloomberg_comdb2_2023.csv', 'etcd-io_bbolt_2023.csv', 'manticoresoftware_manticoresearch_2023.csv', 'lancedb_lancedb_2023.csv', 'JanusGraph_janusgraph_2023.csv', 'apache_phoenix_2023.csv', 'codenotary_immudb_2023.csv', 'pocketbase_pocketbase_2023.csv', 'georgia-tech-db_eva_2023.csv', 'ArcadeData_arcadedb_2023.csv', 'ydb-platform_ydb_2023.csv', 'apache_sedona_2023.csv', 'typesense_typesense_2023.csv', 'xtdb_xtdb_2023.csv', 'hyrise_hyrise_2023.csv', 'timeplus-io_proton_2023.csv', 'cloudberrydb_cloudberrydb_2023.csv', 'gchq_Gaffer_2023.csv', 'fluree_db_2023.csv', 'couchbase_couchbase-lite-core_2023.csv', 'RedisGraph_RedisGraph_2023.csv', 'mabel-dev_opteryx_2023.csv', 'apache_jena_2023.csv', 'influxdata_influxdb_2023.csv', 'openGemini_openGemini_2023.csv', 'neo4j_neo4j_2023.csv', 'polarsignals_frostdb_2023.csv', 'TuGraph-family_tugraph-db_2023.csv', 'paradedb_paradedb_2023.csv', 'gridgain_gridgain_2023.csv', 'eclipse_rdf4j_2023.csv', 'ytsaurus_ytsaurus_2023.csv', 'hstreamdb_hstream_2023.csv', 'vmware_splinterdb_2023.csv', 'apache_zookeeper_2023.csv', 'h2database_h2database_2023.csv', 'xap_xap_2023.csv', 'percona_percona-server_2023.csv', 'maxnowack_signaldb_2023.csv', 'Expensify_Bedrock_2023.csv', 'memcached_memcached_2023.csv', 'logicalclocks_rondb_2023.csv', 'terminusdb_terminusdb_2023.csv', 'rqlite_rqlite_2023.csv', 'dgraph-io_badger_2023.csv', 'senx_warp10-platform_2023.csv', 'cberner_redb_2023.csv', 'pouchdb_pouchdb_2023.csv', 'mirage_irmin_2023.csv', 'libsql_libsql_2023.csv', 'splitgraph_seafowl_2023.csv', 'Snapchat_KeyDB_2023.csv', 'AlaSQL_alasql_2023.csv', 'ceramicstudio_js-composedb_2023.csv', 'apache_drill_2023.csv', 'sirixdb_sirix_2023.csv', 'cmu-db_bustub_2023.csv', 'lsst_qserv_2023.csv', 'percona_percona-server-mongodb_2023.csv', 'ehcache_ehcache3_2023.csv', 'Kinto_kinto_2023.csv', 'orioledb_orioledb_2023.csv', 'chdb-io_chdb_2023.csv', 'openlink_virtuoso-opensource_2023.csv', 'IceFireDB_IceFireDB_2023.csv', 'cozodb_cozo_2023.csv', 'risinglightdb_risinglight_2023.csv', 'apache_kylin_2023.csv', 'gnocchixyz_gnocchi_2023.csv', 'danielealbano_cachegrand_2023.csv', 'lealone_Lealone_2023.csv', 'scratchdata_ScratchDB_2023.csv', 'MonetDB_MonetDB_2023.csv', 'canonical_dqlite_2023.csv', 'objectbox_objectbox-java_2023.csv', 'm3db_m3_2023.csv', 'orientechnologies_orientdb_2023.csv', 'mysql_mysql-server_2023.csv', 'epsilla-cloud_vectordb_2023.csv', 'hivedb_hive_2023.csv', 'mbdavid_LiteDB_2023.csv', 'microsoft_FASTER_2023.csv', 'reductstore_reductstore_2023.csv', 'BaseXdb_basex_2023.csv', 'EuclidOLAP_EuclidOLAP_2023.csv', 'LineairDB_LineairDB_2023.csv', 'jnidzwetzki_bboxdb_2023.csv', 'resilientdb_resilientdb_2023.csv', 'mongodb_mongo_2023.csv', 'armink_FlashDB_2023.csv', 'postgis_postgis_2023.csv', 'paypal_junodb_2023.csv', 'oracle_nosql-java-sdk_2023.csv', 'amark_gun_2023.csv', 'juji-io_datalevin_2023.csv', 'streamnative_oxia_2023.csv', 'tinyplex_tinybase_2023.csv', 'semi-technologies_weaviate_2023.csv', 'ostafen_clover_2023.csv', 'OpenNMS_newts_2023.csv', 'JetBrains_xodus_2023.csv', 'RhizomeDB_rs-rhizome_2023.csv', 'google_leveldb_2023.csv', 'apache_incubator-horaedb_2023.csv', 'OpenHFT_Chronicle-Map_2023.csv', 'rethinkdb_rethinkdb_2023.csv', 'heavyai_heavydb_2023.csv', 'rayokota_kareldb_2023.csv', 'polypheny_Polypheny-DB_2023.csv', 'awa-ai_awadb_2023.csv', 'vearch_vearch_2023.csv', 'khonsulabs_bonsaidb_2023.csv', 'elliotchance_vsql_2023.csv', 'basho_riak_kv_2023.csv', 'pentaho_mondrian_2023.csv', 'spacejam_sled_2023.csv', 'rayokota_hgraphdb_2023.csv', 'graphite-project_graphite-web_2023.csv', 'firstbatchxyz_hollowdb_2023.csv', 'genjidb_genji_2023.csv', 'appy-one_acebase_2023.csv', 'postgres_postgres_2023.csv', 'skytable_skytable_2023.csv', 'cfu288_SylvieJS_2023.csv', 'orbisgis_h2gis_2023.csv', 'Tencent_Tendis_2023.csv', 'OpenTSDB_opentsdb_2023.csv', 'typicode_lowdb_2023.csv', 'orbitdb_orbit-db_2023.csv', 'zopefoundation_ZODB_2023.csv', 'jdagdelen_hyperDB_2023.csv', 'oetiker_rrdtool-1.x_2023.csv', 'fireproof-storage_fireproof_2023.csv', 'msiemens_tinydb_2023.csv', 'proullon_ramsql_2023.csv', 'diennea_herddb_2023.csv', 'tontinton_dbeel_2023.csv', 'bitnine-oss_agensgraph_2023.csv', 'marsupialtail_quokka_2023.csv', 'baidu_BaikalDB_2023.csv', 'basho_riak_2023.csv', 'jina-ai_vectordb_2023.csv', 'griddb_griddb_2023.csv', 'jankotek_mapdb_2023.csv', 'earthstar-project_earthstar_2023.csv', 'microsoft_GraphEngine_2023.csv', 'tonsky_datascript_2023.csv', 'apache_geode_2023.csv', 'apache_jackrabbit_2023.csv', 'bytedance_terarkdb_2023.csv', 'cursusdb_cursusdb_2023.csv', 'apache_impala_2023.csv', 'cayleygraph_cayley_2023.csv', 'mateusfreira_nun-db_2023.csv', 'StereoDB_StereoDB_2023.csv', 'Softmotions_ejdb_2023.csv', 'akrylysov_pogreb_2023.csv', 'OpenTenBase_OpenTenBase_2023.csv', 'pkumod_gStore_2023.csv', 'oasysai_oasysdb_2023.csv', 'njaard_sonnerie_2023.csv', 'kairosdb_kairosdb_2023.csv', 'apache_lucene-solr_2023.csv', 'kelindar_column_2023.csv', 'arun1729_cog_2023.csv', 'techfort_LokiJS_2023.csv', 'erikgrinaker_toydb_2023.csv', 'xapian_xapian_2023.csv', 'kagisearch_vectordb_2023.csv', 'estraier_tkrzw_2023.csv', 'elmarti_camadb_2023.csv', 'cachelot_cachelot_2023.csv', 'edgelesssys_edgelessdb_2023.csv', 'vanilladb_vanillacore_2023.csv', 'pilgr_Paper_2023.csv', 'tikv_agatedb_2023.csv', 'rakibtg_SleekDB_2023.csv', 'SnellerInc_sneller_2023.csv', 'microsoft_Extensible-Storage-Engine_2023.csv', 'Netflix_EVCache_2023.csv', 'tidwall_redcon_2023.csv', 'sqlite_sqlite_2023.csv', 'apache_kudu_2023.csv', 'tidwall_buntdb_2023.csv', 'dremio_dremio-oss_2023.csv', 'Bobris_BTDB_2023.csv', 'ncannasse_castle_2023.csv', 'apache_asterixdb_2023.csv', 'textileio_go-threads_2023.csv', 'BrightstarDB_BrightstarDB_2023.csv', 'etoile_CoreObject_2023.csv', 'blazegraph_database_2023.csv', 'NEventStore_NEventStore_2023.csv', 'redwood_redwood_2023.csv', 'lambdazen_bitsy_2023.csv', 'pysonDB_pysonDB-v2_2023.csv', 'ideawu_ssdb_2023.csv', 'aerospike_aerospike-server_2023.csv', 'quoll_asami_2023.csv', 'lingo-db_lingo-db_2023.csv', 'GreatSQL_GreatSQL_2023.csv', 'endatabas_endb_2023.csv', 'bigchaindb_bigchaindb_2023.csv', 'CovenantSQL_CovenantSQL_2023.csv', 'patx_pickledb_2023.csv']
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5807]: -------------Step 2. Extract Relationship-------------
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5811]: Read data from E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_dedup_content. This may take a lot of time...
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5813]: Read completed.
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5819]: The 0 repo_keys to be processed sorted by the records count: {}
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5822]: Collaboration relation extraction start...
+[2026-02-13 00:09:24 - INFO - collaboration_relation_extraction.py:line 121]: Processing progress: all task completed!
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5826]: Collaboration relation extraction completed.
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5829]: -------------Step 3. Build Reference Network-------------
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5852]: Node granularity has been aggregated.
+[2026-02-13 00:09:24 - INFO - reference_descriptive_analysis.py:line 5855]: Build reference network...
+[2026-02-13 00:09:25 - INFO - reference_descriptive_analysis.py:line 5892]: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/graph_network\homo_dg_dbms_repos_ref_net_node_agg.gexf already exists!
+[2026-02-13 00:09:25 - INFO - reference_descriptive_analysis.py:line 5948]: -------------Step 4. Descriptive indicator analysis-------------
+[2026-02-13 00:09:25 - INFO - reference_descriptive_analysis.py:line 5949]: 
+    	 4.1 DBMS项目引用耦合模式的描述性分析（占全网络）
+		 4.1.1 引用类型分布特征
+			294个DBMS项目，施引涉及github通用服务unique项目数和用户数？
+			引用关系识别数：？条，
+			核心实体引用类型分布？
+				Actor
+				Issue/PR
+				Commit
+				File/Doc
+				...
+				GitHub_General_Service_Other_Links
+				GitHub_Other_Service
+				GitHub_Service_External_Links
+			自引率分布统计描述
+				平均数、中位数、最大、最小
+		 4.1.2 活跃议题数、新增议评率、新增评引率分布统计描述
+			活跃议题数（活跃Issue和pr数）
+			新增议评率（含Issue和PR body的新增Comment事件数/活跃Issue和pr数）
+			新增评引率（Comment事件中新增引用数/含Issue和PR body的新增Comment事件数）
+		 4.1.3 自引率时间演化特征
+			外引比率随项目年龄的散点图
+    
+[2026-02-13 00:09:25 - INFO - reference_descriptive_analysis.py:line 5972]: Read data from E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_GH_CoRE_ref_node_agg and E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_GH_CoRE. This may take a lot of time...
+[2026-02-13 00:10:12 - INFO - reference_descriptive_analysis.py:line 5975]: Read completed.
+[2026-02-13 00:10:12 - INFO - reference_descriptive_analysis.py:line 418]: a. analyze_referenced_type_distribution...
+[2026-02-13 00:10:12 - INFO - reference_descriptive_analysis.py:line 420]: DMBS repo number: 294.
+[2026-02-13 00:10:18 - INFO - reference_descriptive_analysis.py:line 434]: Repo number in reference network: 6515.
+[2026-02-13 00:10:18 - INFO - reference_descriptive_analysis.py:line 435]: Actor number in reference network: 16904.
+[2026-02-13 00:10:19 - INFO - reference_descriptive_analysis.py:line 446]: Total count of referencing records: 3748078.
+[2026-02-13 00:10:19 - INFO - reference_descriptive_analysis.py:line 466]: Total count of referenced records: 3748078.
+[2026-02-13 00:10:21 - INFO - reference_descriptive_analysis.py:line 497]: Sef reference ratio describe: 
+count    294.000000
+mean       0.416830
+std        0.239015
+min        0.000000
+25%        0.256303
+50%        0.393745
+75%        0.584527
+max        1.000000
+Name: self_ref_ratio, dtype: float64.
+[2026-02-13 00:10:21 - INFO - reference_descriptive_analysis.py:line 498]: Analyzed reference type distribution successfully.
+[2026-02-13 00:10:21 - INFO - reference_descriptive_analysis.py:line 545]: b. calculate_issue_referencing_metrics...
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 647]: 议题指标描述性统计:
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 649]:   active_issue_num: 平均值=991.0884, 中位数=161.0000, 最小值=3.0000, 最大值=26905.0000, 标准差=2474.6115
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 649]:   comment_per_issue: 平均值=4.3602, 中位数=3.3973, 最小值=1.0196, 最大值=23.4356, 标准差=3.1619
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 649]:   referencing_per_comment: 平均值=4.5402, 中位数=3.9433, 最小值=2.3125, 最大值=25.1906, 标准差=2.2210
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 660]: c. analyze_self_ref_time_evolution...
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 679]: 有效项目数量（有创建时间）: 378
+[2026-02-13 00:11:01 - INFO - reference_descriptive_analysis.py:line 688]: 成功匹配 291 个项目的数据
+[2026-02-13 00:11:02 - INFO - reference_descriptive_analysis.py:line 791]: 散点图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\external_ref_vs_project_age_scatter.png
+[2026-02-13 00:11:02 - INFO - reference_descriptive_analysis.py:line 805]: 项目年龄与外引比率的相关系数: 0.0868 (p=0.1398)
+[2026-02-13 00:11:02 - INFO - reference_descriptive_analysis.py:line 806]: 回归分析: 斜率=0.0052, 截距=0.5524, R²=0.0075
+[2026-02-13 00:11:02 - INFO - reference_descriptive_analysis.py:line 869]: 按年龄分组统计:
+[2026-02-13 00:11:02 - INFO - reference_descriptive_analysis.py:line 870]: 
+                              external_ref_ratio_mean  ...  average_project_age
+age_group                                              ...                     
+(0.09759999999999999, 2.398]                   0.5332  ...               1.3250
+(2.398, 5.068]                                 0.5833  ...               3.6290
+(5.068, 7.844]                                 0.5988  ...               6.4680
+(7.844, 10.431]                                0.6355  ...               8.9494
+(10.431, 14.954]                               0.5808  ...              12.2398
+
+[5 rows x 8 columns]
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 894]: 年龄分组箱线图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\external_ref_by_age_group_boxplot.png
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 904]: Top 5 projects with highest self-reference ratio:
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 906]:   vanilladb/vanillacore: self_ref_ratio=1.000, age=7.5 years, activity_records=28
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 906]:   ncannasse/castle: self_ref_ratio=1.000, age=11.3 years, activity_records=21
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 906]:   etoile/CoreObject: self_ref_ratio=1.000, age=10.1 years, activity_records=19
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 906]:   patx/pickledb: self_ref_ratio=1.000, age=12.2 years, activity_records=10
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 906]:   awa-ai/awadb: self_ref_ratio=0.978, age=0.6 years, activity_records=170
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 909]: Top 5 projects with lowest self-reference ratio:
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 911]:   ideawu/ssdb: self_ref_ratio=0.000, age=11.0 years, activity_records=14
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 911]:   lingo-db/lingo-db: self_ref_ratio=0.000, age=1.5 years, activity_records=13
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 911]:   GreatSQL/GreatSQL: self_ref_ratio=0.000, age=2.8 years, activity_records=13
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 911]:   endatabas/endb: self_ref_ratio=0.000, age=1.0 years, activity_records=13
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 911]:   bigchaindb/bigchaindb: self_ref_ratio=0.000, age=7.9 years, activity_records=13
+[2026-02-13 00:11:03 - INFO - reference_descriptive_analysis.py:line 934]: Correlation between self-reference ratio and activity records: 0.0051 (p=0.9316)
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 960]: 特征关系矩阵图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\project_features_scatter_matrix.png
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 965]: 自引率时间演化分析完成。
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 5985]: -------------Step 5. Network topology characteristics Analysis-------------
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 5986]: 
+    	 4.2 引用耦合网络的拓扑特征分析（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
+		 4.2.1 度分布与无标度特性
+			DBMS项目引用耦合网络的度分布
+		 4.2.2 中心性与关键节点识别
+		 4.2.3 聚类系数与社区结构
+			Louvain算法对网络进行社区检测
+    
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 983]: 开始分析度分布与无标度特性...
+[2026-02-13 00:11:04 - INFO - reference_descriptive_analysis.py:line 1078]: 幂律拟合结果: γ = 3.2274, C = 0.8073, R² = 0.9996
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1174]: 度分布图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/degree_distribution\degree_distribution_analysis.png
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1238]: ============================================================
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1239]: 度分布分析关键发现:
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1240]: 1. 网络基本信息:
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1241]:    - 节点数: 6514
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1242]:    - 边数: 9557
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1243]:    - 平均度: 2.93
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1245]: 2. 度分布统计:
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1246]:    - 最小度: 0
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1247]:    - 最大度: 359
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1248]:    - 中位数: 1.00
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1249]:    - 偏度: 14.6012 (正值表示右偏)
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1252]: 3. 无标度特性:
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1253]:    - 幂律指数 γ = 3.2274
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1254]:    - 拟合优度 R² = 0.9996
+[2026-02-13 00:11:06 - INFO - reference_descriptive_analysis.py:line 1256]:    - 判断: 具有无标度特性
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1264]: 4. 度相关性:
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1265]:    - 同配系数: -0.4138
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1269]:    - 异配网络: 高度节点倾向于连接低度节点
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1275]: ============================================================
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1276]: 度分布与无标度特性分析完成。
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1297]: 开始计算中心性指标并识别关键节点...
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1319]: 识别最大连通子图(LCC)用于需要连通图的中心性计算
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1320]:    - 原始图节点数: 6514
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1321]:    - LCC节点数: 6376 (覆盖率: 97.88%)
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1323]:    - LCC边数: 9472
+[2026-02-13 00:11:07 - INFO - reference_descriptive_analysis.py:line 1339]: 计算度中心性（基于完整图）
+[2026-02-13 00:11:50 - INFO - reference_descriptive_analysis.py:line 1353]: 计算接近中心性（基于最大连通子图，非LCC节点设为0）
+[2026-02-13 00:11:50 - INFO - reference_descriptive_analysis.py:line 1370]: 节点数过多，使用近似算法计算介数中心性（基于完整图）
+[2026-02-13 00:11:52 - INFO - reference_descriptive_analysis.py:line 1378]: 计算特征向量中心性（基于完整图）
+[2026-02-13 00:11:52 - INFO - reference_descriptive_analysis.py:line 1386]: 计算PageRank中心性（基于完整图）
+[2026-02-13 00:11:52 - INFO - reference_descriptive_analysis.py:line 1410]: 计算加权中心性指标（基于完整图）
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1456]: 计算综合中心性得分（基于完整图）
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1486]: LCC覆盖率: 6376/6514 (97.88%)
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1551]: 计算7个中心性指标的相关性（基于完整图）
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1563]: 中心性数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis\centrality_data.csv
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1591]: 关键节点分析已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis\key_nodes_analysis.json
+[2026-02-13 00:11:53 - INFO - reference_descriptive_analysis.py:line 1597]: 中心性相关性矩阵已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis\centrality_correlation.csv
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2234]: 中心性分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis\centrality_analysis_visualization.png
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2336]: ======================================================================
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2337]: 中心性分析关键发现:
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2338]: 1. 网络连通性分析:
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2339]:    - 总节点数: 6514
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2340]:    - 总边数: 9557
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2341]:    - 是否连通: 否
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2344]:    - 最大连通子图(LCC): 6376 个节点 (97.88%)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2346]:    - LCC是否连通: 是
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2347]:    - 中心性计算基于: 所有节点（接近中心性使用LCC）
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2351]: 2. 中心性指标统计 (所有节点):
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - degree_centrality: 均值=0.0005, 中位数=0.0002, 标准差=0.0021
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - closeness_centrality: 均值=0.2389, 中位数=0.2472, 标准差=0.0429
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - betweenness_centrality: 均值=0.0004, 中位数=0.0000, 标准差=0.0037
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - eigenvector_centrality: 均值=0.0057, 中位数=0.0034, 标准差=0.0110
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - pagerank: 均值=0.0002, 中位数=0.0000, 标准差=0.0008
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - weighted_degree_centrality: 均值=0.0066, 中位数=0.0003, 标准差=0.0900
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2355]:    - weighted_pagerank: 均值=0.0002, 中位数=0.0000, 标准差=0.0008
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2361]: 3. 前20个关键节点 (基于所有节点):
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2367]:    1. opensearch-project/OpenSearch (LCC, 综合中心性: 0.8478, 度: 311)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2367]:    2. ClickHouse/ClickHouse (LCC, 综合中心性: 0.7246, 度: 370)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2367]:    3. risingwavelabs/risingwave (LCC, 综合中心性: 0.6454, 度: 321)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2367]:    4. apache/spark (LCC, 综合中心性: 0.6190, 度: 317)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2367]:    5. cockroachdb/cockroach (LCC, 综合中心性: 0.5990, 度: 276)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2371]: 4. 中心性指标相关性 (所有节点):
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2372]:    - 平均相关性: 0.5865
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2376]:    - 中等相关: 各中心性指标部分一致
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2380]: ======================================================================
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2381]: 中心性指标分析与关键节点识别完成。
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2408]: 开始计算聚类系数与社区检测...
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2430]: 使用最大连通子图(LCC)计算聚类系数
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2431]:    - 原始图节点数: 6514
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2432]:    - LCC节点数: 6376 (覆盖率: 97.88%)
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2434]:    - LCC边数: 9472
+[2026-02-13 00:11:58 - INFO - reference_descriptive_analysis.py:line 2458]: 全局聚类系数（传递性）: 0.0080
+[2026-02-13 00:11:59 - INFO - reference_descriptive_analysis.py:line 2486]: 平均聚类系数: 0.0422
+[2026-02-13 00:11:59 - INFO - reference_descriptive_analysis.py:line 2544]: 局部聚类系数统计 - 均值: 0.0422, 中位数: 0.0000, 标准差: 0.1788
+[2026-02-13 00:11:59 - INFO - reference_descriptive_analysis.py:line 2602]: 计算度相关的聚类系数
+[2026-02-13 00:11:59 - INFO - reference_descriptive_analysis.py:line 2625]: 使用NetworkX内置算法进行社区检测
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2651]: 贪心算法检测到 42 个社区
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2699]: 社区检测结果:
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2700]:   - 社区数量: 42
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2701]:   - 最大社区大小: 1244
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2702]:   - 最小社区大小: 3
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2703]:   - 平均社区大小: 151.8
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2704]:   - 模块度: 0.6842
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2716]: 聚类系数数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community\clustering_coefficients.csv
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2722]: 度相关的聚类系数数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community\degree_clustering_analysis.csv
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2743]: 社区检测结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community\community_detection_results.json
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2859]: 度-聚类系数相关性: Pearson r=0.006, Spearman ρ=0.706
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 2984]: 开始网络社区可视化，共有 42 个社区，6376 个节点
+[2026-02-13 00:12:22 - INFO - reference_descriptive_analysis.py:line 3126]: 使用社区统计和弦图可视化（超大规模网络）
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3244]: 聚类系数与社区结构分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community\clustering_community_analysis.png
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3275]: ======================================================================
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3276]: 聚类系数与社区结构分析关键发现:
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3277]: 1. 网络基本信息:
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3278]:    - 计算基于: 最大连通子图(LCC)
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3279]:    - 节点数: 6376
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3280]:    - 边数: 9472
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3281]:    - 是否连通: 是
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3283]: 2. 聚类系数分析:
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3284]:    - 全局聚类系数（传递性）: 0.0080
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3285]:    - 平均聚类系数: 0.0422
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3288]:    - 局部聚类系数统计:
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3289]:      * 均值: 0.0422
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3290]:      * 中位数: 0.0000
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3291]:      * 标准差: 0.1788
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3292]:      * 最小值: 0.0000
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3293]:      * 最大值: 1.0000
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3297]: 3. 社区检测结果:
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3298]:    - 社区数量: 42
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3299]:    - 模块度: 0.6842
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3300]:    - 最大社区大小: 1244
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3301]:    - 最小社区大小: 3
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3302]:    - 平均社区大小: 151.8
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3309]:    - 模块度解读: 中等强度的社区结构
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3313]: ======================================================================
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3314]: 聚类系数与社区结构分析完成。
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6002]: -------------Step 6. Analysis of differences in reference patterns among sub domains-------------
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6003]: 
+    	 4.3 不同类型DBMS项目的引用模式差异分析
+		 4.3.1 引用类型的领域差异
+			子领域引用类型分布显著差异（χ²=1256.7, df=12, p<0.001）
+		 4.3.2 时间演化的领域差异
+			外引比例随时间变化趋势
+		 4.3.3 网络参数的领域差异（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
+			网络参数：平均度 | 平均聚类系数 | 平均路径长度 | 社区内引用比例
+    
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6015]: ============================================================
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6017]: 【有放回模式】统计说明：
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6018]:   • 同一个仓库可能被多个子领域重复计数
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6019]:   • 各子领域的样本量是'出现次数'，可能大于实际仓库数
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6020]:   • 不同子领域之间的样本可能存在重叠
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 6026]: ============================================================
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3349]: 开始分析不同子领域的引用类型分布差异...
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3377]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3380]: 共 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:12:25 - INFO - reference_descriptive_analysis.py:line 3381]: 示例: {'pingcap/tidb': ['Key-value', 'Relational'], 'apple/foundationdb': ['Key-value', 'Document'], 'hazelcast/hazelcast': ['Key-value']}
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3454]: 成功统计了 18 个子领域的引用数据
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3516]: 卡方检验结果: χ²=922426.5652, df=289, p=0.0000e+00
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3517]: 效应量 (Cramer's V): 0.1031
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3520]: 不同子领域的引用类型分布存在显著差异 (p < 0.05)
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3747]: 子图3 - 子领域总引用数排序（选取前3个）:
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3749]:   1. Relational: 2416045 条引用
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3749]:   2. Key-value: 1008531 条引用
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3749]:   3. Document: 485360 条引用
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3749]:   4. Search Engine: 275482 条引用
+[2026-02-13 00:12:27 - INFO - reference_descriptive_analysis.py:line 3749]:   5. Vector: 234429 条引用
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4025]: 子领域引用类型分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\subdomain_reference_analysis.png
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4030]: 子领域引用对比数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\subdomain_reference_comparison.csv
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4036]: 卡方检验结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\chi2_test_results.json
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4069]: ======================================================================
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4070]: 子领域引用类型差异分析关键发现:
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4071]: 1. 分析概况:
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4072]:    - 分析子领域数量: 18
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4073]:    - 涉及仓库总数: 378
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4074]:    - 引用关系总数: 5104397
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4075]:    - 引用类型总数: 18
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4078]: 2. 统计检验结果:
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4079]:    - 卡方统计量: χ² = 922426.5652
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4080]:    - 自由度: df = 289
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4081]:    - p值: p = 0.0000e+00
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4082]:    - 效应量 (Cramer's V): 0.1031
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4085]:    - 结论: 不同子领域的引用类型分布存在显著差异 (p < 0.05)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4089]: 3. 各子领域主要引用类型:
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Key-value (76个仓库, 1008531条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 586100 (58.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 133269 (13.2%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 111694 (11.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Relational (101个仓库, 2416045条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 1052459 (43.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 425222 (17.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 314092 (13.0%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Document (78个仓库, 485360条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 231045 (47.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 103505 (21.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 47166 (9.7%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Search Engine (8个仓库, 275482条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 77619 (28.2%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 48084 (17.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Repo: 42592 (15.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Vector (14个仓库, 234429条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 101708 (43.4%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 46853 (20.0%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 30267 (12.9%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Object Oriented (19个仓库, 128791条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 59506 (46.2%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 41892 (32.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Issue: 11681 (9.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Wide column (11个仓库, 119630条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 47926 (40.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 25815 (21.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 18205 (15.2%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Time Series (21个仓库, 209744条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 90221 (43.0%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 55597 (26.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 32626 (15.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Graph (26个仓库, 108981条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 45676 (41.9%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 33186 (30.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 10540 (9.7%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Hierarchical (2个仓库, 66608条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 54838 (82.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 8731 (13.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1541 (2.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Array (4个仓库, 12146条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 7685 (63.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 2258 (18.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 826 (6.8%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Native XML (2个仓库, 21150条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 17581 (83.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1088 (5.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 707 (3.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Event (2个仓库, 4112条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 2686 (65.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 650 (15.8%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 294 (7.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Spatial (3个仓库, 3806条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 2629 (69.1%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 432 (11.4%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 325 (8.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - RDF (8个仓库, 7729条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 2513 (32.5%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 1867 (24.2%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1063 (13.8%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Columnar (1个仓库, 1576条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 975 (61.9%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 351 (22.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 146 (9.3%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Content (1个仓库, 269条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 239 (88.8%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_GenSer_Other_Links: 7 (2.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Other_Service: 7 (2.6%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4091]:    - Multivalue (1个仓库, 8条引用):
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 8 (100.0%)
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4096]: ======================================================================
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4097]: 子领域引用类型差异分析完成。
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4149]: 开始分析不同子领域的外引比例时间演化趋势...
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4175]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4177]: 共 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4178]: 映射示例: {'pingcap/tidb': ['Key-value', 'Relational'], 'apple/foundationdb': ['Key-value', 'Document'], 'hazelcast/hazelcast': ['Key-value']}
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4207]: 有效项目数量（有创建时间）: 378
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4216]: 成功匹配 291 个项目的数据
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4232]: 有放回模式：原始291行展开为376行
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4255]: 子领域分布:
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4256]: 注: 覆盖率基于有自引率数据的总仓库数(294个)计算
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Relational: 99 个仓库, 覆盖率(总294): 33.7%, 覆盖率(有年龄291): 34.0%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Document: 79 个仓库, 覆盖率(总294): 26.9%, 覆盖率(有年龄291): 27.1%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Key-value: 75 个仓库, 覆盖率(总294): 25.5%, 覆盖率(有年龄291): 25.8%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Graph: 26 个仓库, 覆盖率(总294): 8.8%, 覆盖率(有年龄291): 8.9%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Time Series: 21 个仓库, 覆盖率(总294): 7.1%, 覆盖率(有年龄291): 7.2%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Object Oriented: 19 个仓库, 覆盖率(总294): 6.5%, 覆盖率(有年龄291): 6.5%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Vector: 14 个仓库, 覆盖率(总294): 4.8%, 覆盖率(有年龄291): 4.8%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Wide column: 11 个仓库, 覆盖率(总294): 3.7%, 覆盖率(有年龄291): 3.8%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Search Engine: 9 个仓库, 覆盖率(总294): 3.1%, 覆盖率(有年龄291): 3.1%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   RDF: 8 个仓库, 覆盖率(总294): 2.7%, 覆盖率(有年龄291): 2.7%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Spatial: 3 个仓库, 覆盖率(总294): 1.0%, 覆盖率(有年龄291): 1.0%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Array: 3 个仓库, 覆盖率(总294): 1.0%, 覆盖率(有年龄291): 1.0%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Hierarchical: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Event: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Native XML: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Columnar: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Content: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4262]:   Multivalue: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4284]: 最终分析数据集大小: 376 个项目
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4285]: 子领域分布: {'Relational': 99, 'Document': 79, 'Key-value': 75, 'Graph': 26, 'Time Series': 21, 'Object Oriented': 19, 'Vector': 14, 'Wide column': 11, 'Search Engine': 9, 'RDF': 8, 'Spatial': 3, 'Array': 3, 'Hierarchical': 2, 'Event': 2, 'Native XML': 2, 'Columnar': 1, 'Content': 1, 'Multivalue': 1}
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Hierarchical 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Native XML 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Event 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Columnar 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Content 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Multivalue 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4371]: ============================================================
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4372]: 有放回模式汇总: 291 个不重复仓库, 376 次总出现, 整体重复率: 1.29
+[2026-02-13 00:12:30 - INFO - reference_descriptive_analysis.py:line 4375]: ============================================================
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4657]: 子领域时间演化分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_analysis.png
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4663]: 子领域时间演化数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_data.csv
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4669]: 子领域时间演化分析结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_analysis.json
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4709]: 子领域趋势对比数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_trends_comparison.csv
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4717]: ======================================================================
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4718]: 子领域时间演化分析关键发现:
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4719]: 1. 分析概况:
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4720]:    - 分析项目总数: 376
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4721]:    - 涉及子领域数: 18
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4722]:    - 平均项目年龄: 6.60 年
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4723]:    - 平均外引比例: 0.5751
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4725]: 2. 子领域统计:
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Key-value (n=75):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.6214
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6250
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2186
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Relational (n=99):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5881
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6017
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2405
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Document (n=79):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5535
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5577
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2537
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Search Engine (n=9):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5498
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6403
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2172
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Vector (n=14):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5171
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5478
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2651
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Object Oriented (n=19):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5012
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5059
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2930
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Wide column (n=11):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5449
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5742
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1958
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Time Series (n=21):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5572
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5898
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2139
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Graph (n=26):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5809
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6012
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1749
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Array (n=3):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.4535
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.2609
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.3820
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - Spatial (n=3):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.7074
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.7578
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2876
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4729]:    - RDF (n=8):
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5769
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5859
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1673
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4734]: 3. 时间演化趋势:
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - RDF: r=0.817, r²=0.668, 斜率=0.0476 (正相关, 显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Vector: r=0.676, r²=0.457, 斜率=0.0793 (正相关, 显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Wide column: r=0.280, r²=0.078, 斜率=0.0130 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Time Series: r=0.200, r²=0.040, 斜率=0.0111 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Graph: r=0.190, r²=0.036, 斜率=0.0113 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Relational: r=0.155, r²=0.024, 斜率=0.0109 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Object Oriented: r=0.118, r²=0.014, 斜率=0.0073 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Key-value: r=0.094, r²=0.009, 斜率=0.0052 (正相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Document: r=-0.063, r²=0.004, 斜率=-0.0035 (负相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4738]:    - Search Engine: r=-0.357, r²=0.127, 斜率=-0.0185 (负相关, 不显著)
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4742]: ======================================================================
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4743]: 子领域时间演化分析完成。
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4790]: 开始分析不同子领域的网络特征差异...
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4825]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4827]: 共映射了 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4844]: 最终用于分析的子领域标签映射完成
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Key-value' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Relational' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Document' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Search Engine' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Vector' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Object Oriented' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Wide column' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Time Series' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Graph' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Hierarchical' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Array' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Native XML' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Event' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Spatial' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'RDF' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Columnar' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Content' 的网络
+[2026-02-13 00:12:32 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Multivalue' 的网络
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Key-value': 76 个仓库, 覆盖率: 25.9% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Relational': 100 个仓库, 覆盖率: 34.0% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Document': 79 个仓库, 覆盖率: 26.9% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Search Engine': 9 个仓库, 覆盖率: 3.1% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Vector': 14 个仓库, 覆盖率: 4.8% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Object Oriented': 19 个仓库, 覆盖率: 6.5% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Wide column': 11 个仓库, 覆盖率: 3.7% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Time Series': 21 个仓库, 覆盖率: 7.1% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Graph': 26 个仓库, 覆盖率: 8.8% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Hierarchical': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Array': 4 个仓库, 覆盖率: 1.4% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Native XML': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Event': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Spatial': 3 个仓库, 覆盖率: 1.0% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'RDF': 8 个仓库, 覆盖率: 2.7% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Columnar': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Content': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Multivalue': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Key-value' 的网络中移除 3511 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Relational' 的网络中移除 8200 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Document' 的网络中移除 3748 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Search Engine' 的网络中移除 1843 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Vector' 的网络中移除 1512 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Object Oriented' 的网络中移除 583 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Wide column' 的网络中移除 1595 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Time Series' 的网络中移除 1721 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Graph' 的网络中移除 994 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Hierarchical' 的网络中移除 140 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Array' 的网络中移除 68 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Native XML' 的网络中移除 65 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Event' 的网络中移除 46 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Spatial' 的网络中移除 67 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'RDF' 的网络中移除 117 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Columnar' 的网络中移除 23 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Content' 的网络中移除 2 个非Repo节点
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4951]: 成功构建了 18 个子领域的聚合网络
+[2026-02-13 00:16:47 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Key-value' 的网络特征...
+[2026-02-13 00:16:52 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Relational' 的网络特征...
+[2026-02-13 00:17:18 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Document' 的网络特征...
+[2026-02-13 00:17:24 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Search Engine' 的网络特征...
+[2026-02-13 00:17:26 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Vector' 的网络特征...
+[2026-02-13 00:17:26 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Object Oriented' 的网络特征...
+[2026-02-13 00:17:27 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Wide column' 的网络特征...
+[2026-02-13 00:17:28 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Time Series' 的网络特征...
+[2026-02-13 00:17:29 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Graph' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Hierarchical' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Array' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Native XML' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Event' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Spatial' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'RDF' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Columnar' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Content' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Multivalue' 的网络特征...
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5154]: 成功计算了 18 个子领域的网络特征
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5166]: ======================================================================
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5167]: 子领域网络特征对比分析（描述性统计）
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5168]: ======================================================================
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5220]: 【num_nodes】
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5224]:   范围: 1 ~ 3480
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5225]:   均值±标准差: 574.2 ± 852.0
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5236]:     1. Relational: 3480 (仓库数: 100)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5236]:     2. Document: 1649 (仓库数: 79)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5236]:     3. Key-value: 1527 (仓库数: 76)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5220]: 【avg_degree】
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 2.000 ~ 2.753
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 2.177 ± 0.204
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Relational: 2.753 (仓库数: 100)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Key-value: 2.444 (仓库数: 76)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Time Series: 2.420 (仓库数: 21)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5220]: 【avg_clustering】
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.049
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.012 ± 0.017
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Relational: 0.049 (仓库数: 100)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Time Series: 0.048 (仓库数: 21)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Search Engine: 0.031 (仓库数: 9)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5220]: 【modularity】
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.858
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.448 ± 0.340
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Document: 0.858 (仓库数: 79)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Time Series: 0.831 (仓库数: 21)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Wide column: 0.798 (仓库数: 11)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5220]: 【density】
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.200
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.018 ± 0.045
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Content: 0.200 (仓库数: 1)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Event: 0.038 (仓库数: 2)
+[2026-02-13 00:17:30 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Hierarchical: 0.017 (仓库数: 2)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5655]: Saved network features comparison figure: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features\subdomain_network_features_comparison.png
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5662]: 已保存网络特征数据: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features\subdomain_network_features.csv
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5684]: 已保存详细结果: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features\subdomain_network_features.json
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5687]: ================================================================================
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5688]: Subdomain Network Features Analysis Summary:
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5689]: Analysis Year: 2023
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5690]: Number of Subdomains: 18
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5691]: Use Repo Nodes Only: True
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5692]: Analyze DBMS Repos Only: False
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5699]: Network Scale Statistics:
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5700]:   Total Nodes Range: 1 - 3480 (Avg: 574.2)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5702]:   Total Edges Range: 1 - 4790 (Avg: 704.4)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5707]:   Average Degree Range: 2.00 - 2.75 (Avg: 2.18)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5711]:   Avg Clustering Coefficient Range: 0.000 - 0.049 (Avg: 0.012)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5715]:   Modularity Range: 0.000 - 0.858 (Avg: 0.448)
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5719]: 
+Largest Network (by node count):
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5720]:   Subdomain: Relational
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5721]:   Nodes: 3480
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5722]:   Edges: 4790
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5723]:   Density: 0.000396
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5725]: 
+Smallest Network (by node count):
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5726]:   Subdomain: Columnar
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5727]:   Nodes: 1
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5728]:   Edges: 1
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5729]:   Density: 0.000000
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5731]: ================================================================================
+[2026-02-13 00:17:34 - INFO - reference_descriptive_analysis.py:line 5746]: Subdomain network features analysis completed
+[2026-02-13 00:42:17 - INFO - reference_descriptive_analysis.py:line 5788]: -------------Step 1. Data preprocessing-------------
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5791]: Selected 301 DBMS projects.
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5796]: Missing 7 DBMS projects in old sample data. Repo num loss ratio: 2.33%
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5800]: Use 294 filenames: ['pingcap_tidb_2023.csv', 'cockroachdb_cockroach_2023.csv', 'apache_doris_2023.csv', 'elastic_elasticsearch_2023.csv', 'ClickHouse_ClickHouse_2023.csv', 'opensearch-project_OpenSearch_2023.csv', 'apache_spark_2023.csv', 'milvus-io_milvus_2023.csv', 'facebookincubator_velox_2023.csv', 'trinodb_trino_2023.csv', 'risingwavelabs_risingwave_2023.csv', 'apple_foundationdb_2023.csv', 'matrixorigin_matrixone_2023.csv', 'apache_arrow-datafusion_2023.csv', 'apache_flink_2023.csv', 'hazelcast_hazelcast_2023.csv', 'datafuselabs_databend_2023.csv', 'neondatabase_neon_2023.csv', 'apache_shardingsphere_2023.csv', 'greenplum-db_gpdb_2023.csv', 'tikv_tikv_2023.csv', 'prestodb_presto_2023.csv', 'grafana_mimir_2023.csv', 'apache_druid_2023.csv', 'vitessio_vitess_2023.csv', 'apache_pinot_2023.csv', 'duckdb_duckdb_2023.csv', 'GreptimeTeam_greptimedb_2023.csv', 'yugabyte_yugabyte-db_2023.csv', 'wiredtiger_wiredtiger_2023.csv', 'FerretDB_FerretDB_2023.csv', 'apache_hive_2023.csv', 'tarantool_tarantool_2023.csv', 'etcd-io_etcd_2023.csv', 'arangodb_arangodb_2023.csv', 'apache_kyuubi_2023.csv', 'vespa-engine_vespa_2023.csv', 'ravendb_ravendb_2023.csv', 'apache_iotdb_2023.csv', 'apache_cassandra_2023.csv', 'redis_redis_2023.csv', 'taosdata_TDengine_2023.csv', 'timescale_timescaledb_2023.csv', 'crate_crate_2023.csv', 'VictoriaMetrics_VictoriaMetrics_2023.csv', 'qdrant_qdrant_2023.csv', 'facebook_rocksdb_2023.csv', 'apache_hbase_2023.csv', 'chroma-core_chroma_2023.csv', 'apache_lucene_2023.csv', 'prometheus_prometheus_2023.csv', 'questdb_questdb_2023.csv', 'apache_accumulo_2023.csv', 'dolthub_dolt_2023.csv', 'kuzudb_kuzu_2023.csv', 'citusdata_citus_2023.csv', 'quickwit-oss_quickwit_2023.csv', 'realm_realm-core_2023.csv', 'edgedb_edgedb_2023.csv', 'CUBRID_cubrid_2023.csv', 'infinispan_infinispan_2023.csv', 'nuclia_nucliadb_2023.csv', 'vdaas_vald_2023.csv', 'delta-io_delta_2023.csv', 'TileDB-Inc_TileDB_2023.csv', 'GlareDB_glaredb_2023.csv', 'meilisearch_meilisearch_2023.csv', 'apache_age_2023.csv', 'MariaDB_server_2023.csv', 'apache_ignite_2023.csv', 'dgraph-io_dgraph_2023.csv', '4paradigm_OpenMLDB_2023.csv', 'apache_couchdb_2023.csv', 'activeloopai_deeplake_2023.csv', 'authzed_spicedb_2023.csv', 'ByConity_ByConity_2023.csv', 'eXist-db_exist_2023.csv', 'cnosdb_cnosdb_2023.csv', 'quickwit-oss_tantivy_2023.csv', 'tigrisdata_tigris_2023.csv', 'FirebirdSQL_firebird_2023.csv', 'oceanbase_oceanbase_2023.csv', 'EventStore_EventStore_2023.csv', 'marqo-ai_marqo_2023.csv', 'vesoft-inc_nebula_2023.csv', 'apache_tinkerpop_2023.csv', 'speedb-io_speedb_2023.csv', 'pubkey_rxdb_2023.csv', 'apache_incubator-hugegraph_2023.csv', 'bloomberg_comdb2_2023.csv', 'etcd-io_bbolt_2023.csv', 'manticoresoftware_manticoresearch_2023.csv', 'lancedb_lancedb_2023.csv', 'JanusGraph_janusgraph_2023.csv', 'apache_phoenix_2023.csv', 'codenotary_immudb_2023.csv', 'pocketbase_pocketbase_2023.csv', 'georgia-tech-db_eva_2023.csv', 'ArcadeData_arcadedb_2023.csv', 'ydb-platform_ydb_2023.csv', 'apache_sedona_2023.csv', 'typesense_typesense_2023.csv', 'xtdb_xtdb_2023.csv', 'hyrise_hyrise_2023.csv', 'timeplus-io_proton_2023.csv', 'cloudberrydb_cloudberrydb_2023.csv', 'gchq_Gaffer_2023.csv', 'fluree_db_2023.csv', 'couchbase_couchbase-lite-core_2023.csv', 'RedisGraph_RedisGraph_2023.csv', 'mabel-dev_opteryx_2023.csv', 'apache_jena_2023.csv', 'influxdata_influxdb_2023.csv', 'openGemini_openGemini_2023.csv', 'neo4j_neo4j_2023.csv', 'polarsignals_frostdb_2023.csv', 'TuGraph-family_tugraph-db_2023.csv', 'paradedb_paradedb_2023.csv', 'gridgain_gridgain_2023.csv', 'eclipse_rdf4j_2023.csv', 'ytsaurus_ytsaurus_2023.csv', 'hstreamdb_hstream_2023.csv', 'vmware_splinterdb_2023.csv', 'apache_zookeeper_2023.csv', 'h2database_h2database_2023.csv', 'xap_xap_2023.csv', 'percona_percona-server_2023.csv', 'maxnowack_signaldb_2023.csv', 'Expensify_Bedrock_2023.csv', 'memcached_memcached_2023.csv', 'logicalclocks_rondb_2023.csv', 'terminusdb_terminusdb_2023.csv', 'rqlite_rqlite_2023.csv', 'dgraph-io_badger_2023.csv', 'senx_warp10-platform_2023.csv', 'cberner_redb_2023.csv', 'pouchdb_pouchdb_2023.csv', 'mirage_irmin_2023.csv', 'libsql_libsql_2023.csv', 'splitgraph_seafowl_2023.csv', 'Snapchat_KeyDB_2023.csv', 'AlaSQL_alasql_2023.csv', 'ceramicstudio_js-composedb_2023.csv', 'apache_drill_2023.csv', 'sirixdb_sirix_2023.csv', 'cmu-db_bustub_2023.csv', 'lsst_qserv_2023.csv', 'percona_percona-server-mongodb_2023.csv', 'ehcache_ehcache3_2023.csv', 'Kinto_kinto_2023.csv', 'orioledb_orioledb_2023.csv', 'chdb-io_chdb_2023.csv', 'openlink_virtuoso-opensource_2023.csv', 'IceFireDB_IceFireDB_2023.csv', 'cozodb_cozo_2023.csv', 'risinglightdb_risinglight_2023.csv', 'apache_kylin_2023.csv', 'gnocchixyz_gnocchi_2023.csv', 'danielealbano_cachegrand_2023.csv', 'lealone_Lealone_2023.csv', 'scratchdata_ScratchDB_2023.csv', 'MonetDB_MonetDB_2023.csv', 'canonical_dqlite_2023.csv', 'objectbox_objectbox-java_2023.csv', 'm3db_m3_2023.csv', 'orientechnologies_orientdb_2023.csv', 'mysql_mysql-server_2023.csv', 'epsilla-cloud_vectordb_2023.csv', 'hivedb_hive_2023.csv', 'mbdavid_LiteDB_2023.csv', 'microsoft_FASTER_2023.csv', 'reductstore_reductstore_2023.csv', 'BaseXdb_basex_2023.csv', 'EuclidOLAP_EuclidOLAP_2023.csv', 'LineairDB_LineairDB_2023.csv', 'jnidzwetzki_bboxdb_2023.csv', 'resilientdb_resilientdb_2023.csv', 'mongodb_mongo_2023.csv', 'armink_FlashDB_2023.csv', 'postgis_postgis_2023.csv', 'paypal_junodb_2023.csv', 'oracle_nosql-java-sdk_2023.csv', 'amark_gun_2023.csv', 'juji-io_datalevin_2023.csv', 'streamnative_oxia_2023.csv', 'tinyplex_tinybase_2023.csv', 'semi-technologies_weaviate_2023.csv', 'ostafen_clover_2023.csv', 'OpenNMS_newts_2023.csv', 'JetBrains_xodus_2023.csv', 'RhizomeDB_rs-rhizome_2023.csv', 'google_leveldb_2023.csv', 'apache_incubator-horaedb_2023.csv', 'OpenHFT_Chronicle-Map_2023.csv', 'rethinkdb_rethinkdb_2023.csv', 'heavyai_heavydb_2023.csv', 'rayokota_kareldb_2023.csv', 'polypheny_Polypheny-DB_2023.csv', 'awa-ai_awadb_2023.csv', 'vearch_vearch_2023.csv', 'khonsulabs_bonsaidb_2023.csv', 'elliotchance_vsql_2023.csv', 'basho_riak_kv_2023.csv', 'pentaho_mondrian_2023.csv', 'spacejam_sled_2023.csv', 'rayokota_hgraphdb_2023.csv', 'graphite-project_graphite-web_2023.csv', 'firstbatchxyz_hollowdb_2023.csv', 'genjidb_genji_2023.csv', 'appy-one_acebase_2023.csv', 'postgres_postgres_2023.csv', 'skytable_skytable_2023.csv', 'cfu288_SylvieJS_2023.csv', 'orbisgis_h2gis_2023.csv', 'Tencent_Tendis_2023.csv', 'OpenTSDB_opentsdb_2023.csv', 'typicode_lowdb_2023.csv', 'orbitdb_orbit-db_2023.csv', 'zopefoundation_ZODB_2023.csv', 'jdagdelen_hyperDB_2023.csv', 'oetiker_rrdtool-1.x_2023.csv', 'fireproof-storage_fireproof_2023.csv', 'msiemens_tinydb_2023.csv', 'proullon_ramsql_2023.csv', 'diennea_herddb_2023.csv', 'tontinton_dbeel_2023.csv', 'bitnine-oss_agensgraph_2023.csv', 'marsupialtail_quokka_2023.csv', 'baidu_BaikalDB_2023.csv', 'basho_riak_2023.csv', 'jina-ai_vectordb_2023.csv', 'griddb_griddb_2023.csv', 'jankotek_mapdb_2023.csv', 'earthstar-project_earthstar_2023.csv', 'microsoft_GraphEngine_2023.csv', 'tonsky_datascript_2023.csv', 'apache_geode_2023.csv', 'apache_jackrabbit_2023.csv', 'bytedance_terarkdb_2023.csv', 'cursusdb_cursusdb_2023.csv', 'apache_impala_2023.csv', 'cayleygraph_cayley_2023.csv', 'mateusfreira_nun-db_2023.csv', 'StereoDB_StereoDB_2023.csv', 'Softmotions_ejdb_2023.csv', 'akrylysov_pogreb_2023.csv', 'OpenTenBase_OpenTenBase_2023.csv', 'pkumod_gStore_2023.csv', 'oasysai_oasysdb_2023.csv', 'njaard_sonnerie_2023.csv', 'kairosdb_kairosdb_2023.csv', 'apache_lucene-solr_2023.csv', 'kelindar_column_2023.csv', 'arun1729_cog_2023.csv', 'techfort_LokiJS_2023.csv', 'erikgrinaker_toydb_2023.csv', 'xapian_xapian_2023.csv', 'kagisearch_vectordb_2023.csv', 'estraier_tkrzw_2023.csv', 'elmarti_camadb_2023.csv', 'cachelot_cachelot_2023.csv', 'edgelesssys_edgelessdb_2023.csv', 'vanilladb_vanillacore_2023.csv', 'pilgr_Paper_2023.csv', 'tikv_agatedb_2023.csv', 'rakibtg_SleekDB_2023.csv', 'SnellerInc_sneller_2023.csv', 'microsoft_Extensible-Storage-Engine_2023.csv', 'Netflix_EVCache_2023.csv', 'tidwall_redcon_2023.csv', 'sqlite_sqlite_2023.csv', 'apache_kudu_2023.csv', 'tidwall_buntdb_2023.csv', 'dremio_dremio-oss_2023.csv', 'Bobris_BTDB_2023.csv', 'ncannasse_castle_2023.csv', 'apache_asterixdb_2023.csv', 'textileio_go-threads_2023.csv', 'BrightstarDB_BrightstarDB_2023.csv', 'etoile_CoreObject_2023.csv', 'blazegraph_database_2023.csv', 'NEventStore_NEventStore_2023.csv', 'redwood_redwood_2023.csv', 'lambdazen_bitsy_2023.csv', 'pysonDB_pysonDB-v2_2023.csv', 'ideawu_ssdb_2023.csv', 'aerospike_aerospike-server_2023.csv', 'quoll_asami_2023.csv', 'lingo-db_lingo-db_2023.csv', 'GreatSQL_GreatSQL_2023.csv', 'endatabas_endb_2023.csv', 'bigchaindb_bigchaindb_2023.csv', 'CovenantSQL_CovenantSQL_2023.csv', 'patx_pickledb_2023.csv']
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5807]: -------------Step 2. Extract Relationship-------------
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5811]: Read data from E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_dedup_content. This may take a lot of time...
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5813]: Read completed.
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5819]: The 0 repo_keys to be processed sorted by the records count: {}
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5822]: Collaboration relation extraction start...
+[2026-02-13 00:42:18 - INFO - collaboration_relation_extraction.py:line 121]: Processing progress: all task completed!
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5826]: Collaboration relation extraction completed.
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5829]: -------------Step 3. Build Reference Network-------------
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5852]: Node granularity has been aggregated.
+[2026-02-13 00:42:18 - INFO - reference_descriptive_analysis.py:line 5855]: Build reference network...
+[2026-02-13 00:42:19 - INFO - reference_descriptive_analysis.py:line 5892]: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/graph_network\homo_dg_dbms_repos_ref_net_node_agg.gexf already exists!
+[2026-02-13 00:42:19 - INFO - reference_descriptive_analysis.py:line 5948]: -------------Step 4. Descriptive indicator analysis-------------
+[2026-02-13 00:42:19 - INFO - reference_descriptive_analysis.py:line 5949]: 
+    	 4.1 DBMS项目引用耦合模式的描述性分析（占全网络）
+		 4.1.1 引用类型分布特征
+			294个DBMS项目，施引涉及github通用服务unique项目数和用户数？
+			引用关系识别数：？条，
+			核心实体引用类型分布？
+				Actor
+				Issue/PR
+				Commit
+				File/Doc
+				...
+				GitHub_General_Service_Other_Links
+				GitHub_Other_Service
+				GitHub_Service_External_Links
+			自引率分布统计描述
+				平均数、中位数、最大、最小
+		 4.1.2 活跃议题数、新增议评率、新增评引率分布统计描述
+			活跃议题数（活跃Issue和pr数）
+			新增议评率（含Issue和PR body的新增Comment事件数/活跃Issue和pr数）
+			新增评引率（Comment事件中新增引用数/含Issue和PR body的新增Comment事件数）
+		 4.1.3 自引率时间演化特征
+			外引比率随项目年龄的散点图
+    
+[2026-02-13 00:42:19 - INFO - reference_descriptive_analysis.py:line 5972]: Read data from E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_GH_CoRE_ref_node_agg and E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/repos_GH_CoRE. This may take a lot of time...
+[2026-02-13 00:43:08 - INFO - reference_descriptive_analysis.py:line 5975]: Read completed.
+[2026-02-13 00:43:08 - INFO - reference_descriptive_analysis.py:line 418]: a. analyze_referenced_type_distribution...
+[2026-02-13 00:43:08 - INFO - reference_descriptive_analysis.py:line 420]: DMBS repo number: 294.
+[2026-02-13 00:43:14 - INFO - reference_descriptive_analysis.py:line 434]: Repo number in reference network: 6515.
+[2026-02-13 00:43:14 - INFO - reference_descriptive_analysis.py:line 435]: Actor number in reference network: 16904.
+[2026-02-13 00:43:14 - INFO - reference_descriptive_analysis.py:line 446]: Total count of referencing records: 3748078.
+[2026-02-13 00:43:14 - INFO - reference_descriptive_analysis.py:line 466]: Total count of referenced records: 3748078.
+[2026-02-13 00:43:16 - INFO - reference_descriptive_analysis.py:line 497]: Sef reference ratio describe: 
+count    294.000000
+mean       0.416830
+std        0.239015
+min        0.000000
+25%        0.256303
+50%        0.393745
+75%        0.584527
+max        1.000000
+Name: self_ref_ratio, dtype: float64.
+[2026-02-13 00:43:16 - INFO - reference_descriptive_analysis.py:line 498]: Analyzed reference type distribution successfully.
+[2026-02-13 00:43:16 - INFO - reference_descriptive_analysis.py:line 545]: b. calculate_issue_referencing_metrics...
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 647]: 议题指标描述性统计:
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 649]:   active_issue_num: 平均值=991.0884, 中位数=161.0000, 最小值=3.0000, 最大值=26905.0000, 标准差=2474.6115
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 649]:   comment_per_issue: 平均值=4.3602, 中位数=3.3973, 最小值=1.0196, 最大值=23.4356, 标准差=3.1619
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 649]:   referencing_per_comment: 平均值=4.5402, 中位数=3.9433, 最小值=2.3125, 最大值=25.1906, 标准差=2.2210
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 660]: c. analyze_self_ref_time_evolution...
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 679]: 有效项目数量（有创建时间）: 378
+[2026-02-13 00:43:57 - INFO - reference_descriptive_analysis.py:line 688]: 成功匹配 291 个项目的数据
+[2026-02-13 00:43:58 - INFO - reference_descriptive_analysis.py:line 791]: 散点图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\external_ref_vs_project_age_scatter.png
+[2026-02-13 00:43:58 - INFO - reference_descriptive_analysis.py:line 805]: 项目年龄与外引比率的相关系数: 0.0868 (p=0.1398)
+[2026-02-13 00:43:58 - INFO - reference_descriptive_analysis.py:line 806]: 回归分析: 斜率=0.0052, 截距=0.5524, R²=0.0075
+[2026-02-13 00:43:58 - INFO - reference_descriptive_analysis.py:line 869]: 按年龄分组统计:
+[2026-02-13 00:43:58 - INFO - reference_descriptive_analysis.py:line 870]: 
+                              external_ref_ratio_mean  ...  average_project_age
+age_group                                              ...                     
+(0.09759999999999999, 2.398]                   0.5332  ...               1.3250
+(2.398, 5.068]                                 0.5833  ...               3.6290
+(5.068, 7.844]                                 0.5988  ...               6.4680
+(7.844, 10.431]                                0.6355  ...               8.9494
+(10.431, 14.954]                               0.5808  ...              12.2398
+
+[5 rows x 8 columns]
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 894]: 年龄分组箱线图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\external_ref_by_age_group_boxplot.png
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 904]: Top 5 projects with highest self-reference ratio:
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 906]:   vanilladb/vanillacore: self_ref_ratio=1.000, age=7.5 years, activity_records=28
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 906]:   ncannasse/castle: self_ref_ratio=1.000, age=11.3 years, activity_records=21
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 906]:   etoile/CoreObject: self_ref_ratio=1.000, age=10.1 years, activity_records=19
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 906]:   patx/pickledb: self_ref_ratio=1.000, age=12.2 years, activity_records=10
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 906]:   awa-ai/awadb: self_ref_ratio=0.978, age=0.6 years, activity_records=170
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 909]: Top 5 projects with lowest self-reference ratio:
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 911]:   ideawu/ssdb: self_ref_ratio=0.000, age=11.0 years, activity_records=14
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 911]:   lingo-db/lingo-db: self_ref_ratio=0.000, age=1.5 years, activity_records=13
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 911]:   GreatSQL/GreatSQL: self_ref_ratio=0.000, age=2.8 years, activity_records=13
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 911]:   endatabas/endb: self_ref_ratio=0.000, age=1.0 years, activity_records=13
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 911]:   bigchaindb/bigchaindb: self_ref_ratio=0.000, age=7.9 years, activity_records=13
+[2026-02-13 00:43:59 - INFO - reference_descriptive_analysis.py:line 934]: Correlation between self-reference ratio and activity records: 0.0051 (p=0.9316)
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 960]: 特征关系矩阵图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/self_ref_evolution\project_features_scatter_matrix.png
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 965]: 自引率时间演化分析完成。
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 5985]: -------------Step 5. Network topology characteristics Analysis-------------
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 5986]: 
+    	 4.2 引用耦合网络的拓扑特征分析（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
+		 4.2.1 度分布与无标度特性
+			DBMS项目引用耦合网络的度分布
+		 4.2.2 中心性与关键节点识别
+		 4.2.3 聚类系数与社区结构
+			Louvain算法对网络进行社区检测
+    
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 983]: 开始分析度分布与无标度特性...
+[2026-02-13 00:44:00 - INFO - reference_descriptive_analysis.py:line 1078]: 幂律拟合结果: γ = 1.0507, C = 0.3144, R² = 0.9617
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1174]: 度分布图已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/degree_distribution_only_dbms_repo\degree_distribution_analysis.png
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1238]: ============================================================
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1239]: 度分布分析关键发现:
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1240]: 1. 网络基本信息:
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1241]:    - 节点数: 294
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1242]:    - 边数: 381
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1243]:    - 平均度: 2.59
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1245]: 2. 度分布统计:
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1246]:    - 最小度: 0
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1247]:    - 最大度: 25
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1248]:    - 中位数: 1.00
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1249]:    - 偏度: 2.5613 (正值表示右偏)
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1252]: 3. 无标度特性:
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1253]:    - 幂律指数 γ = 1.0507
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1254]:    - 拟合优度 R² = 0.9617
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1256]:    - 判断: 具有无标度特性
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1264]: 4. 度相关性:
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1265]:    - 同配系数: -0.0565
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1269]:    - 异配网络: 高度节点倾向于连接低度节点
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1275]: ============================================================
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1276]: 度分布与无标度特性分析完成。
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1297]: 开始计算中心性指标并识别关键节点...
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1319]: 识别最大连通子图(LCC)用于需要连通图的中心性计算
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1320]:    - 原始图节点数: 294
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1321]:    - LCC节点数: 158 (覆盖率: 53.74%)
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1323]:    - LCC边数: 372
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1339]: 计算度中心性（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1353]: 计算接近中心性（基于最大连通子图，非LCC节点设为0）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1368]: 使用精确算法计算介数中心性（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1378]: 计算特征向量中心性（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1386]: 计算PageRank中心性（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1410]: 计算加权中心性指标（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1456]: 计算综合中心性得分（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1486]: LCC覆盖率: 158/294 (53.74%)
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1551]: 计算7个中心性指标的相关性（基于完整图）
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1563]: 中心性数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis_only_dbms_repo\centrality_data.csv
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1591]: 关键节点分析已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis_only_dbms_repo\key_nodes_analysis.json
+[2026-02-13 00:44:02 - INFO - reference_descriptive_analysis.py:line 1597]: 中心性相关性矩阵已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis_only_dbms_repo\centrality_correlation.csv
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2234]: 中心性分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/centrality_analysis_only_dbms_repo\centrality_analysis_visualization.png
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2336]: ======================================================================
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2337]: 中心性分析关键发现:
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2338]: 1. 网络连通性分析:
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2339]:    - 总节点数: 294
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2340]:    - 总边数: 381
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2341]:    - 是否连通: 否
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2344]:    - 最大连通子图(LCC): 158 个节点 (53.74%)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2346]:    - LCC是否连通: 是
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2347]:    - 中心性计算基于: 所有节点（接近中心性使用LCC）
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2351]: 2. 中心性指标统计 (所有节点):
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - degree_centrality: 均值=0.0088, 中位数=0.0034, 标准差=0.0142
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - closeness_centrality: 均值=0.1581, 中位数=0.2161, 标准差=0.1517
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - betweenness_centrality: 均值=0.0026, 中位数=0.0000, 标准差=0.0070
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - eigenvector_centrality: 均值=0.0273, 中位数=0.0014, 标准差=0.0516
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - pagerank: 均值=0.0034, 中位数=0.0011, 标准差=0.0058
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - weighted_degree_centrality: 均值=0.1781, 中位数=0.0034, 标准差=0.6952
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2355]:    - weighted_pagerank: 均值=0.0034, 中位数=0.0011, 标准差=0.0058
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2361]: 3. 前20个关键节点 (基于所有节点):
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2367]:    1. postgres/postgres (LCC, 综合中心性: 0.8524, 度: 23)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2367]:    2. facebook/rocksdb (LCC, 综合中心性: 0.7225, 度: 69)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2367]:    3. ClickHouse/ClickHouse (LCC, 综合中心性: 0.6995, 度: 370)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2367]:    4. elastic/elasticsearch (LCC, 综合中心性: 0.6294, 度: 161)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2367]:    5. facebookincubator/velox (LCC, 综合中心性: 0.5710, 度: 126)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2371]: 4. 中心性指标相关性 (所有节点):
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2372]:    - 平均相关性: 0.6491
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2376]:    - 中等相关: 各中心性指标部分一致
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2380]: ======================================================================
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2381]: 中心性指标分析与关键节点识别完成。
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2408]: 开始计算聚类系数与社区检测...
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2430]: 使用最大连通子图(LCC)计算聚类系数
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2431]:    - 原始图节点数: 294
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2432]:    - LCC节点数: 158 (覆盖率: 53.74%)
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2434]:    - LCC边数: 372
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2458]: 全局聚类系数（传递性）: 0.1713
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2486]: 平均聚类系数: 0.1810
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2544]: 局部聚类系数统计 - 均值: 0.1810, 中位数: 0.0366, 标准差: 0.2661
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2602]: 计算度相关的聚类系数
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2625]: 使用NetworkX内置算法进行社区检测
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2651]: 贪心算法检测到 8 个社区
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2699]: 社区检测结果:
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2700]:   - 社区数量: 8
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2701]:   - 最大社区大小: 28
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2702]:   - 最小社区大小: 7
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2703]:   - 平均社区大小: 19.8
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2704]:   - 模块度: 0.5964
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2716]: 聚类系数数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community_only_dbms_repo\clustering_coefficients.csv
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2722]: 度相关的聚类系数数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community_only_dbms_repo\degree_clustering_analysis.csv
+[2026-02-13 00:44:07 - INFO - reference_descriptive_analysis.py:line 2743]: 社区检测结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community_only_dbms_repo\community_detection_results.json
+[2026-02-13 00:44:08 - INFO - reference_descriptive_analysis.py:line 2859]: 度-聚类系数相关性: Pearson r=0.068, Spearman ρ=0.555
+[2026-02-13 00:44:08 - INFO - reference_descriptive_analysis.py:line 2984]: 开始网络社区可视化，共有 8 个社区，158 个节点
+[2026-02-13 00:44:08 - INFO - reference_descriptive_analysis.py:line 2992]: 使用完整网络可视化（小规模网络）
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3244]: 聚类系数与社区结构分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/clustering_community_only_dbms_repo\clustering_community_analysis.png
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3275]: ======================================================================
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3276]: 聚类系数与社区结构分析关键发现:
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3277]: 1. 网络基本信息:
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3278]:    - 计算基于: 最大连通子图(LCC)
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3279]:    - 节点数: 158
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3280]:    - 边数: 372
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3281]:    - 是否连通: 是
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3283]: 2. 聚类系数分析:
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3284]:    - 全局聚类系数（传递性）: 0.1713
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3285]:    - 平均聚类系数: 0.1810
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3288]:    - 局部聚类系数统计:
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3289]:      * 均值: 0.1810
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3290]:      * 中位数: 0.0366
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3291]:      * 标准差: 0.2661
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3292]:      * 最小值: 0.0000
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3293]:      * 最大值: 1.0000
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3297]: 3. 社区检测结果:
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3298]:    - 社区数量: 8
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3299]:    - 模块度: 0.5964
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3300]:    - 最大社区大小: 28
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3301]:    - 最小社区大小: 7
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3302]:    - 平均社区大小: 19.8
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3309]:    - 模块度解读: 中等强度的社区结构
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3313]: ======================================================================
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3314]: 聚类系数与社区结构分析完成。
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6002]: -------------Step 6. Analysis of differences in reference patterns among sub domains-------------
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6003]: 
+    	 4.3 不同类型DBMS项目的引用模式差异分析
+		 4.3.1 引用类型的领域差异
+			子领域引用类型分布显著差异（χ²=1256.7, df=12, p<0.001）
+		 4.3.2 时间演化的领域差异
+			外引比例随时间变化趋势
+		 4.3.3 网络参数的领域差异（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
+			网络参数：平均度 | 平均聚类系数 | 平均路径长度 | 社区内引用比例
+    
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6015]: ============================================================
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6017]: 【有放回模式】统计说明：
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6018]:   • 同一个仓库可能被多个子领域重复计数
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6019]:   • 各子领域的样本量是'出现次数'，可能大于实际仓库数
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6020]:   • 不同子领域之间的样本可能存在重叠
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 6026]: ============================================================
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3349]: 开始分析不同子领域的引用类型分布差异...
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3377]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3380]: 共 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:44:10 - INFO - reference_descriptive_analysis.py:line 3381]: 示例: {'pingcap/tidb': ['Key-value', 'Relational'], 'apple/foundationdb': ['Key-value', 'Document'], 'hazelcast/hazelcast': ['Key-value']}
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3454]: 成功统计了 18 个子领域的引用数据
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3516]: 卡方检验结果: χ²=922426.5652, df=289, p=0.0000e+00
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3517]: 效应量 (Cramer's V): 0.1031
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3520]: 不同子领域的引用类型分布存在显著差异 (p < 0.05)
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3747]: 子图3 - 子领域总引用数排序（选取前3个）:
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3749]:   1. Relational: 2416045 条引用
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3749]:   2. Key-value: 1008531 条引用
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3749]:   3. Document: 485360 条引用
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3749]:   4. Search Engine: 275482 条引用
+[2026-02-13 00:44:12 - INFO - reference_descriptive_analysis.py:line 3749]:   5. Vector: 234429 条引用
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4025]: 子领域引用类型分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\subdomain_reference_analysis.png
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4030]: 子领域引用对比数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\subdomain_reference_comparison.csv
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4036]: 卡方检验结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_reference_analysis\chi2_test_results.json
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4069]: ======================================================================
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4070]: 子领域引用类型差异分析关键发现:
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4071]: 1. 分析概况:
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4072]:    - 分析子领域数量: 18
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4073]:    - 涉及仓库总数: 378
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4074]:    - 引用关系总数: 5104397
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4075]:    - 引用类型总数: 18
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4078]: 2. 统计检验结果:
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4079]:    - 卡方统计量: χ² = 922426.5652
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4080]:    - 自由度: df = 289
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4081]:    - p值: p = 0.0000e+00
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4082]:    - 效应量 (Cramer's V): 0.1031
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4085]:    - 结论: 不同子领域的引用类型分布存在显著差异 (p < 0.05)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4089]: 3. 各子领域主要引用类型:
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Key-value (76个仓库, 1008531条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 586100 (58.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 133269 (13.2%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 111694 (11.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Relational (101个仓库, 2416045条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 1052459 (43.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 425222 (17.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 314092 (13.0%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Document (78个仓库, 485360条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 231045 (47.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 103505 (21.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 47166 (9.7%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Search Engine (8个仓库, 275482条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 77619 (28.2%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 48084 (17.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Repo: 42592 (15.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Vector (14个仓库, 234429条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 101708 (43.4%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 46853 (20.0%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 30267 (12.9%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Object Oriented (19个仓库, 128791条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 59506 (46.2%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 41892 (32.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Issue: 11681 (9.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Wide column (11个仓库, 119630条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 47926 (40.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 25815 (21.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 18205 (15.2%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Time Series (21个仓库, 209744条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 90221 (43.0%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 55597 (26.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 32626 (15.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Graph (26个仓库, 108981条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 45676 (41.9%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 33186 (30.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 10540 (9.7%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Hierarchical (2个仓库, 66608条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 54838 (82.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 8731 (13.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1541 (2.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Array (4个仓库, 12146条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 7685 (63.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 2258 (18.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 826 (6.8%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Native XML (2个仓库, 21150条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 17581 (83.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1088 (5.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 707 (3.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Event (2个仓库, 4112条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 2686 (65.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 650 (15.8%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 294 (7.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Spatial (3个仓库, 3806条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 2629 (69.1%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 432 (11.4%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 325 (8.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - RDF (8个仓库, 7729条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 2513 (32.5%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 1867 (24.2%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Actor: 1063 (13.8%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Columnar (1个仓库, 1576条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 975 (61.9%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 351 (22.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * Commit: 146 (9.3%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Content (1个仓库, 269条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Service_External_Links: 239 (88.8%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_GenSer_Other_Links: 7 (2.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * GitHub_Other_Service: 7 (2.6%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4091]:    - Multivalue (1个仓库, 8条引用):
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4094]:      * PullRequest: 8 (100.0%)
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4096]: ======================================================================
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4097]: 子领域引用类型差异分析完成。
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4149]: 开始分析不同子领域的外引比例时间演化趋势...
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4175]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4177]: 共 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4178]: 映射示例: {'pingcap/tidb': ['Key-value', 'Relational'], 'apple/foundationdb': ['Key-value', 'Document'], 'hazelcast/hazelcast': ['Key-value']}
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4207]: 有效项目数量（有创建时间）: 378
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4216]: 成功匹配 291 个项目的数据
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4232]: 有放回模式：原始291行展开为376行
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4255]: 子领域分布:
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4256]: 注: 覆盖率基于有自引率数据的总仓库数(294个)计算
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Relational: 99 个仓库, 覆盖率(总294): 33.7%, 覆盖率(有年龄291): 34.0%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Document: 79 个仓库, 覆盖率(总294): 26.9%, 覆盖率(有年龄291): 27.1%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Key-value: 75 个仓库, 覆盖率(总294): 25.5%, 覆盖率(有年龄291): 25.8%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Graph: 26 个仓库, 覆盖率(总294): 8.8%, 覆盖率(有年龄291): 8.9%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Time Series: 21 个仓库, 覆盖率(总294): 7.1%, 覆盖率(有年龄291): 7.2%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Object Oriented: 19 个仓库, 覆盖率(总294): 6.5%, 覆盖率(有年龄291): 6.5%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Vector: 14 个仓库, 覆盖率(总294): 4.8%, 覆盖率(有年龄291): 4.8%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Wide column: 11 个仓库, 覆盖率(总294): 3.7%, 覆盖率(有年龄291): 3.8%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Search Engine: 9 个仓库, 覆盖率(总294): 3.1%, 覆盖率(有年龄291): 3.1%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   RDF: 8 个仓库, 覆盖率(总294): 2.7%, 覆盖率(有年龄291): 2.7%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Spatial: 3 个仓库, 覆盖率(总294): 1.0%, 覆盖率(有年龄291): 1.0%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Array: 3 个仓库, 覆盖率(总294): 1.0%, 覆盖率(有年龄291): 1.0%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Hierarchical: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Event: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Native XML: 2 个仓库, 覆盖率(总294): 0.7%, 覆盖率(有年龄291): 0.7%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Columnar: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Content: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4262]:   Multivalue: 1 个仓库, 覆盖率(总294): 0.3%, 覆盖率(有年龄291): 0.3%
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4284]: 最终分析数据集大小: 376 个项目
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4285]: 子领域分布: {'Relational': 99, 'Document': 79, 'Key-value': 75, 'Graph': 26, 'Time Series': 21, 'Object Oriented': 19, 'Vector': 14, 'Wide column': 11, 'Search Engine': 9, 'RDF': 8, 'Spatial': 3, 'Array': 3, 'Hierarchical': 2, 'Event': 2, 'Native XML': 2, 'Columnar': 1, 'Content': 1, 'Multivalue': 1}
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Hierarchical 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Native XML 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Event 数据点不足 (2个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Columnar 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Content 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4353]: 子领域 Multivalue 数据点不足 (1个)，跳过详细分析
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4371]: ============================================================
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4372]: 有放回模式汇总: 291 个不重复仓库, 376 次总出现, 整体重复率: 1.29
+[2026-02-13 00:44:15 - INFO - reference_descriptive_analysis.py:line 4375]: ============================================================
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4657]: 子领域时间演化分析可视化已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_analysis.png
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4663]: 子领域时间演化数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_data.csv
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4669]: 子领域时间演化分析结果已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_time_evolution_analysis.json
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4709]: 子领域趋势对比数据已保存至: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_time_evolution\subdomain_trends_comparison.csv
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4717]: ======================================================================
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4718]: 子领域时间演化分析关键发现:
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4719]: 1. 分析概况:
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4720]:    - 分析项目总数: 376
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4721]:    - 涉及子领域数: 18
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4722]:    - 平均项目年龄: 6.60 年
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4723]:    - 平均外引比例: 0.5751
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4725]: 2. 子领域统计:
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Key-value (n=75):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.6214
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6250
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2186
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Relational (n=99):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5881
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6017
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2405
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Document (n=79):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5535
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5577
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2537
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Search Engine (n=9):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5498
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6403
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2172
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Vector (n=14):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5171
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5478
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2651
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Object Oriented (n=19):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5012
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5059
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2930
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Wide column (n=11):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5449
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5742
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1958
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Time Series (n=21):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5572
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5898
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2139
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Graph (n=26):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5809
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.6012
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1749
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Array (n=3):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.4535
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.2609
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.3820
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - Spatial (n=3):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.7074
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.7578
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.2876
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4729]:    - RDF (n=8):
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4730]:      * 平均外引比例: 0.5769
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4731]:      * 中位数: 0.5859
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4732]:      * 标准差: 0.1673
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4734]: 3. 时间演化趋势:
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - RDF: r=0.817, r²=0.668, 斜率=0.0476 (正相关, 显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Vector: r=0.676, r²=0.457, 斜率=0.0793 (正相关, 显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Wide column: r=0.280, r²=0.078, 斜率=0.0130 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Time Series: r=0.200, r²=0.040, 斜率=0.0111 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Graph: r=0.190, r²=0.036, 斜率=0.0113 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Relational: r=0.155, r²=0.024, 斜率=0.0109 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Object Oriented: r=0.118, r²=0.014, 斜率=0.0073 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Key-value: r=0.094, r²=0.009, 斜率=0.0052 (正相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Document: r=-0.063, r²=0.004, 斜率=-0.0035 (负相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4738]:    - Search Engine: r=-0.357, r²=0.127, 斜率=-0.0185 (负相关, 不显著)
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4742]: ======================================================================
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4743]: 子领域时间演化分析完成。
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4790]: 开始分析不同子领域的网络特征差异...
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4825]: 有放回模式：仓库可重复计入多个子领域
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4827]: 共映射了 294 个仓库，其中 71 个仓库属于多个子领域
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4844]: 最终用于分析的子领域标签映射完成
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Key-value' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Relational' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Document' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Search Engine' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Vector' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Object Oriented' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Wide column' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Time Series' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Graph' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Hierarchical' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Array' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Native XML' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Event' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Spatial' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'RDF' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Columnar' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Content' 的网络
+[2026-02-13 00:44:17 - INFO - reference_descriptive_analysis.py:line 4854]: 初始化子领域 'Multivalue' 的网络
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Key-value': 76 个仓库, 覆盖率: 25.9% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Relational': 100 个仓库, 覆盖率: 34.0% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Document': 79 个仓库, 覆盖率: 26.9% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Search Engine': 9 个仓库, 覆盖率: 3.1% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Vector': 14 个仓库, 覆盖率: 4.8% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Object Oriented': 19 个仓库, 覆盖率: 6.5% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Wide column': 11 个仓库, 覆盖率: 3.7% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Time Series': 21 个仓库, 覆盖率: 7.1% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Graph': 26 个仓库, 覆盖率: 8.8% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Hierarchical': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Array': 4 个仓库, 覆盖率: 1.4% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Native XML': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Event': 2 个仓库, 覆盖率: 0.7% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Spatial': 3 个仓库, 覆盖率: 1.0% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'RDF': 8 个仓库, 覆盖率: 2.7% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Columnar': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Content': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4933]: 子领域 'Multivalue': 1 个仓库, 覆盖率: 0.3% (总仓库数: 294)
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Key-value' 的网络中移除 3511 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Relational' 的网络中移除 8200 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Document' 的网络中移除 3748 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Search Engine' 的网络中移除 1843 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Vector' 的网络中移除 1512 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Object Oriented' 的网络中移除 583 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Wide column' 的网络中移除 1595 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Time Series' 的网络中移除 1721 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Graph' 的网络中移除 994 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Hierarchical' 的网络中移除 140 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Array' 的网络中移除 68 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Native XML' 的网络中移除 65 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Event' 的网络中移除 46 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Spatial' 的网络中移除 67 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'RDF' 的网络中移除 117 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Columnar' 的网络中移除 23 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4948]: 从子领域 'Content' 的网络中移除 2 个非Repo节点
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4951]: 成功构建了 18 个子领域的聚合网络
+[2026-02-13 00:48:26 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Key-value' 的网络特征...
+[2026-02-13 00:48:31 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Relational' 的网络特征...
+[2026-02-13 00:48:57 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Document' 的网络特征...
+[2026-02-13 00:49:03 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Search Engine' 的网络特征...
+[2026-02-13 00:49:05 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Vector' 的网络特征...
+[2026-02-13 00:49:05 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Object Oriented' 的网络特征...
+[2026-02-13 00:49:06 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Wide column' 的网络特征...
+[2026-02-13 00:49:07 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Time Series' 的网络特征...
+[2026-02-13 00:49:08 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Graph' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Hierarchical' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Array' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Native XML' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Event' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Spatial' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'RDF' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Columnar' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Content' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 4955]: 计算子领域 'Multivalue' 的网络特征...
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5154]: 成功计算了 18 个子领域的网络特征
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5166]: ======================================================================
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5167]: 子领域网络特征对比分析（描述性统计）
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5168]: ======================================================================
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5220]: 【num_nodes】
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5224]:   范围: 1 ~ 3480
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5225]:   均值±标准差: 574.2 ± 852.0
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5236]:     1. Relational: 3480 (仓库数: 100)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5236]:     2. Document: 1649 (仓库数: 79)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5236]:     3. Key-value: 1527 (仓库数: 76)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5220]: 【avg_degree】
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 2.000 ~ 2.753
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 2.177 ± 0.204
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Relational: 2.753 (仓库数: 100)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Key-value: 2.444 (仓库数: 76)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Time Series: 2.420 (仓库数: 21)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5220]: 【avg_clustering】
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.049
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.012 ± 0.017
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Relational: 0.049 (仓库数: 100)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Time Series: 0.048 (仓库数: 21)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Search Engine: 0.031 (仓库数: 9)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5220]: 【modularity】
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.858
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.448 ± 0.340
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Document: 0.858 (仓库数: 79)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Time Series: 0.831 (仓库数: 21)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Wide column: 0.798 (仓库数: 11)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5220]: 【density】
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5228]:   范围: 0.000 ~ 0.200
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5229]:   均值±标准差: 0.018 ± 0.045
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5232]:   Top 3:
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     1. Content: 0.200 (仓库数: 1)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     2. Event: 0.038 (仓库数: 2)
+[2026-02-13 00:49:09 - INFO - reference_descriptive_analysis.py:line 5238]:     3. Hierarchical: 0.017 (仓库数: 2)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5655]: Saved network features comparison figure: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features_only_dbms_repo\subdomain_network_features_comparison.png
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5662]: 已保存网络特征数据: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features_only_dbms_repo\subdomain_network_features.csv
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5684]: 已保存详细结果: E:\github_repo\OSDB_STN_reference_coupling_data_analysis\data/github_osdb_data/analysis_results/subdomain_network_features_only_dbms_repo\subdomain_network_features.json
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5687]: ================================================================================
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5688]: Subdomain Network Features Analysis Summary:
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5689]: Analysis Year: 2023
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5690]: Number of Subdomains: 18
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5691]: Use Repo Nodes Only: True
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5692]: Analyze DBMS Repos Only: True
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5699]: Network Scale Statistics:
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5700]:   Total Nodes Range: 1 - 3480 (Avg: 574.2)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5702]:   Total Edges Range: 1 - 4790 (Avg: 704.4)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5707]:   Average Degree Range: 2.00 - 2.75 (Avg: 2.18)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5711]:   Avg Clustering Coefficient Range: 0.000 - 0.049 (Avg: 0.012)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5715]:   Modularity Range: 0.000 - 0.858 (Avg: 0.448)
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5719]: 
+Largest Network (by node count):
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5720]:   Subdomain: Relational
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5721]:   Nodes: 3480
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5722]:   Edges: 4790
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5723]:   Density: 0.000396
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5725]: 
+Smallest Network (by node count):
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5726]:   Subdomain: Columnar
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5727]:   Nodes: 1
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5728]:   Edges: 1
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5729]:   Density: 0.000000
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5731]: ================================================================================
+[2026-02-13 00:49:13 - INFO - reference_descriptive_analysis.py:line 5746]: Subdomain network features analysis completed

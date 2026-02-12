@@ -1,6 +1,6 @@
 repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 402945349,,StarRocks/starrocks,174290,,
-41986369,pingcap/tidb,pingcap/tidb,156795,2015-09-06T04:01:52Z,"Relational,Key-value"
+41986369,pingcap/tidb,pingcap/tidb,156795,2015-09-06T04:01:52Z,"Key-value,Relational"
 16563587,cockroachdb/cockroach,cockroachdb/cockroach,151646,2014-02-06T00:18:47Z,Relational
 99919302,apache/doris,apache/doris,147649,2017-08-10T12:13:30Z,Relational
 507775,elastic/elasticsearch,elastic/elasticsearch,85261,2010-02-08T13:20:56Z,"Document,Search Engine"
@@ -12,19 +12,19 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 28449431,,scylladb/scylladb,59923,,
 166515022,trinodb/trino,trinodb/trino,52307,2019-01-19T06:38:14Z,Relational
 453068084,risingwavelabs/risingwave,risingwavelabs/risingwave,49277,2022-01-28T12:58:03Z,Relational
-114187903,apple/foundationdb,apple/foundationdb,45114,2017-12-14T01:40:42Z,"Document,Key-value"
+114187903,apple/foundationdb,apple/foundationdb,45114,2017-12-14T01:40:42Z,"Key-value,Document"
 339993112,matrixorigin/matrixone,matrixorigin/matrixone,35681,2021-02-18T09:07:17Z,Relational
 358917318,apache/arrow-datafusion,apache/arrow-datafusion,31591,2021-04-17T15:40:23Z,Relational
 20587599,apache/flink,apache/flink,28643,2014-06-07T07:00:10Z,Relational
 3786237,hazelcast/hazelcast,hazelcast/hazelcast,28226,2012-03-21T12:25:18Z,Key-value
 302827809,datafuselabs/databend,datafuselabs/databend,28205,2020-10-10T06:04:42Z,Relational
-351806852,neondatabase/neon,neondatabase/neon,28189,2021-03-26T14:20:47Z,"Relational,Object Oriented"
+351806852,neondatabase/neon,neondatabase/neon,28189,2021-03-26T14:20:47Z,"Object Oriented,Relational"
 49876476,apache/shardingsphere,apache/shardingsphere,24726,2016-01-18T12:49:26Z,Relational
 44781140,greenplum-db/gpdb,greenplum-db/gpdb,24704,,Relational
 48833910,tikv/tikv,tikv/tikv,24475,2015-12-31T04:51:32Z,Key-value
-5349565,prestodb/presto,prestodb/presto,24094,2012-08-09T01:03:37Z,"Relational,Wide column,Key-value,Document"
+5349565,prestodb/presto,prestodb/presto,24094,2012-08-09T01:03:37Z,"Wide column,Relational,Key-value,Document"
 385634291,grafana/mimir,grafana/mimir,23492,2021-07-13T14:34:08Z,Relational
-6358188,apache/druid,apache/druid,22993,2012-10-23T19:08:07Z,"Relational,Wide column"
+6358188,apache/druid,apache/druid,22993,2012-10-23T19:08:07Z,"Wide column,Relational"
 11008207,vitessio/vitess,vitessio/vitess,22224,2013-06-27T21:20:28Z,Relational
 19961085,apache/pinot,apache/pinot,22019,2014-05-19T23:27:48Z,Relational
 138754790,duckdb/duckdb,duckdb/duckdb,20663,2018-06-26T15:04:45Z,Relational
@@ -34,13 +34,13 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 422821402,FerretDB/FerretDB,FerretDB/FerretDB,17804,2021-10-30T08:06:36Z,Document
 23418517,apache/hadoop,apache/hadoop,17488,2014-08-28T07:00:08Z,
 206444,apache/hive,apache/hive,17402,2009-05-21T02:31:01Z,Relational
-911980,tarantool/tarantool,tarantool/tarantool,16770,2010-09-15T07:59:26Z,"Document,Key-value"
+911980,tarantool/tarantool,tarantool/tarantool,16770,2010-09-15T07:59:26Z,"Key-value,Document"
 11225014,etcd-io/etcd,etcd-io/etcd,16581,2013-07-06T21:57:21Z,Key-value
-2649214,arangodb/arangodb,arangodb/arangodb,16470,2011-10-26T06:42:00Z,"Document,Graph,Key-value"
+2649214,arangodb/arangodb,arangodb/arangodb,16470,2011-10-26T06:42:00Z,"Key-value,Document,Graph"
 114619105,apache/kyuubi,apache/kyuubi,16360,2017-12-18T09:05:10Z,Relational
 60377070,vespa-engine/vespa,vespa-engine/vespa,16041,2016-06-03T20:54:20Z,"Document,Search Engine"
-542714,ravendb/ravendb,ravendb/ravendb,15125,2010-03-02T11:05:30Z,"Document,Key-value"
-158975124,apache/iotdb,apache/iotdb,14712,2018-11-24T21:29:17Z,"Time Series,Hierarchical"
+542714,ravendb/ravendb,ravendb/ravendb,15125,2010-03-02T11:05:30Z,"Key-value,Document"
+158975124,apache/iotdb,apache/iotdb,14712,2018-11-24T21:29:17Z,"Hierarchical,Time Series"
 206424,apache/cassandra,apache/cassandra,14020,2009-05-21T02:10:09Z,"Wide column,Key-value"
 156018,redis/redis,redis/redis,13796,2009-03-21T22:32:25Z,Key-value
 196353673,taosdata/TDengine,taosdata/TDengine,13449,2019-07-11T08:33:48Z,"Relational,Time Series"
@@ -52,7 +52,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 20089857,apache/hbase,apache/hbase,10551,2014-05-23T07:00:07Z,Wide column
 546206616,chroma-core/chroma,chroma-core/chroma,10539,2022-10-05T17:58:44Z,"Document,Vector"
 341631350,apache/lucene,apache/lucene,10488,2021-02-23T17:16:56Z,Document
-6838921,prometheus/prometheus,prometheus/prometheus,10481,2012-11-24T11:14:12Z,"Time Series,Key-value"
+6838921,prometheus/prometheus,prometheus/prometheus,10481,2012-11-24T11:14:12Z,"Key-value,Time Series"
 19257422,questdb/questdb,questdb/questdb,9808,2014-04-28T23:29:15Z,"Relational,Time Series"
 2524488,apache/accumulo,apache/accumulo,9738,2011-10-06T07:00:09Z,Wide column
 198683574,dolthub/dolt,dolthub/dolt,9686,2019-07-24T17:46:25Z,Relational
@@ -60,9 +60,9 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 298763623,kuzudb/kuzu,kuzudb/kuzu,8762,2020-09-26T07:43:06Z,Graph
 50874442,citusdata/citus,citusdata/citus,8747,2016-02-01T21:58:39Z,Relational
 357707809,quickwit-oss/quickwit,quickwit-oss/quickwit,8429,2021-04-13T22:45:40Z,Document
-1917262,realm/realm-core,realm/realm-core,8244,2011-06-18T21:18:46Z,"Document,Object Oriented"
-95817032,edgedb/edgedb,edgedb/edgedb,8131,2017-06-29T20:30:48Z,"Relational,Object Oriented"
-52080367,CUBRID/cubrid,CUBRID/cubrid,7736,2016-02-19T10:25:32Z,"Relational,Object Oriented"
+1917262,realm/realm-core,realm/realm-core,8244,2011-06-18T21:18:46Z,"Object Oriented,Document"
+95817032,edgedb/edgedb,edgedb/edgedb,8131,2017-06-29T20:30:48Z,"Object Oriented,Relational"
+52080367,CUBRID/cubrid,CUBRID/cubrid,7736,2016-02-19T10:25:32Z,"Object Oriented,Relational"
 1050944,infinispan/infinispan,infinispan/infinispan,7337,2010-11-04T12:33:19Z,Key-value
 478288303,nuclia/nucliadb,nuclia/nucliadb,7256,2022-04-05T20:21:54Z,Vector
 195619075,vdaas/vald,vdaas/vald,7085,2019-07-07T06:42:22Z,Vector
@@ -110,21 +110,21 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 510607652,pocketbase/pocketbase,pocketbase/pocketbase,2785,2022-07-05T06:06:21Z,Relational
 148087762,,georgia-tech-db/evadb,2727,,
 148087762,georgia-tech-db/eva,georgia-tech-db/eva,2673,2018-09-10T02:26:03Z,Relational
-396867188,ArcadeData/arcadedb,ArcadeData/arcadedb,2632,2021-08-16T16:01:29Z,"Document,Graph,Key-value,Time Series"
+396867188,ArcadeData/arcadedb,ArcadeData/arcadedb,2632,2021-08-16T16:01:29Z,"Key-value,Document,Graph,Time Series"
 456549280,ydb-platform/ydb,ydb-platform/ydb,2601,2022-02-07T14:52:36Z,"Relational,Document"
 34533675,apache/sedona,apache/sedona,2488,2015-04-24T18:01:29Z,Spatial
 79317191,typesense/typesense,typesense/typesense,2471,2017-01-18T08:01:47Z,Search Engine
 125824259,xtdb/xtdb,xtdb/xtdb,2462,2018-03-19T08:19:27Z,Document
 87414843,hyrise/hyrise,hyrise/hyrise,2443,2017-04-06T10:03:31Z,Relational
 678214856,timeplus-io/proton,timeplus-io/proton,2302,2023-08-14T03:11:43Z,Relational
-644742603,cloudberrydb/cloudberrydb,cloudberrydb/cloudberrydb,2301,2023-05-24T06:58:16Z,"Relational,Object Oriented"
+644742603,cloudberrydb/cloudberrydb,cloudberrydb/cloudberrydb,2301,2023-05-24T06:58:16Z,"Object Oriented,Relational"
 47973088,gchq/Gaffer,gchq/Gaffer,2271,2015-12-14T12:12:39Z,Graph
-305513242,fluree/db,fluree/db,2240,2020-10-19T21:06:38Z,"Relational,Graph,RDF,Document"
+305513242,fluree/db,fluree/db,2240,2020-10-19T21:06:38Z,"Graph,Relational,Document,RDF"
 66783145,couchbase/couchbase-lite-core,couchbase/couchbase-lite-core,2174,2016-08-28T18:07:47Z,"Document,Key-value"
 40127179,,FeatureBaseDB/featurebase,2107,,
 84458512,RedisGraph/RedisGraph,RedisGraph/RedisGraph,2100,2017-03-09T15:37:25Z,Graph
 668673665,,FalkorDB/FalkorDB,1997,,
-442441933,mabel-dev/opteryx,mabel-dev/opteryx,1979,2021-12-28T11:27:22Z,"Relational,Object Oriented"
+442441933,mabel-dev/opteryx,mabel-dev/opteryx,1979,2021-12-28T11:27:22Z,"Object Oriented,Relational"
 7437073,apache/jena,apache/jena,1961,2013-01-04T08:00:32Z,RDF
 13124802,influxdata/influxdb,influxdata/influxdb,1788,2013-09-26T14:31:10Z,"Wide column,Time Series"
 507829396,openGemini/openGemini,openGemini/openGemini,1753,2022-06-27T08:41:54Z,"Relational,Time Series"
@@ -133,7 +133,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 473235285,polarsignals/frostdb,polarsignals/frostdb,1678,2022-03-23T14:55:52Z,Wide column
 543276238,,tursodatabase/libsql,1634,,
 528766495,TuGraph-family/tugraph-db,TuGraph-family/tugraph-db,1625,2022-08-25T08:46:43Z,Graph
-660776503,paradedb/paradedb,paradedb/paradedb,1604,2023-06-30T20:21:47Z,"Relational,Object Oriented"
+660776503,paradedb/paradedb,paradedb/paradedb,1604,2023-06-30T20:21:47Z,"Object Oriented,Relational"
 170496871,gridgain/gridgain,gridgain/gridgain,1541,2019-02-13T11:31:35Z,Columnar
 49670957,eclipse/rdf4j,eclipse/rdf4j,1501,2016-01-14T19:47:32Z,RDF
 160784930,,nutsdb/nutsdb,1493,,
@@ -149,7 +149,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 67904342,Expensify/Bedrock,Expensify/Bedrock,1230,2016-09-11T01:55:45Z,Relational
 184981,memcached/memcached,memcached/memcached,1208,2009-04-24T23:34:25Z,Key-value
 323389945,logicalclocks/rondb,logicalclocks/rondb,1199,2020-12-21T16:25:57Z,"Relational,Key-value"
-198466472,terminusdb/terminusdb,terminusdb/terminusdb,1196,2019-07-23T16:15:27Z,"Document,Graph,RDF"
+198466472,terminusdb/terminusdb,terminusdb/terminusdb,1196,2019-07-23T16:15:27Z,"Graph,Document,RDF"
 23247808,rqlite/rqlite,rqlite/rqlite,1178,2014-08-23T04:31:18Z,Relational
 80087836,dgraph-io/badger,dgraph-io/badger,1165,2017-01-26T05:09:49Z,Key-value
 50594316,senx/warp10-platform,senx/warp10-platform,1067,2016-01-28T15:56:55Z,Time Series
@@ -161,7 +161,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 168712350,Snapchat/KeyDB,Snapchat/KeyDB,929,2019-02-01T14:50:00Z,Key-value
 25780780,AlaSQL/alasql,AlaSQL/alasql,871,2014-10-26T16:30:37Z,"Relational,Document"
 511030127,ceramicstudio/js-composedb,ceramicstudio/js-composedb,844,2022-07-06T07:15:37Z,Graph
-5683653,apache/drill,apache/drill,794,2012-09-05T07:00:26Z,"Document,Wide column"
+5683653,apache/drill,apache/drill,794,2012-09-05T07:00:26Z,"Wide column,Document"
 516821813,,hydradatabase/hydra,769,,
 4604367,sirixdb/sirix,sirixdb/sirix,750,2012-06-09T02:22:14Z,Document
 116407410,replikativ/datahike,replikativ/datahike,695,2018-01-05T16:57:28Z,
@@ -171,32 +171,32 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 39519916,percona/percona-server-mongodb,percona/percona-server-mongodb,627,2015-07-22T17:25:26Z,Document
 17224514,ehcache/ehcache3,ehcache/ehcache3,621,2014-02-26T20:39:16Z,Key-value
 31315021,Kinto/kinto,Kinto/kinto,606,2015-02-25T13:34:23Z,Document
-432844875,orioledb/orioledb,orioledb/orioledb,600,2021-11-28T22:57:49Z,"Relational,Object Oriented"
+432844875,orioledb/orioledb,orioledb/orioledb,600,2021-11-28T22:57:49Z,"Object Oriented,Relational"
 606433492,chdb-io/chdb,chdb-io/chdb,591,2023-02-25T13:35:14Z,Relational
 3788366,openlink/virtuoso-opensource,openlink/virtuoso-opensource,586,2012-03-21T16:00:39Z,Document
 344711168,IceFireDB/IceFireDB,IceFireDB/IceFireDB,568,2021-03-05T06:03:29Z,Key-value
 660776503,,getretake/retake,502,,
 551374215,cozodb/cozo,cozodb/cozo,493,2022-10-14T09:28:11Z,Relational
 393235957,risinglightdb/risinglight,risinglightdb/risinglight,483,2021-08-06T03:26:03Z,Relational
-28738447,apache/kylin,apache/kylin,476,2015-01-03T08:00:05Z,"Relational,Key-value"
+28738447,apache/kylin,apache/kylin,476,2015-01-03T08:00:05Z,"Key-value,Relational"
 91715647,gnocchixyz/gnocchi,gnocchixyz/gnocchi,475,2017-05-18T16:32:52Z,Relational
 125234630,danielealbano/cachegrand,danielealbano/cachegrand,472,2018-03-14T15:33:02Z,Key-value
 7502247,lealone/Lealone,lealone/Lealone,451,2013-01-08T13:57:08Z,Relational
 318972528,,rosedblabs/rosedb,451,,
 664816265,scratchdata/ScratchDB,scratchdata/ScratchDB,448,2023-07-10T20:15:01Z,Document
 49670957,,eclipse-rdf4j/rdf4j,448,,
-316690542,MonetDB/MonetDB,MonetDB/MonetDB,438,2020-11-28T08:35:36Z,"Relational,Wide column"
+316690542,MonetDB/MonetDB,MonetDB/MonetDB,438,2020-11-28T08:35:36Z,"Wide column,Relational"
 92329433,canonical/dqlite,canonical/dqlite,436,2017-05-24T19:35:52Z,Relational
 79901405,objectbox/objectbox-java,objectbox/objectbox-java,430,2017-01-24T10:29:48Z,Object Oriented
 61153677,m3db/m3,m3db/m3,420,2016-06-14T20:29:45Z,"Relational,Time Series"
-7083240,orientechnologies/orientdb,orientechnologies/orientdb,407,2012-12-09T20:33:47Z,"Document,Graph,Key-value,Object Oriented"
+7083240,orientechnologies/orientdb,orientechnologies/orientdb,407,2012-12-09T20:33:47Z,"Key-value,Document,Graph,Object Oriented"
 24494032,mysql/mysql-server,mysql/mysql-server,404,2014-09-26T09:31:03Z,Relational
 664133375,epsilla-cloud/vectordb,epsilla-cloud/vectordb,386,2023-07-09T02:28:31Z,Array
 195895847,hivedb/hive,hivedb/hive,382,2019-07-08T22:47:01Z,Key-value
 23315232,mbdavid/LiteDB,mbdavid/LiteDB,369,2014-08-25T13:49:30Z,Document
 191676087,,lindb/lindb,368,,
 143253020,microsoft/FASTER,microsoft/FASTER,357,2018-08-02T06:38:41Z,Key-value
-441299511,reductstore/reductstore,reductstore/reductstore,339,2021-12-23T21:27:52Z,"Time Series,Key-value"
+441299511,reductstore/reductstore,reductstore/reductstore,339,2021-12-23T21:27:52Z,"Key-value,Time Series"
 1374129,BaseXdb/basex,BaseXdb/basex,337,2011-02-16T15:02:14Z,"Document,Native XML"
 88777477,,nitrite/nitrite-java,332,,
 534109388,EuclidOLAP/EuclidOLAP,EuclidOLAP/EuclidOLAP,319,,Array
@@ -207,7 +207,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 266515876,armink/FlashDB,armink/FlashDB,298,2020-05-24T10:15:56Z,Key-value
 4407129,postgis/postgis,postgis/postgis,292,2012-05-22T13:31:25Z,Spatial
 606125384,paypal/junodb,paypal/junodb,287,2023-02-24T16:52:02Z,Key-value
-298920362,oracle/nosql-java-sdk,oracle/nosql-java-sdk,285,2020-09-27T00:05:54Z,"Document,Key-value"
+298920362,oracle/nosql-java-sdk,oracle/nosql-java-sdk,285,2020-09-27T00:05:54Z,"Key-value,Document"
 22475123,amark/gun,amark/gun,282,2014-07-31T15:52:10Z,Graph
 270858421,juji-io/datalevin,juji-io/datalevin,275,2020-06-08T23:53:52Z,Document
 496505424,,CeresDB/horaedb,272,,
@@ -226,8 +226,8 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 6452529,rethinkdb/rethinkdb,rethinkdb/rethinkdb,178,2012-10-30T05:37:47Z,Document
 90541149,heavyai/heavydb,heavyai/heavydb,174,2017-05-07T15:07:56Z,Relational
 206686299,rayokota/kareldb,rayokota/kareldb,173,2019-09-06T01:17:24Z,Relational
+166387176,polypheny/Polypheny-DB,polypheny/Polypheny-DB,170,2019-01-18T10:24:15Z,"Relational,Document,Graph"
 642912355,awa-ai/awadb,awa-ai/awadb,170,2023-05-19T16:22:02Z,"Document,Vector"
-166387176,polypheny/Polypheny-DB,polypheny/Polypheny-DB,170,2019-01-18T10:24:15Z,"Relational,Graph,Document"
 186332888,vearch/vearch,vearch/vearch,168,2019-05-13T02:37:31Z,"Document,Vector"
 349627612,khonsulabs/bonsaidb,khonsulabs/bonsaidb,164,2021-03-20T04:35:24Z,Key-value
 387622288,elliotchance/vsql,elliotchance/vsql,162,2021-07-19T23:55:45Z,Relational
@@ -239,15 +239,15 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 4254338,graphite-project/graphite-web,graphite-project/graphite-web,143,2012-05-07T21:30:55Z,Time Series
 606800919,firstbatchxyz/hollowdb,firstbatchxyz/hollowdb,142,2023-02-26T15:57:33Z,Key-value
 138411034,genjidb/genji,genjidb/genji,135,2018-06-23T15:12:03Z,Document
-276042304,skytable/skytable,skytable/skytable,134,2020-06-30T08:31:09Z,Key-value
 137869753,appy-one/acebase,appy-one/acebase,134,2018-06-19T09:28:07Z,Document
-927442,postgres/postgres,postgres/postgres,134,2010-09-21T11:35:45Z,"Relational,Object Oriented"
+927442,postgres/postgres,postgres/postgres,134,2010-09-21T11:35:45Z,"Object Oriented,Relational"
+276042304,skytable/skytable,skytable/skytable,134,2020-06-30T08:31:09Z,Key-value
 639434928,cfu288/SylvieJS,cfu288/SylvieJS,132,2023-05-11T13:21:42Z,Document
 9074548,orbisgis/h2gis,orbisgis/h2gis,128,2013-03-28T10:12:05Z,Spatial
 321853986,Tencent/Tendis,Tencent/Tendis,124,2020-12-16T03:12:23Z,Key-value
-865412,OpenTSDB/opentsdb,OpenTSDB/opentsdb,122,2010-08-27T02:05:20Z,"Time Series,Key-value"
+865412,OpenTSDB/opentsdb,OpenTSDB/opentsdb,122,2010-08-27T02:05:20Z,"Key-value,Time Series"
 18351848,typicode/lowdb,typicode/lowdb,120,2014-04-02T02:16:06Z,Document
-48617634,orbitdb/orbit-db,orbitdb/orbit-db,120,2015-12-26T17:02:28Z,"Document,Key-value"
+48617634,orbitdb/orbit-db,orbitdb/orbit-db,120,2015-12-26T17:02:28Z,"Key-value,Document"
 7357595,zopefoundation/ZODB,zopefoundation/ZODB,118,2012-12-28T17:47:39Z,"Object Oriented,Key-value"
 628503457,jdagdelen/hyperDB,jdagdelen/hyperDB,115,2023-04-16T06:27:39Z,"Document,Vector"
 5761553,oetiker/rrdtool-1.x,oetiker/rrdtool-1.x,114,2012-09-11T07:41:14Z,Time Series
@@ -256,13 +256,13 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 26774602,proullon/ramsql,proullon/ramsql,102,2014-11-17T20:00:45Z,Relational
 52507351,diennea/herddb,diennea/herddb,100,2016-02-25T08:01:32Z,Relational
 597066476,tontinton/dbeel,tontinton/dbeel,96,2023-02-03T14:56:30Z,Document
-57401138,bitnine-oss/agensgraph,bitnine-oss/agensgraph,94,2016-04-29T17:19:07Z,"Relational,Graph,Key-value,Document"
+57401138,bitnine-oss/agensgraph,bitnine-oss/agensgraph,94,2016-04-29T17:19:07Z,"Relational,Key-value,Document,Graph"
 429630067,marsupialtail/quokka,marsupialtail/quokka,93,2021-11-19T01:17:06Z,Relational
 143436277,baidu/BaikalDB,baidu/BaikalDB,92,2018-08-03T14:19:12Z,Relational
 613723,basho/riak,basho/riak,91,2010-04-16T14:51:16Z,Key-value
 635374751,jina-ai/vectordb,jina-ai/vectordb,86,2023-05-02T14:59:09Z,"Document,Vector"
-52420005,griddb/griddb,griddb/griddb,85,2016-02-24T06:31:40Z,"Time Series,Key-value"
 606433492,,auxten/chdb,85,,
+52420005,griddb/griddb,griddb/griddb,85,2016-02-24T06:31:40Z,"Key-value,Time Series"
 5453989,jankotek/mapdb,jankotek/mapdb,81,2012-08-17T15:28:54Z,"Object Oriented,Key-value"
 266444815,earthstar-project/earthstar,earthstar-project/earthstar,78,2020-05-24T00:49:12Z,Document
 81411018,microsoft/GraphEngine,microsoft/GraphEngine,69,2017-02-09T05:02:16Z,Graph
@@ -270,7 +270,7 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 528766495,,TuGraph-db/tugraph-db,64,,
 606800919,,firstbatchxyz/HollowDB,63,,
 34839383,apache/geode,apache/geode,60,2015-04-30T07:00:05Z,Key-value
-206403,apache/jackrabbit,apache/jackrabbit,58,2009-05-21T01:43:24Z,"Content,Object Oriented"
+206403,apache/jackrabbit,apache/jackrabbit,58,2009-05-21T01:43:24Z,"Object Oriented,Content"
 320459354,bytedance/terarkdb,bytedance/terarkdb,58,2020-12-11T03:42:58Z,Key-value
 722117815,cursusdb/cursusdb,cursusdb/cursusdb,57,2023-11-22T13:26:09Z,Document
 56128733,apache/impala,apache/impala,55,2016-04-13T07:00:08Z,Relational
@@ -282,152 +282,152 @@ repo_id,repo_name,repo_name_used,i_pr_rec_cnt,repo_created_at,category_label
 116522453,akrylysov/pogreb,akrylysov/pogreb,45,2018-01-06T23:16:36Z,Key-value
 684046299,OpenTenBase/OpenTenBase,OpenTenBase/OpenTenBase,45,2023-08-28T10:44:36Z,Relational
 26917250,pkumod/gStore,pkumod/gStore,44,2014-11-20T14:59:01Z,Graph
-722854801,oasysai/oasysdb,oasysai/oasysdb,42,2023-11-24T05:38:45Z,"Vector,Key-value"
+722854801,oasysai/oasysdb,oasysai/oasysdb,42,2023-11-24T05:38:45Z,"Key-value,Vector"
 147880351,njaard/sonnerie,njaard/sonnerie,39,2018-09-07T22:24:22Z,Relational
-34533675,,apache/incubator-sedona,37,,
 8039659,kairosdb/kairosdb,kairosdb/kairosdb,37,2013-02-05T22:27:48Z,Time Series
+34533675,,apache/incubator-sedona,37,,
 50229487,apache/lucene-solr,apache/lucene-solr,36,2016-01-23T08:00:06Z,"Document,Search Engine"
 5665061,,radareorg/sdb,35,,
 371172777,kelindar/column,kelindar/column,34,2021-05-26T21:27:45Z,Relational
-183929744,erikgrinaker/toydb,erikgrinaker/toydb,33,2019-04-28T16:02:59Z,Relational
 111333972,arun1729/cog,arun1729/cog,33,2017-11-19T21:35:00Z,RDF
 11654790,techfort/LokiJS,techfort/LokiJS,33,2013-07-25T07:39:20Z,Document
-632269609,kagisearch/vectordb,kagisearch/vectordb,32,2023-04-25T04:13:24Z,"Document,Vector"
+183929744,erikgrinaker/toydb,erikgrinaker/toydb,33,2019-04-28T16:02:59Z,Relational
 735981,xapian/xapian,xapian/xapian,32,2010-06-23T15:51:03Z,"Document,Search Engine"
+632269609,kagisearch/vectordb,kagisearch/vectordb,32,2023-04-25T04:13:24Z,"Document,Vector"
 278320002,estraier/tkrzw,estraier/tkrzw,32,2020-07-09T09:23:22Z,Key-value
 411979983,elmarti/camadb,elmarti/camadb,31,2021-09-30T08:16:18Z,Document
 33275300,cachelot/cachelot,cachelot/cachelot,31,2015-04-01T21:59:52Z,Key-value
 341208515,edgelesssys/edgelessdb,edgelesssys/edgelessdb,30,2021-02-22T13:24:30Z,Relational
-37285717,pilgr/Paper,pilgr/Paper,28,2015-06-11T20:55:15Z,"Object Oriented,Key-value"
 61269853,vanilladb/vanillacore,vanilladb/vanillacore,28,2016-06-16T07:01:25Z,Multivalue
+37285717,pilgr/Paper,pilgr/Paper,28,2015-06-11T20:55:15Z,"Key-value,Object Oriented"
 318972528,,flower-corp/rosedb,27,,
 184227406,tikv/agatedb,tikv/agatedb,27,2019-04-30T08:54:17Z,Key-value
 129436009,rakibtg/SleekDB,rakibtg/SleekDB,27,2018-04-13T17:50:14Z,Document
-8103021,Netflix/EVCache,Netflix/EVCache,25,2013-02-08T22:52:57Z,Key-value
-331747853,microsoft/Extensible-Storage-Engine,microsoft/Extensible-Storage-Engine,25,2021-01-21T20:34:01Z,Key-value
 474070793,SnellerInc/sneller,SnellerInc/sneller,25,2022-03-25T15:46:05Z,Document
-50647838,apache/kudu,apache/kudu,24,2016-01-29T08:00:06Z,Relational
-176278485,sqlite/sqlite,sqlite/sqlite,24,2019-03-18T12:21:01Z,Relational
+331747853,microsoft/Extensible-Storage-Engine,microsoft/Extensible-Storage-Engine,25,2021-01-21T20:34:01Z,Key-value
+8103021,Netflix/EVCache,Netflix/EVCache,25,2013-02-08T22:52:57Z,Key-value
 64404140,tidwall/redcon,tidwall/redcon,24,2016-07-28T14:52:34Z,Key-value
-97518356,dremio/dremio-oss,dremio/dremio-oss,23,2017-07-17T20:17:04Z,Relational
+176278485,sqlite/sqlite,sqlite/sqlite,24,2019-03-18T12:21:01Z,Relational
+50647838,apache/kudu,apache/kudu,24,2016-01-29T08:00:06Z,Relational
 63731386,tidwall/buntdb,tidwall/buntdb,23,2016-07-19T22:11:40Z,Key-value
-681142,Bobris/BTDB,Bobris/BTDB,22,2010-05-22T22:23:23Z,"Object Oriented,Key-value"
+97518356,dremio/dremio-oss,dremio/dremio-oss,23,2017-07-17T20:17:04Z,Relational
+681142,Bobris/BTDB,Bobris/BTDB,22,2010-05-22T22:23:23Z,"Key-value,Object Oriented"
 5912693,ncannasse/castle,ncannasse/castle,21,2012-09-22T11:57:28Z,Document
-31976266,apache/asterixdb,apache/asterixdb,21,2015-03-10T19:06:29Z,Document
 660776503,,paradedb/retake,21,,
+31976266,apache/asterixdb,apache/asterixdb,21,2015-03-10T19:06:29Z,Document
 197858776,textileio/go-threads,textileio/go-threads,20,2019-07-20T00:24:31Z,Document
 8335020,BrightstarDB/BrightstarDB,BrightstarDB/BrightstarDB,20,2013-02-21T12:52:27Z,RDF
 15001136,etoile/CoreObject,etoile/CoreObject,19,2013-12-07T06:34:10Z,Object Oriented
-210997817,redwood/redwood,redwood/redwood,18,2019-09-26T04:13:14Z,Key-value
-738338,NEventStore/NEventStore,NEventStore/NEventStore,18,2010-06-24T20:28:53Z,Event
 48451041,blazegraph/database,blazegraph/database,18,2015-12-22T19:52:44Z,"Graph,RDF"
-416174776,pysonDB/pysonDB-v2,pysonDB/pysonDB-v2,15,2021-10-12T03:53:50Z,Document
+738338,NEventStore/NEventStore,NEventStore/NEventStore,18,2010-06-24T20:28:53Z,Event
+210997817,redwood/redwood,redwood/redwood,18,2019-09-26T04:13:14Z,Key-value
 85236158,lambdazen/bitsy,lambdazen/bitsy,15,2017-03-16T19:54:58Z,Graph
+416174776,pysonDB/pysonDB-v2,pysonDB/pysonDB-v2,15,2021-10-12T03:53:50Z,Document
 415886839,TieredMemDB/TieredMemDB,TieredMemDB/TieredMemDB,15,2021-10-11T10:59:36Z,
-660776503,,retake-earth/retake,14,,
 7561862,ideawu/ssdb,ideawu/ssdb,14,2013-01-11T15:19:07Z,Key-value
-13484625,Netflix/dynomite,Netflix/dynomite,13,2013-10-10T22:36:31Z,
-51290852,bigchaindb/bigchaindb,bigchaindb/bigchaindb,13,2016-02-08T10:12:58Z,"Document,Key-value"
+660776503,,retake-earth/retake,14,,
+124315604,aerospike/aerospike-server,aerospike/aerospike-server,13,2018-03-08T00:59:46Z,Key-value
 131763823,quoll/asami,quoll/asami,13,2018-05-01T21:14:38Z,Graph
 509396909,lingo-db/lingo-db,lingo-db/lingo-db,13,2022-07-01T09:31:15Z,Relational
-124315604,aerospike/aerospike-server,aerospike/aerospike-server,13,2018-03-08T00:59:46Z,Key-value
 345982729,GreatSQL/GreatSQL,GreatSQL/GreatSQL,13,2021-03-09T11:27:23Z,Relational
+13484625,Netflix/dynomite,Netflix/dynomite,13,2013-10-10T22:36:31Z,
 587246478,endatabas/endb,endatabas/endb,13,2023-01-10T09:57:42Z,"Relational,Document"
+51290852,bigchaindb/bigchaindb,bigchaindb/bigchaindb,13,2016-02-08T10:12:58Z,"Key-value,Document"
 661663226,,maxnowack/exodb,12,,
 129072319,CovenantSQL/CovenantSQL,CovenantSQL/CovenantSQL,12,2018-04-11T09:52:58Z,Relational
 660776503,,retake-earth/connect,11,,
 2662146,patx/pickledb,patx/pickledb,10,2011-10-28T00:04:40Z,Document
-522606931,Anna-Team/AnnaDB,Anna-Team/AnnaDB,9,2022-08-08T15:31:49Z,Document
-184711,typicaljoe/taffydb,typicaljoe/taffydb,9,2009-04-24T18:10:46Z,Document
 55093657,SiriDB/siridb-server,SiriDB/siridb-server,9,2016-03-30T19:58:40Z,Time Series
-3548254,thinkaurelius/titan,thinkaurelius/titan,9,2012-02-25T22:53:53Z,Graph
-402209532,dyedgreen/cqlite,dyedgreen/cqlite,9,2021-09-01T21:37:15Z,Graph
-214605,voldemort/voldemort,voldemort/voldemort,9,2009-05-31T03:27:10Z,Key-value
-41952293,apache/hawq,apache/hawq,9,2015-09-05T07:00:05Z,Relational
-80645561,JuliaData/JuliaDB.jl,JuliaData/JuliaDB.jl,9,2017-02-01T17:35:53Z,Relational
 41209174,strapdata/elassandra,strapdata/elassandra,9,2015-08-22T13:52:08Z,Wide column
 569871553,VeloxDB/VeloxDB,VeloxDB/VeloxDB,9,2022-11-23T20:06:33Z,Object Oriented
+80645561,JuliaData/JuliaDB.jl,JuliaData/JuliaDB.jl,9,2017-02-01T17:35:53Z,Relational
+41952293,apache/hawq,apache/hawq,9,2015-09-05T07:00:05Z,Relational
+402209532,dyedgreen/cqlite,dyedgreen/cqlite,9,2021-09-01T21:37:15Z,Graph
+522606931,Anna-Team/AnnaDB,Anna-Team/AnnaDB,9,2022-08-08T15:31:49Z,Document
+3548254,thinkaurelius/titan,thinkaurelius/titan,9,2012-02-25T22:53:53Z,Graph
+184711,typicaljoe/taffydb,typicaljoe/taffydb,9,2009-04-24T18:10:46Z,Document
+214605,voldemort/voldemort,voldemort/voldemort,9,2009-05-31T03:27:10Z,Key-value
+138411034,,chaisql/chai,8,,
 9795883,louischatriot/nedb,louischatriot/nedb,8,2013-05-01T17:12:17Z,Document
 457763204,avinassh/py-caskdb,avinassh/py-caskdb,8,2022-02-10T12:04:01Z,Key-value
 121126549,simerplaha/SwayDB,simerplaha/SwayDB,8,2018-02-11T13:33:26Z,Key-value
-138411034,,chaisql/chai,8,,
 96138741,YottaDB/YDB,YottaDB/YDB,8,2017-07-03T18:21:23Z,Key-value
-8313554,,Lazer-Database/Lazer-Database,7,,
 188354257,SequoiaDB/SequoiaDB,SequoiaDB/SequoiaDB,7,2019-05-24T04:51:56Z,Document
 10081109,,rax-maas/blueflood,7,,
+8313554,,Lazer-Database/Lazer-Database,7,,
 336867666,ribelo/doxa,ribelo/doxa,7,2021-02-07T19:09:39Z,Document
 597066476,,tontinton/dbil,6,,
-19296225,ledisdb/ledisdb,ledisdb/ledisdb,6,2014-04-30T00:43:09Z,Key-value
+33605302,scalaris-team/scalaris,scalaris-team/scalaris,6,2015-04-08T12:25:25Z,Key-value
 240387847,gaia-platform/GaiaPlatform,gaia-platform/GaiaPlatform,6,2020-02-13T23:23:34Z,Object Oriented
 3893984,tzaeschke/zoodb,tzaeschke/zoodb,6,2012-04-01T17:08:29Z,Object Oriented
-33605302,scalaris-team/scalaris,scalaris-team/scalaris,6,2015-04-08T12:25:25Z,Key-value
-274184952,hoytech/quadrable,hoytech/quadrable,5,2020-06-22T16:10:07Z,Key-value
+19296225,ledisdb/ledisdb,ledisdb/ledisdb,6,2014-04-30T00:43:09Z,Key-value
 25871447,DaveVoorhis/Rel,DaveVoorhis/Rel,5,2014-10-28T13:50:23Z,Relational
-117920609,radondb/radon,radondb/radon,5,2018-01-18T02:28:32Z,Relational
-502268740,photondb/photondb,photondb/photondb,5,2022-06-11T06:24:35Z,Key-value
-13353426,cinchapi/concourse,cinchapi/concourse,5,2013-10-05T22:12:00Z,Document
-96580430,datajaguar/jaguardb,datajaguar/jaguardb,5,,"Key-value,Array"
-149626591,uber/aresdb,uber/aresdb,5,2018-09-20T14:56:46Z,Relational
 154541438,gruns/ImmortalDB,gruns/ImmortalDB,5,2018-10-24T17:29:42Z,Key-value
+502268740,photondb/photondb,photondb/photondb,5,2022-06-11T06:24:35Z,Key-value
+274184952,hoytech/quadrable,hoytech/quadrable,5,2020-06-22T16:10:07Z,Key-value
+149626591,uber/aresdb,uber/aresdb,5,2018-09-20T14:56:46Z,Relational
+96580430,datajaguar/jaguardb,datajaguar/jaguardb,5,,"Key-value,Array"
+117920609,radondb/radon,radondb/radon,5,2018-01-18T02:28:32Z,Relational
+13353426,cinchapi/concourse,cinchapi/concourse,5,2013-10-05T22:12:00Z,Document
+26888631,stripe/sequins,stripe/sequins,4,2014-11-20T00:38:21Z,Key-value
 10296238,HouzuoGuo/tiedot,HouzuoGuo/tiedot,4,2013-05-26T10:03:49Z,Document
-215532341,256dpi/lungo,256dpi/lungo,4,2019-10-16T11:32:05Z,Document
 292903178,deroproject/graviton,deroproject/graviton,4,2020-09-04T17:03:50Z,Key-value
+215532341,256dpi/lungo,256dpi/lungo,4,2019-10-16T11:32:05Z,Document
 95070401,,DevrexLabs/memstate,4,,
 58524063,jclo/picodb,jclo/picodb,4,2016-05-11T07:40:46Z,Document
-191442206,kashirin-alex/swc-db,kashirin-alex/swc-db,4,2019-06-11T20:11:19Z,"Wide column,Key-value"
 383927661,ragedb/ragedb,ragedb/ragedb,4,2021-07-07T21:23:25Z,Graph
-26888631,stripe/sequins,stripe/sequins,4,2014-11-20T00:38:21Z,Key-value
+191442206,kashirin-alex/swc-db,kashirin-alex/swc-db,4,2019-06-11T20:11:19Z,"Wide column,Key-value"
 65619619,krotik/eliasdb,krotik/eliasdb,3,2016-08-13T13:53:28Z,Graph
-150149024,,BlazingDB/blazingsql,3,,
-137792810,yahoo/HaloDB,yahoo/HaloDB,3,2018-06-18T18:46:19Z,Key-value
-93667206,geomesa/geomesa-geoserver,geomesa/geomesa-geoserver,3,2017-06-07T18:33:48Z,Spatial
-1922333,BohuTANG/nessDB,BohuTANG/nessDB,3,2011-06-20T07:17:30Z,Key-value
-162765004,peermaps/eyros,peermaps/eyros,3,2018-12-21T23:01:29Z,Array
-1244027,ModeShape/modeshape,ModeShape/modeshape,3,2011-01-12T02:30:46Z,"Content,Object Oriented"
-3493103,rescrv/HyperDex,rescrv/HyperDex,3,2012-02-20T11:32:16Z,Key-value
 754873,njh/redstore,njh/redstore,3,2010-07-03T10:09:55Z,RDF
+1922333,BohuTANG/nessDB,BohuTANG/nessDB,3,2011-06-20T07:17:30Z,Key-value
 639434928,,cfu288/LokiJS,3,,
+93667206,geomesa/geomesa-geoserver,geomesa/geomesa-geoserver,3,2017-06-07T18:33:48Z,Spatial
+1244027,ModeShape/modeshape,ModeShape/modeshape,3,2011-01-12T02:30:46Z,"Object Oriented,Content"
+150149024,,BlazingDB/blazingsql,3,,
+3493103,rescrv/HyperDex,rescrv/HyperDex,3,2012-02-20T11:32:16Z,Key-value
+137792810,yahoo/HaloDB,yahoo/HaloDB,3,2018-06-18T18:46:19Z,Key-value
 223462217,,ResilientEcosystem/resilientdb,3,,
-421444565,surrealdb/echodb,surrealdb/echodb,2,2021-10-26T13:51:05Z,Key-value
-2282376,apache/giraph,apache/giraph,2,2011-08-28T07:00:33Z,Graph
+162765004,peermaps/eyros,peermaps/eyros,3,2018-12-21T23:01:29Z,Array
+234091935,,00000o1/sirdb,2,,
+8582237,splicemachine/spliceengine,splicemachine/spliceengine,2,2013-03-05T15:07:56Z,Relational
 28457976,AlticeLabsProjects/kyoto,AlticeLabsProjects/kyoto,2,2014-12-24T17:55:45Z,Key-value
-4712089,reverbrain/elliptics,reverbrain/elliptics,2,2012-06-19T10:05:10Z,Key-value
+204261394,iboxdb/db4o-gpl,iboxdb/db4o-gpl,2,2019-08-25T07:30:52Z,Object Oriented
+372181547,cashapp/pranadb,cashapp/pranadb,2,2021-05-30T10:11:45Z,Relational
+249981301,dappkit/aviondb,dappkit/aviondb,2,2020-03-25T13:08:13Z,Document
+3114475,tomp2p/TomP2P,tomp2p/TomP2P,2,2012-01-06T00:10:28Z,Key-value
+23452009,yxymit/DBx1000,yxymit/DBx1000,2,2014-08-29T04:00:18Z,Relational
+47634692,mldbai/mldb,mldbai/mldb,2,2015-12-08T16:34:16Z,
+811881,cruppstahl/upscaledb,cruppstahl/upscaledb,2,2010-08-02T08:13:41Z,Key-value
+1584552,hypertable/hypertable,hypertable/hypertable,2,2011-04-07T21:37:47Z,Wide column
+14753974,graemedouglas/LittleD,graemedouglas/LittleD,2,2013-11-27T17:28:00Z,
+36992044,sphinxsearch/sphinx,sphinxsearch/sphinx,2,2015-06-06T19:15:17Z,Search Engine
+12106192,oleiade/trousseau,oleiade/trousseau,2,2013-08-14T10:22:25Z,Key-value
 33053071,oberasoftware/jasdb,oberasoftware/jasdb,2,2015-03-28T22:41:15Z,Document
 276117477,opengauss-mirror/openGauss-server,opengauss-mirror/openGauss-server,2,2020-06-30T14:08:59Z,Relational
-249981301,dappkit/aviondb,dappkit/aviondb,2,2020-03-25T13:08:13Z,Document
-234091935,,00000o1/sirdb,2,,
-14753974,graemedouglas/LittleD,graemedouglas/LittleD,2,2013-11-27T17:28:00Z,
-811881,cruppstahl/upscaledb,cruppstahl/upscaledb,2,2010-08-02T08:13:41Z,Key-value
+2282376,apache/giraph,apache/giraph,2,2011-08-28T07:00:33Z,Graph
+4712089,reverbrain/elliptics,reverbrain/elliptics,2,2012-06-19T10:05:10Z,Key-value
+421444565,surrealdb/echodb,surrealdb/echodb,2,2021-10-26T13:51:05Z,Key-value
 41946572,degdb/degdb,degdb/degdb,2,2015-09-05T02:47:38Z,Graph
-372181547,cashapp/pranadb,cashapp/pranadb,2,2021-05-30T10:11:45Z,Relational
-47634692,mldbai/mldb,mldbai/mldb,2,2015-12-08T16:34:16Z,
-23452009,yxymit/DBx1000,yxymit/DBx1000,2,2014-08-29T04:00:18Z,Relational
-12106192,oleiade/trousseau,oleiade/trousseau,2,2013-08-14T10:22:25Z,Key-value
-3114475,tomp2p/TomP2P,tomp2p/TomP2P,2,2012-01-06T00:10:28Z,Key-value
-1584552,hypertable/hypertable,hypertable/hypertable,2,2011-04-07T21:37:47Z,Wide column
-204261394,iboxdb/db4o-gpl,iboxdb/db4o-gpl,2,2019-08-25T07:30:52Z,Object Oriented
-36992044,sphinxsearch/sphinx,sphinxsearch/sphinx,2,2015-06-06T19:15:17Z,Search Engine
-8582237,splicemachine/spliceengine,splicemachine/spliceengine,2,2013-03-05T15:07:56Z,Relational
-285669400,graphikDB/graphik,graphikDB/graphik,1,2020-08-06T20:53:56Z,Document
-15682781,sitewhere/sitewhere,sitewhere/sitewhere,1,2014-01-06T19:23:58Z,Time Series
-157514605,,distributedio/titan,1,,
-101723057,ryenus/hsqldb,ryenus/hsqldb,1,2017-08-29T05:40:18Z,Relational
 16326644,akumuli/Akumuli,akumuli/Akumuli,1,2014-01-28T21:31:20Z,
-14143348,fakemongo/fongo,fakemongo/fongo,1,2013-11-05T14:22:05Z,Document
+285669400,graphikDB/graphik,graphikDB/graphik,1,2020-08-06T20:53:56Z,Document
+22868877,traildb/traildb,traildb/traildb,1,2014-08-12T07:34:48Z,Relational
+34056205,sachin-sinha/BangDB,sachin-sinha/BangDB,1,2015-04-16T13:05:12Z,"Key-value,Document"
+14702444,pipelinedb/pipelinedb,pipelinedb/pipelinedb,1,2013-11-26T00:11:48Z,"Object Oriented,Relational"
+15682781,sitewhere/sitewhere,sitewhere/sitewhere,1,2014-01-06T19:23:58Z,Time Series
+22427082,BTrDB/btrdb-server,BTrDB/btrdb-server,1,2014-07-30T12:36:26Z,Relational
+157514605,,distributedio/titan,1,,
+354659748,saurabh0719/elara,saurabh0719/elara,1,2021-04-04T22:33:04Z,Key-value
 223895357,tuxmonk/pupdb,tuxmonk/pupdb,1,2019-11-25T08:13:16Z,Key-value
 34406933,LMDB/lmdb,LMDB/lmdb,1,2015-04-22T18:04:18Z,Key-value
 2272541,gstrauss/mcdb,gstrauss/mcdb,1,2011-08-26T05:43:36Z,Key-value
-12050336,hhblaze/DBreeze,hhblaze/DBreeze,1,2013-08-12T07:34:47Z,"Document,Key-value"
+14143348,fakemongo/fongo,fakemongo/fongo,1,2013-11-05T14:22:05Z,Document
+101723057,ryenus/hsqldb,ryenus/hsqldb,1,2017-08-29T05:40:18Z,Relational
+12050336,hhblaze/DBreeze,hhblaze/DBreeze,1,2013-08-12T07:34:47Z,"Key-value,Document"
 547593,jingwei/krati,jingwei/krati,1,2010-03-04T23:11:08Z,Key-value
-6235870,ansell/openrdf-sesame,ansell/openrdf-sesame,1,2012-10-15T23:06:33Z,RDF
-223462217,,apache/incubator-resilientdb,1,,
 2445970,VoltDB/voltdb,VoltDB/voltdb,1,,Relational
-22427082,BTrDB/btrdb-server,BTrDB/btrdb-server,1,2014-07-30T12:36:26Z,Relational
-14702444,pipelinedb/pipelinedb,pipelinedb/pipelinedb,1,2013-11-26T00:11:48Z,"Relational,Object Oriented"
-31342455,iondbproject/iondb,iondbproject/iondb,1,2015-02-26T00:07:10Z,Key-value
+455386848,kevinlawler/kerf,kevinlawler/kerf,1,2022-02-04T01:28:00Z,
 42580991,,TIBCOSoftware/snappydata,1,,
 205350261,pinusdb/pinusdb,pinusdb/pinusdb,1,2019-08-30T09:29:02Z,Relational
-22868877,traildb/traildb,traildb/traildb,1,2014-08-12T07:34:48Z,Relational
-455386848,kevinlawler/kerf,kevinlawler/kerf,1,2022-02-04T01:28:00Z,
-354659748,saurabh0719/elara,saurabh0719/elara,1,2021-04-04T22:33:04Z,Key-value
-34056205,sachin-sinha/BangDB,sachin-sinha/BangDB,1,2015-04-16T13:05:12Z,"Document,Key-value"
+6235870,ansell/openrdf-sesame,ansell/openrdf-sesame,1,2012-10-15T23:06:33Z,RDF
+223462217,,apache/incubator-resilientdb,1,,
+31342455,iondbproject/iondb,iondbproject/iondb,1,2015-02-26T00:07:10Z,Key-value

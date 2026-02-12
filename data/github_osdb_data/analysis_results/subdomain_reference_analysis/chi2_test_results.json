@@ -1,7 +1,7 @@
 {
-    "chi2_statistic": 773813.5701483227,
+    "chi2_statistic": 922426.5651841658,
     "p_value": 0.0,
-    "degrees_of_freedom": 306,
+    "degrees_of_freedom": 289,
     "significant": true,
-    "effect_size_cramers_v": 0.11020198060740745
+    "effect_size_cramers_v": 0.10310250517178896
 }

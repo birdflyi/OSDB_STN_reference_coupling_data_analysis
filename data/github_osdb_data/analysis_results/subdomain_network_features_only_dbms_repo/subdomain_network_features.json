@@ -1,0 +1,1037 @@
+{
+  "year": 2023,
+  "use_repo_nodes_only": true,
+  "use_largest_component": true,
+  "only_dbms_repo": true,
+  "subdomain_count": 18,
+  "subdomain_features": {
+    "Key-value": {
+      "category_label": "Key-value",
+      "num_nodes": 1527,
+      "num_edges": 1866,
+      "density": 0.0008007889444777749,
+      "avg_degree": 2.444007858546169,
+      "max_degree": 231.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.02909556808571733,
+      "avg_path_length": 4.386556490330075,
+      "lcc_size": 1485,
+      "lcc_coverage": 0.9724950884086444,
+      "num_components": 18,
+      "intra_community_ratio": 0.8942565754159957,
+      "num_communities": 39,
+      "modularity": 0.7043554960075795,
+      "assortativity": -0.05351117973259899,
+      "diameter": 12.0
+    },
+    "Relational": {
+      "category_label": "Relational",
+      "num_nodes": 3480,
+      "num_edges": 4790,
+      "density": 0.00039564150089370375,
+      "avg_degree": 2.7528735632183907,
+      "max_degree": 366.0,
+      "min_degree": 0.0,
+      "avg_clustering": 0.048502466567367314,
+      "avg_path_length": 3.8529143322064714,
+      "lcc_size": 3419,
+      "lcc_coverage": 0.9824712643678161,
+      "num_components": 16,
+      "intra_community_ratio": 0.8310952580780528,
+      "num_communities": 40,
+      "modularity": 0.7827294690885069,
+      "assortativity": -0.1352443977129081,
+      "diameter": 8.0
+    },
+    "Document": {
+      "category_label": "Document",
+      "num_nodes": 1649,
+      "num_edges": 1952,
+      "density": 0.0007182935229942243,
+      "avg_degree": 2.367495451788963,
+      "max_degree": 153.0,
+      "min_degree": 0.0,
+      "avg_clustering": 0.019250024017144544,
+      "avg_path_length": 4.6311762991930685,
+      "lcc_size": 1579,
+      "lcc_coverage": 0.957550030321407,
+      "num_components": 22,
+      "intra_community_ratio": 0.898870636550308,
+      "num_communities": 46,
+      "modularity": 0.8578017293238119,
+      "assortativity": -0.06818433367211152,
+      "diameter": 10.0
+    },
+    "Search Engine": {
+      "category_label": "Search Engine",
+      "num_nodes": 702,
+      "num_edges": 754,
+      "density": 0.0015322026734294922,
+      "avg_degree": 2.1481481481481484,
+      "max_degree": 308.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.031108667485544524,
+      "avg_path_length": 3.403474351113836,
+      "lcc_size": 700,
+      "lcc_coverage": 0.9971509971509972,
+      "num_components": 2,
+      "intra_community_ratio": 0.9349269588313412,
+      "num_communities": 8,
+      "modularity": 0.521104137565904,
+      "assortativity": -0.044707331209156716,
+      "diameter": 6.0
+    },
+    "Vector": {
+      "category_label": "Vector",
+      "num_nodes": 429,
+      "num_edges": 456,
+      "density": 0.0024834978106006143,
+      "avg_degree": 2.125874125874126,
+      "max_degree": 179.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.589535740604274,
+      "lcc_size": 414,
+      "lcc_coverage": 0.965034965034965,
+      "num_components": 6,
+      "intra_community_ratio": 0.9407894736842105,
+      "num_communities": 14,
+      "modularity": 0.7609833531376838,
+      "assortativity": -0.0897756615539955,
+      "diameter": 8.0
+    },
+    "Object Oriented": {
+      "category_label": "Object Oriented",
+      "num_nodes": 402,
+      "num_edges": 424,
+      "density": 0.0026302403195990125,
+      "avg_degree": 2.109452736318408,
+      "max_degree": 140.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.5100238376978616,
+      "lcc_size": 342,
+      "lcc_coverage": 0.8507462686567164,
+      "num_components": 11,
+      "intra_community_ratio": 0.9504716981132075,
+      "num_communities": 18,
+      "modularity": 0.6378592672298433,
+      "assortativity": 0.013280436087688351,
+      "diameter": 7.0
+    },
+    "Wide column": {
+      "category_label": "Wide column",
+      "num_nodes": 478,
+      "num_edges": 525,
+      "density": 0.0023025709849740796,
+      "avg_degree": 2.196652719665272,
+      "max_degree": 118.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.015367284333825414,
+      "avg_path_length": 3.910598843890073,
+      "lcc_size": 478,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9104761904761904,
+      "num_communities": 11,
+      "modularity": 0.7982082351105243,
+      "assortativity": -0.07586107257574501,
+      "diameter": 8.0
+    },
+    "Time Series": {
+      "category_label": "Time Series",
+      "num_nodes": 695,
+      "num_edges": 841,
+      "density": 0.0017436195136110132,
+      "avg_degree": 2.420143884892086,
+      "max_degree": 189.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.04799905617685214,
+      "avg_path_length": 3.7816183298060113,
+      "lcc_size": 692,
+      "lcc_coverage": 0.99568345323741,
+      "num_components": 2,
+      "intra_community_ratio": 0.8760429082240763,
+      "num_communities": 13,
+      "modularity": 0.8313485323083907,
+      "assortativity": -0.13806363658790835,
+      "diameter": 8.0
+    },
+    "Graph": {
+      "category_label": "Graph",
+      "num_nodes": 494,
+      "num_edges": 581,
+      "density": 0.002385625477330399,
+      "avg_degree": 2.3522267206477734,
+      "max_degree": 91.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.025146658207477596,
+      "avg_path_length": 4.3867202449292,
+      "lcc_size": 469,
+      "lcc_coverage": 0.9493927125506073,
+      "num_components": 8,
+      "intra_community_ratio": 0.9155172413793103,
+      "num_communities": 20,
+      "modularity": 0.7474135107866918,
+      "assortativity": 0.07689810689498176,
+      "diameter": 9.0
+    },
+    "Hierarchical": {
+      "category_label": "Hierarchical",
+      "num_nodes": 65,
+      "num_edges": 69,
+      "density": 0.01658653846153846,
+      "avg_degree": 2.123076923076923,
+      "max_degree": 44.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.7634615384615384,
+      "lcc_size": 65,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9420289855072463,
+      "num_communities": 2,
+      "modularity": 0.08321262169221222,
+      "assortativity": -0.09206151126798744,
+      "diameter": 4.0
+    },
+    "Array": {
+      "category_label": "Array",
+      "num_nodes": 64,
+      "num_edges": 64,
+      "density": 0.015873015873015872,
+      "avg_degree": 2.0,
+      "max_degree": 45.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.9545454545454546,
+      "lcc_size": 44,
+      "lcc_coverage": 0.6875,
+      "num_components": 4,
+      "intra_community_ratio": 1.0,
+      "num_communities": 4,
+      "modularity": 0.15241632889336304,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    "Native XML": {
+      "category_label": "Native XML",
+      "num_nodes": 102,
+      "num_edges": 105,
+      "density": 0.01019219569015725,
+      "avg_degree": 2.0588235294117645,
+      "max_degree": 93.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.3063482818870122,
+      "lcc_size": 102,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9714285714285714,
+      "num_communities": 2,
+      "modularity": 0.11429087052336392,
+      "assortativity": -0.2811833065637791,
+      "diameter": 4.0
+    },
+    "Event": {
+      "category_label": "Event",
+      "num_nodes": 27,
+      "num_edges": 27,
+      "density": 0.038461538461538464,
+      "avg_degree": 2.0,
+      "max_degree": 25.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.9166666666666667,
+      "lcc_size": 24,
+      "lcc_coverage": 0.8888888888888888,
+      "num_components": 2,
+      "intra_community_ratio": 1.0,
+      "num_communities": 2,
+      "modularity": 0.0031766120369705435,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    "Spatial": {
+      "category_label": "Spatial",
+      "num_nodes": 73,
+      "num_edges": 74,
+      "density": 0.014079147640791476,
+      "avg_degree": 2.0273972602739727,
+      "max_degree": 61.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.131934731934732,
+      "lcc_size": 66,
+      "lcc_coverage": 0.9041095890410958,
+      "num_components": 2,
+      "intra_community_ratio": 0.9864864864864865,
+      "num_communities": 3,
+      "modularity": 0.32648077908418033,
+      "assortativity": -0.13226256554061636,
+      "diameter": 3.0
+    },
+    "RDF": {
+      "category_label": "RDF",
+      "num_nodes": 140,
+      "num_edges": 144,
+      "density": 0.0073997944501541625,
+      "avg_degree": 2.057142857142857,
+      "max_degree": 80.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.021514883583849,
+      "lcc_size": 117,
+      "lcc_coverage": 0.8357142857142857,
+      "num_components": 6,
+      "intra_community_ratio": 0.9722222222222222,
+      "num_communities": 8,
+      "modularity": 0.7456659511855648,
+      "assortativity": -0.008338372837994735,
+      "diameter": 6.0
+    },
+    "Columnar": {
+      "category_label": "Columnar",
+      "num_nodes": 1,
+      "num_edges": 1,
+      "density": 0,
+      "avg_degree": 2.0,
+      "max_degree": 2.0,
+      "min_degree": 2.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 0,
+      "lcc_size": 0,
+      "lcc_coverage": 0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 1.1102230246251565e-16,
+      "assortativity": NaN,
+      "diameter": 0
+    },
+    "Content": {
+      "category_label": "Content",
+      "num_nodes": 6,
+      "num_edges": 6,
+      "density": 0.2,
+      "avg_degree": 2.0,
+      "max_degree": 7.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.6666666666666667,
+      "lcc_size": 6,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 0.0,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    "Multivalue": {
+      "category_label": "Multivalue",
+      "num_nodes": 1,
+      "num_edges": 1,
+      "density": 0,
+      "avg_degree": 2.0,
+      "max_degree": 2.0,
+      "min_degree": 2.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 0,
+      "lcc_size": 0,
+      "lcc_coverage": 0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 0.0,
+      "assortativity": NaN,
+      "diameter": 0
+    }
+  },
+  "comparison_table": [
+    {
+      "category_label": "Relational",
+      "num_nodes": 3480,
+      "num_edges": 4790,
+      "density": 0.00039564150089370375,
+      "avg_degree": 2.7528735632183907,
+      "max_degree": 366.0,
+      "min_degree": 0.0,
+      "avg_clustering": 0.048502466567367314,
+      "avg_path_length": 3.8529143322064714,
+      "lcc_size": 3419,
+      "lcc_coverage": 0.9824712643678161,
+      "num_components": 16,
+      "intra_community_ratio": 0.8310952580780528,
+      "num_communities": 40,
+      "modularity": 0.7827294690885069,
+      "assortativity": -0.1352443977129081,
+      "diameter": 8.0
+    },
+    {
+      "category_label": "Document",
+      "num_nodes": 1649,
+      "num_edges": 1952,
+      "density": 0.0007182935229942243,
+      "avg_degree": 2.367495451788963,
+      "max_degree": 153.0,
+      "min_degree": 0.0,
+      "avg_clustering": 0.019250024017144544,
+      "avg_path_length": 4.6311762991930685,
+      "lcc_size": 1579,
+      "lcc_coverage": 0.957550030321407,
+      "num_components": 22,
+      "intra_community_ratio": 0.898870636550308,
+      "num_communities": 46,
+      "modularity": 0.8578017293238119,
+      "assortativity": -0.06818433367211152,
+      "diameter": 10.0
+    },
+    {
+      "category_label": "Key-value",
+      "num_nodes": 1527,
+      "num_edges": 1866,
+      "density": 0.0008007889444777749,
+      "avg_degree": 2.444007858546169,
+      "max_degree": 231.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.02909556808571733,
+      "avg_path_length": 4.386556490330075,
+      "lcc_size": 1485,
+      "lcc_coverage": 0.9724950884086444,
+      "num_components": 18,
+      "intra_community_ratio": 0.8942565754159957,
+      "num_communities": 39,
+      "modularity": 0.7043554960075795,
+      "assortativity": -0.05351117973259899,
+      "diameter": 12.0
+    },
+    {
+      "category_label": "Search Engine",
+      "num_nodes": 702,
+      "num_edges": 754,
+      "density": 0.0015322026734294922,
+      "avg_degree": 2.1481481481481484,
+      "max_degree": 308.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.031108667485544524,
+      "avg_path_length": 3.403474351113836,
+      "lcc_size": 700,
+      "lcc_coverage": 0.9971509971509972,
+      "num_components": 2,
+      "intra_community_ratio": 0.9349269588313412,
+      "num_communities": 8,
+      "modularity": 0.521104137565904,
+      "assortativity": -0.044707331209156716,
+      "diameter": 6.0
+    },
+    {
+      "category_label": "Time Series",
+      "num_nodes": 695,
+      "num_edges": 841,
+      "density": 0.0017436195136110132,
+      "avg_degree": 2.420143884892086,
+      "max_degree": 189.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.04799905617685214,
+      "avg_path_length": 3.7816183298060113,
+      "lcc_size": 692,
+      "lcc_coverage": 0.99568345323741,
+      "num_components": 2,
+      "intra_community_ratio": 0.8760429082240763,
+      "num_communities": 13,
+      "modularity": 0.8313485323083907,
+      "assortativity": -0.13806363658790835,
+      "diameter": 8.0
+    },
+    {
+      "category_label": "Graph",
+      "num_nodes": 494,
+      "num_edges": 581,
+      "density": 0.002385625477330399,
+      "avg_degree": 2.3522267206477734,
+      "max_degree": 91.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.025146658207477596,
+      "avg_path_length": 4.3867202449292,
+      "lcc_size": 469,
+      "lcc_coverage": 0.9493927125506073,
+      "num_components": 8,
+      "intra_community_ratio": 0.9155172413793103,
+      "num_communities": 20,
+      "modularity": 0.7474135107866918,
+      "assortativity": 0.07689810689498176,
+      "diameter": 9.0
+    },
+    {
+      "category_label": "Wide column",
+      "num_nodes": 478,
+      "num_edges": 525,
+      "density": 0.0023025709849740796,
+      "avg_degree": 2.196652719665272,
+      "max_degree": 118.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.015367284333825414,
+      "avg_path_length": 3.910598843890073,
+      "lcc_size": 478,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9104761904761904,
+      "num_communities": 11,
+      "modularity": 0.7982082351105243,
+      "assortativity": -0.07586107257574501,
+      "diameter": 8.0
+    },
+    {
+      "category_label": "Vector",
+      "num_nodes": 429,
+      "num_edges": 456,
+      "density": 0.0024834978106006143,
+      "avg_degree": 2.125874125874126,
+      "max_degree": 179.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.589535740604274,
+      "lcc_size": 414,
+      "lcc_coverage": 0.965034965034965,
+      "num_components": 6,
+      "intra_community_ratio": 0.9407894736842105,
+      "num_communities": 14,
+      "modularity": 0.7609833531376838,
+      "assortativity": -0.0897756615539955,
+      "diameter": 8.0
+    },
+    {
+      "category_label": "Object Oriented",
+      "num_nodes": 402,
+      "num_edges": 424,
+      "density": 0.0026302403195990125,
+      "avg_degree": 2.109452736318408,
+      "max_degree": 140.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.5100238376978616,
+      "lcc_size": 342,
+      "lcc_coverage": 0.8507462686567164,
+      "num_components": 11,
+      "intra_community_ratio": 0.9504716981132075,
+      "num_communities": 18,
+      "modularity": 0.6378592672298433,
+      "assortativity": 0.013280436087688351,
+      "diameter": 7.0
+    },
+    {
+      "category_label": "RDF",
+      "num_nodes": 140,
+      "num_edges": 144,
+      "density": 0.0073997944501541625,
+      "avg_degree": 2.057142857142857,
+      "max_degree": 80.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 3.021514883583849,
+      "lcc_size": 117,
+      "lcc_coverage": 0.8357142857142857,
+      "num_components": 6,
+      "intra_community_ratio": 0.9722222222222222,
+      "num_communities": 8,
+      "modularity": 0.7456659511855648,
+      "assortativity": -0.008338372837994735,
+      "diameter": 6.0
+    },
+    {
+      "category_label": "Native XML",
+      "num_nodes": 102,
+      "num_edges": 105,
+      "density": 0.01019219569015725,
+      "avg_degree": 2.0588235294117645,
+      "max_degree": 93.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.3063482818870122,
+      "lcc_size": 102,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9714285714285714,
+      "num_communities": 2,
+      "modularity": 0.11429087052336392,
+      "assortativity": -0.2811833065637791,
+      "diameter": 4.0
+    },
+    {
+      "category_label": "Spatial",
+      "num_nodes": 73,
+      "num_edges": 74,
+      "density": 0.014079147640791476,
+      "avg_degree": 2.0273972602739727,
+      "max_degree": 61.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.131934731934732,
+      "lcc_size": 66,
+      "lcc_coverage": 0.9041095890410958,
+      "num_components": 2,
+      "intra_community_ratio": 0.9864864864864865,
+      "num_communities": 3,
+      "modularity": 0.32648077908418033,
+      "assortativity": -0.13226256554061636,
+      "diameter": 3.0
+    },
+    {
+      "category_label": "Hierarchical",
+      "num_nodes": 65,
+      "num_edges": 69,
+      "density": 0.01658653846153846,
+      "avg_degree": 2.123076923076923,
+      "max_degree": 44.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 2.7634615384615384,
+      "lcc_size": 65,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 0.9420289855072463,
+      "num_communities": 2,
+      "modularity": 0.08321262169221222,
+      "assortativity": -0.09206151126798744,
+      "diameter": 4.0
+    },
+    {
+      "category_label": "Array",
+      "num_nodes": 64,
+      "num_edges": 64,
+      "density": 0.015873015873015872,
+      "avg_degree": 2.0,
+      "max_degree": 45.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.9545454545454546,
+      "lcc_size": 44,
+      "lcc_coverage": 0.6875,
+      "num_components": 4,
+      "intra_community_ratio": 1.0,
+      "num_communities": 4,
+      "modularity": 0.15241632889336304,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    {
+      "category_label": "Event",
+      "num_nodes": 27,
+      "num_edges": 27,
+      "density": 0.038461538461538464,
+      "avg_degree": 2.0,
+      "max_degree": 25.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.9166666666666667,
+      "lcc_size": 24,
+      "lcc_coverage": 0.8888888888888888,
+      "num_components": 2,
+      "intra_community_ratio": 1.0,
+      "num_communities": 2,
+      "modularity": 0.0031766120369705435,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    {
+      "category_label": "Content",
+      "num_nodes": 6,
+      "num_edges": 6,
+      "density": 0.2,
+      "avg_degree": 2.0,
+      "max_degree": 7.0,
+      "min_degree": 1.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 1.6666666666666667,
+      "lcc_size": 6,
+      "lcc_coverage": 1.0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 0.0,
+      "assortativity": NaN,
+      "diameter": 2.0
+    },
+    {
+      "category_label": "Columnar",
+      "num_nodes": 1,
+      "num_edges": 1,
+      "density": 0.0,
+      "avg_degree": 2.0,
+      "max_degree": 2.0,
+      "min_degree": 2.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 0.0,
+      "lcc_size": 0,
+      "lcc_coverage": 0.0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 1.1102230246251565e-16,
+      "assortativity": NaN,
+      "diameter": 0.0
+    },
+    {
+      "category_label": "Multivalue",
+      "num_nodes": 1,
+      "num_edges": 1,
+      "density": 0.0,
+      "avg_degree": 2.0,
+      "max_degree": 2.0,
+      "min_degree": 2.0,
+      "avg_clustering": 0.0,
+      "avg_path_length": 0.0,
+      "lcc_size": 0,
+      "lcc_coverage": 0.0,
+      "num_components": 1,
+      "intra_community_ratio": 1.0,
+      "num_communities": 1,
+      "modularity": 0.0,
+      "assortativity": NaN,
+      "diameter": 0.0
+    }
+  ],
+  "repo_to_category_mapping": {
+    "pingcap/tidb": [
+      "Key-value",
+      "Relational"
+    ],
+    "apple/foundationdb": [
+      "Key-value",
+      "Document"
+    ],
+    "hazelcast/hazelcast": [
+      "Key-value"
+    ],
+    "tikv/tikv": [
+      "Key-value"
+    ],
+    "prestodb/presto": [
+      "Key-value",
+      "Relational",
+      "Document",
+      "Wide column"
+    ],
+    "yugabyte/yugabyte-db": [
+      "Key-value",
+      "Relational"
+    ],
+    "wiredtiger/wiredtiger": [
+      "Key-value"
+    ],
+    "tarantool/tarantool": [
+      "Key-value",
+      "Document"
+    ],
+    "etcd-io/etcd": [
+      "Key-value"
+    ],
+    "arangodb/arangodb": [
+      "Key-value",
+      "Document",
+      "Graph"
+    ],
+    "ravendb/ravendb": [
+      "Key-value",
+      "Document"
+    ],
+    "apache/cassandra": [
+      "Key-value",
+      "Wide column"
+    ],
+    "redis/redis": [
+      "Key-value"
+    ],
+    "facebook/rocksdb": [
+      "Key-value"
+    ],
+    "prometheus/prometheus": [
+      "Key-value",
+      "Time Series"
+    ],
+    "infinispan/infinispan": [
+      "Key-value"
+    ],
+    "apache/ignite": [
+      "Key-value"
+    ],
+    "speedb-io/speedb": [
+      "Key-value"
+    ],
+    "etcd-io/bbolt": [
+      "Key-value"
+    ],
+    "codenotary/immudb": [
+      "Key-value"
+    ],
+    "ArcadeData/arcadedb": [
+      "Key-value",
+      "Document",
+      "Time Series",
+      "Graph"
+    ],
+    "couchbase/couchbase-lite-core": [
+      "Key-value",
+      "Document"
+    ],
+    "vmware/splinterdb": [
+      "Key-value"
+    ],
+    "xap/xap": [
+      "Key-value"
+    ],
+    "memcached/memcached": [
+      "Key-value"
+    ],
+    "logicalclocks/rondb": [
+      "Key-value",
+      "Relational"
+    ],
+    "dgraph-io/badger": [
+      "Key-value"
+    ],
+    "cberner/redb": [
+      "Key-value"
+    ],
+    "Snapchat/KeyDB": [
+      "Key-value"
+    ],
+    "ehcache/ehcache3": [
+      "Key-value"
+    ],
+    "IceFireDB/IceFireDB": [
+      "Key-value"
+    ],
+    "apache/kylin": [
+      "Key-value",
+      "Relational"
+    ],
+    "danielealbano/cachegrand": [
+      "Key-value"
+    ],
+    "orientechnologies/orientdb": [
+      "Key-value",
+      "Document",
+      "Object Oriented",
+      "Graph"
+    ],
+    "hivedb/hive": [
+      "Key-value"
+    ],
+    "microsoft/FASTER": [
+      "Key-value"
+    ],
+    "reductstore/reductstore": [
+      "Key-value",
+      "Time Series"
+    ],
+    "LineairDB/LineairDB": [
+      "Key-value"
+    ],
+    "armink/FlashDB": [
+      "Key-value"
+    ],
+    "paypal/junodb": [
+      "Key-value"
+    ],
+    "oracle/nosql-java-sdk": [
+      "Key-value",
+      "Document"
+    ],
+    "streamnative/oxia": [
+      "Key-value"
+    ],
+    "google/leveldb": [
+      "Key-value"
+    ],
+    "OpenHFT/Chronicle-Map": [
+      "Key-value"
+    ],
+    "khonsulabs/bonsaidb": [
+      "Key-value"
+    ],
+    "basho/riak_kv": [
+      "Key-value"
+    ],
+    "spacejam/sled": [
+      "Key-value"
+    ],
+    "firstbatchxyz/hollowdb": [
+      "Key-value"
+    ],
+    "skytable/skytable": [
+      "Key-value"
+    ],
+    "Tencent/Tendis": [
+      "Key-value"
+    ],
+    "OpenTSDB/opentsdb": [
+      "Key-value",
+      "Time Series"
+    ],
+    "orbitdb/orbit-db": [
+      "Key-value",
+      "Document"
+    ],
+    "zopefoundation/ZODB": [
+      "Key-value",
+      "Object Oriented"
+    ],
+    "bitnine-oss/agensgraph": [
+      "Key-value",
+      "Relational",
+      "Document",
+      "Graph"
+    ],
+    "basho/riak": [
+      "Key-value"
+    ],
+    "griddb/griddb": [
+      "Key-value",
+      "Time Series"
+    ],
+    "jankotek/mapdb": [
+      "Key-value",
+      "Object Oriented"
+    ],
+    "tonsky/datascript": [
+      "Key-value"
+    ],
+    "apache/geode": [
+      "Key-value"
+    ],
+    "bytedance/terarkdb": [
+      "Key-value"
+    ],
+    "Softmotions/ejdb": [
+      "Key-value",
+      "Document"
+    ],
+    "akrylysov/pogreb": [
+      "Key-value"
+    ],
+    "oasysai/oasysdb": [
+      "Key-value",
+      "Vector"
+    ],
+    "estraier/tkrzw": [
+      "Key-value"
+    ],
+    "cachelot/cachelot": [
+      "Key-value"
+    ],
+    "pilgr/Paper": [
+      "Key-value",
+      "Object Oriented"
+    ],
+    "tikv/agatedb": [
+      "Key-value"
+    ],
+    "microsoft/Extensible-Storage-Engine": [
+      "Key-value"
+    ],
+    "Netflix/EVCache": [
+      "Key-value"
+    ],
+    "tidwall/redcon": [
+      "Key-value"
+    ],
+    "tidwall/buntdb": [
+      "Key-value"
+    ],
+    "Bobris/BTDB": [
+      "Key-value",
+      "Object Oriented"
+    ],
+    "redwood/redwood": [
+      "Key-value"
+    ],
+    "ideawu/ssdb": [
+      "Key-value"
+    ],
+    "aerospike/aerospike-server": [
+      "Key-value"
+    ],
+    "bigchaindb/bigchaindb": [
+      "Key-value",
+      "Document"
+    ],
+    "cockroachdb/cockroach": [
+      "Relational"
+    ],
+    "apache/doris": [
+      "Relational"
+    ],
+    "ClickHouse/ClickHouse": [
+      "Relational"
+    ],
+    "apache/spark": [
+      "Relational"
+    ],
+    "facebookincubator/velox": [
+      "Relational"
+    ],
+    "trinodb/trino": [
+      "Relational"
+    ],
+    "risingwavelabs/risingwave": [
+      "Relational"
+    ],
+    "matrixorigin/matrixone": [
+      "Relational"
+    ],
+    "apache/arrow-datafusion": [
+      "Relational"
+    ],
+    "apache/flink": [
+      "Relational"
+    ],
+    "datafuselabs/databend": [
+      "Relational"
+    ],
+    "neondatabase/neon": [
+      "Relational",
+      "Object Oriented"
+    ],
+    "apache/shardingsphere": [
+      "Relational"
+    ],
+    "greenplum-db/gpdb": [
+      "Relational"
+    ],
+    "grafana/mimir": [
+      "Relational"
+    ],
+    "apache/druid": [
+      "Relational",
+      "Wide column"
+    ],
+    "vitessio/vitess": [
+      "Relational"
+    ],
+    "apache/pinot": [
+      "Relational"
+    ],
+    "duckdb/duckdb": [
+      "Relational"
+    ],
+    "apache/hive": [
+      "Relational"
+    ],
+    "apache/kyuubi": [
+      "Relational"
+    ],
+    "taosdata/TDengine": [
+      "Relational",
+      "Time Series"
+    ],
+    "questdb/questdb": [
+      "Relational",
+      "Time Series"
+    ],
+    "dolthub/dolt": [
+      "Relational"
+    ]
+  }
+}

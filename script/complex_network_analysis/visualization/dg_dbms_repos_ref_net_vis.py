@@ -119,6 +119,7 @@ if __name__ == '__main__':
     np.random.seed(seed)
     logger.info(f"Calculate networkx position with seed={seed}...")
     layout_dir = os.path.join(graph_network_dir, 'visualization')
+    os.makedirs(layout_dir, exist_ok=True)
     layout_filename = f"{dg_name}_spring_layout.pkl"
     layout_path = os.path.join(layout_dir, layout_filename)
     if not flag_skip_existing_files or not os.path.exists(layout_path):

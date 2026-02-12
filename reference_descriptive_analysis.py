@@ -32,7 +32,7 @@ import pandas as pd
 import seaborn as sns
 import traceback
 
-from collections import Counter
+from collections import Counter, OrderedDict
 from scipy import stats, optimize
 
 from GH_CoRE.data_dict_settings import columns_simple, body_columns_dict, event_columns_dict, re_ref_patterns
@@ -79,13 +79,14 @@ def get_matched_repo_name(row: pd.Series, df_ref: pd.DataFrame, repo_name_colnam
 def integrate_category_label(row: pd.Series):
     mix_src_sep = "#dbdbio>|<dbengines#"
     category_label_str = str(row["category_label"]).replace(mix_src_sep, ",") if pd.notna(row["category_label"]) else ""
-    category_labels = list(set(category_label_str.split(",")))
+    category_labels_split_raw = category_label_str.split(",")
+    ordered_dict = OrderedDict.fromkeys(category_labels_split_raw)
+    category_labels = list(ordered_dict.keys())
     category_labels_not_empty = [e for e in category_labels if e]
     row["category_label"] = ','.join(category_labels_not_empty) if len(category_labels_not_empty) else ""
     return row
 
 
-# 步骤2: 数据收集与预处理
 def select_target_repos(dbms_repos_key_feats_path, year=2023, re_preprocess=False, i_pr_rec_cnt_threshold=10, ret='name_list'):
     """
     :dbms_repos_key_feats_path 从dbdb.io与dbengines收录列表中选择符合条件的DBMS项目
@@ -115,6 +116,7 @@ def select_target_repos(dbms_repos_key_feats_path, year=2023, re_preprocess=Fals
 
     # 4. Get Issue related activity
     repo_activity_statistics_dir = os.path.join(os.path.dirname(dbms_repos_key_feats_path), 'repo_activity_statistics')
+    os.makedirs(repo_activity_statistics_dir, exist_ok=True)
     repo_i_pr_rec_cnt_path = os.path.join(repo_activity_statistics_dir, 'repo_i_pr_rec_cnt.csv')
 
 
@@ -354,24 +356,58 @@ def write_gexf_with_forced_types(G, filepath, forced_types=None, repl_None_str="
 
 
 # 按列值分割dataframe
-def split_dataframe_by_column(df, column_name):
+def split_dataframe_by_column(df, column_name="category_label", mixed_tag_delimiter=',', with_replacement=True):
+    """
+    按列值分割dataframe
+
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        要分割的DataFrame
+    column_name : str
+        用于分割的列名
+    mixed_tag_delimiter : str
+        标签分割符
+    with_replacement : bool
+        True: 有放回，每行可被重复分配到多个标签
+        False: 无放回，每行只分配到首个出现的标签（按去重后的第一个标签）
+
+    Returns:
+    --------
+    dict : {标签: DataFrame}
+    """
     # 用于存储结果的字典
     result_dict = {}
 
     # 遍历每一行
     for index, row in df.iterrows():
-        # 获取该行的值并分割成集合
-        values = set(row[column_name].split(','))
+        # 获取该行的值并分割成保持第一次出现顺序的集合
+        split_values = row[column_name].split(mixed_tag_delimiter)
+        # 创建一个有序字典，自动去重并保持插入顺序
+        ordered_dict = OrderedDict.fromkeys(split_values)
+        unique_values = list(ordered_dict.keys())
 
-        # 为每个值创建一个子df
-        for value in values:
-            # 如果该值不在结果字典中，创建新的df
+        # 过滤空值
+        non_empty_values = [v for v in unique_values if not (pd.isna(v) or v == '')]
+
+        if not non_empty_values:  # 如果没有有效的标签值，跳过该行
+            continue
+
+        if with_replacement:
+            # 有放回：将行分配到所有非空标签
+            values_to_assign = non_empty_values
+        else:
+            # 无放回：只分配到首个非空标签
+            values_to_assign = [non_empty_values[0]]
+
+        # 处理每个要分配的标签
+        for value in values_to_assign:
+            # 如果该标签还没有对应的DataFrame，则创建一个新的空DataFrame
             if value not in result_dict:
-                result_dict[value] = df[df[column_name].str.contains(value, na=False)].copy()
-            else:
-                # 否则，将当前行添加到已存在的df中
-                temp_df = df[df[column_name].str.contains(value, na=False)].copy()
-                result_dict[value] = pd.concat([result_dict[value], temp_df], ignore_index=True).drop_duplicates()
+                result_dict[value] = pd.DataFrame(columns=df.columns)
+
+            # 将当前行追加到该标签的DataFrame中
+            result_dict[value] = pd.concat([result_dict[value], row.to_frame().T], ignore_index=True)
 
     return result_dict
 
@@ -414,7 +450,10 @@ def analyze_referenced_type_distribution(df_dbms_repos_ref_node_agg_dict, df_rep
         'proportion': [count / total_count for count in total_counter.values()]
     })
     df_referencing_type_distribution = df_referencing_type_distribution.sort_values('count', ascending=False).reset_index(drop=True)
-    df_referencing_type_distribution.to_csv(os.path.join(github_osdb_data_dir, f"analysis_results/ref_type_dist/df_referencing_type_distribution_len_{total_count}.csv"), header=True, index=False, encoding='utf-8')
+    github_osdb_data_dir = filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR]
+    output_dir = os.path.join(github_osdb_data_dir, "analysis_results/ref_type_dist")
+    os.makedirs(output_dir, exist_ok=True)
+    df_referencing_type_distribution.to_csv(os.path.join(output_dir, f"df_referencing_type_distribution_len_{total_count}.csv"), header=True, index=False, encoding='utf-8')
 
     total_counter = Counter()
     total_count = 0
@@ -830,7 +869,7 @@ def analyze_self_ref_time_evolution(df_self_ref_ratio, df_repo_i_pr_rec_cnt):
             logger.info("按年龄分组统计:")
             logger.info(f"\n{age_group_stats}")
 
-            # 绘制年龄分组箱线图 - 使用格式化后的标签
+            # 绘制年龄分组箱线图
             plt.figure(figsize=(10, 6))
             ax = sns.boxplot(data=df_merged, x='age_group_formatted', y='external_ref_ratio')
             plt.xlabel('Project Age Group (years)', fontsize=12)
@@ -3286,7 +3325,8 @@ def compute_clustering_coefficient(G, output_dir=None, use_largest_component=Tru
 
 
 def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict,
-                                       output_dir=None, tar_type_col="tar_entity_type_fine_grained"):
+                                       output_dir=None, tar_type_col="tar_entity_type_fine_grained",
+                                       with_replacement=True):  # 默认保持与split_dataframe_by_column一致
     """
     比较不同子领域（category_label）的引用类型分布差异
 
@@ -3295,12 +3335,16 @@ def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repo
     df_dbms_repos_ref_node_agg_dict: 引用关系字典 {repo_key: df_ref, ...}
     output_dir: 输出目录路径
     tar_type_col: 被引用实体类型的列名
+    with_replacement: bool
+        True: 有放回模式，仓库可被重复计入多个子领域（每行分配到所有标签）
+        False: 无放回模式，每个仓库只计入首次出现的子领域（每行只分配到首个标签）
 
     返回:
     dict: 包含子领域引用类型差异分析结果的字典
     """
     import numpy as np
     from scipy import stats
+    from collections import defaultdict
 
     logger.info("开始分析不同子领域的引用类型分布差异...")
 
@@ -3318,55 +3362,95 @@ def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repo
     # 1. 准备数据：将引用数据按子领域分类
     subdomain_ref_data = {}
 
-    # 获取repo_name到category_label的映射
-    repo_to_category = {}
+    # 构建仓库到标签列表的完整映射（保持所有标签）
+    repo_to_all_categories = defaultdict(list)
     for category_label, df_category in split_dfs_by_category_label.items():
         for _, row in df_category.iterrows():
             repo_name = row['repo_name']
             if pd.notna(repo_name):
-                repo_to_category[repo_name] = category_label
+                repo_to_all_categories[repo_name].append(category_label)
 
-    logger.info(f"共映射了 {len(repo_to_category)} 个仓库到子领域")
+    # 根据with_replacement参数决定使用哪种映射
+    if with_replacement:
+        # 有放回模式：仓库可以分配到所有标签（使用完整映射）
+        repo_to_category = repo_to_all_categories
+        logger.info(f"有放回模式：仓库可重复计入多个子领域")
+        # 统计多标签仓库的数量
+        multi_label_count = sum(1 for cats in repo_to_all_categories.values() if len(cats) > 1)
+        logger.info(f"共 {len(repo_to_all_categories)} 个仓库，其中 {multi_label_count} 个仓库属于多个子领域")
+        logger.info(f"示例: {dict(list(repo_to_all_categories.items())[:3])}")
+    else:
+        # 无放回模式：每个仓库只取首个出现的标签
+        repo_to_category = {}
+        for repo_name, categories in repo_to_all_categories.items():
+            if categories:  # 确保非空
+                repo_to_category[repo_name] = categories[0]  # 只取第一个标签
+        logger.info(f"无放回模式：每个仓库只计入首个子领域")
+        logger.info(f"共映射了 {len(repo_to_category)} 个仓库到单个子领域")
+        logger.info(f"示例: {dict(list(repo_to_category.items())[:3])}")
 
     # 2. 按子领域统计引用类型分布
     for repo_key, df_ref in df_dbms_repos_ref_node_agg_dict.items():
         # 从repo_key提取repo_name
-        # repo_key格式通常为: org_repo_2023.csv 或类似
         repo_name = None
-        for known_repo_name in repo_to_category.keys():
-            if known_repo_name.replace('/', '_') in repo_key:
-                repo_name = known_repo_name
-                break
+        if with_replacement:
+            # 有放回模式：从repo_to_all_categories的键中查找
+            for known_repo_name in repo_to_all_categories.keys():
+                if known_repo_name.replace('/', '_') in repo_key:
+                    repo_name = known_repo_name
+                    break
+        else:
+            # 无放回模式：从repo_to_category的键中查找
+            for known_repo_name in repo_to_category.keys():
+                if known_repo_name.replace('/', '_') in repo_key:
+                    repo_name = known_repo_name
+                    break
 
-        if repo_name and repo_name in repo_to_category:
-            category_label = repo_to_category[repo_name]
+        if repo_name:
+            # 获取该仓库所属的标签
+            if with_replacement:
+                # 有放回模式：分配到所有标签
+                categories = repo_to_all_categories.get(repo_name, [])
+            else:
+                # 无放回模式：只分配到首个标签
+                categories = [repo_to_category[repo_name]] if repo_name in repo_to_category else []
 
-            if category_label not in subdomain_ref_data:
-                subdomain_ref_data[category_label] = {
-                    'repo_count': 0,
-                    'ref_counts': pd.Series(dtype=int),
-                    'repo_names': []
-                }
+            # 处理每个标签
+            for category_label in categories:
+                if category_label not in subdomain_ref_data:
+                    subdomain_ref_data[category_label] = {
+                        'repo_count': 0,
+                        'ref_counts': pd.Series(dtype=int),
+                        'repo_names': [],
+                        'unique_repo_count': 0  # 记录不重复的仓库数
+                    }
 
-            # 统计该仓库的引用类型
-            if tar_type_col in df_ref.columns:
-                valid_refs = df_ref[df_ref[tar_type_col].notna()]
-                if len(valid_refs) > 0:
-                    ref_counts = valid_refs[tar_type_col].value_counts()
+                # 统计该仓库的引用类型
+                if tar_type_col in df_ref.columns:
+                    valid_refs = df_ref[df_ref[tar_type_col].notna()]
+                    if len(valid_refs) > 0:
+                        ref_counts = valid_refs[tar_type_col].value_counts()
 
-                    if subdomain_ref_data[category_label]['ref_counts'].empty:
-                        subdomain_ref_data[category_label]['ref_counts'] = ref_counts
-                    else:
-                        # 合并统计
-                        subdomain_ref_data[category_label]['ref_counts'] = (
-                            subdomain_ref_data[category_label]['ref_counts']
-                            .add(ref_counts, fill_value=0)
-                            .astype(int)
-                        )
+                        if subdomain_ref_data[category_label]['ref_counts'].empty:
+                            subdomain_ref_data[category_label]['ref_counts'] = ref_counts
+                        else:
+                            # 合并统计
+                            subdomain_ref_data[category_label]['ref_counts'] = (
+                                subdomain_ref_data[category_label]['ref_counts']
+                                .add(ref_counts, fill_value=0)
+                                .astype(int)
+                            )
 
-                    subdomain_ref_data[category_label]['repo_count'] += 1
-                    subdomain_ref_data[category_label]['repo_names'].append(repo_name)
+                        # repo_count：仓库出现次数（在有放回模式下可能重复计数）
+                        subdomain_ref_data[category_label]['repo_count'] += 1
 
+                        # 记录仓库名，用于计算不重复仓库数
+                        subdomain_ref_data[category_label]['repo_names'].append(repo_name)
+
+                        # 计算不重复的仓库数（适用于所有模式）
+                        unique_repos = set(subdomain_ref_data[category_label]['repo_names'])
+                        subdomain_ref_data[category_label]['unique_repo_count'] = len(unique_repos)
+    # 添加统计信息日志
     logger.info(f"成功统计了 {len(subdomain_ref_data)} 个子领域的引用数据")
 
     # 3. 创建对比分析DataFrame
@@ -3443,7 +3527,7 @@ def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repo
     else:
         logger.warning("子领域或引用类型数量不足，无法进行卡方检验")
 
-    # 5. 优化后的可视化分析 - 修复布局问题
+    # 5. 优化后的可视化分析
     plt.figure(figsize=(24, 18))
 
     # 子图1: 各子领域引用类型分布的堆叠条形图（全宽度）
@@ -3605,7 +3689,7 @@ def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repo
         # 将宽度减少20%，向右移动一点
         ax2.set_position([pos.x0 * 1.05, pos.y0, pos.width * 0.8, pos.height])
 
-        # 创建图例放在右侧 - 使用更紧凑的布局
+        # 创建图例放在右侧
         # 方法1：使用紧凑图例
         legend = ax2.legend(lines, labels,
                             loc='upper left',  # 放在左上角
@@ -4020,7 +4104,30 @@ def compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repo
     }
 
 
-def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_self_ref_ratio, output_dir=None):
+def calculate_project_age(created_at_str, reference_year=2023):
+    """计算项目年龄（到参考年份年底的年数）"""
+    try:
+        # 转换时间戳，统一时区处理
+        created_at = pd.to_datetime(created_at_str)
+
+        # 如果时间戳带有时区，转换为UTC并移除时区信息
+        if created_at.tz is not None:
+            created_at = created_at.tz_convert('UTC').tz_localize(None)
+
+        # 创建参考时间（2023年底），确保不带时区
+        end_of_year = pd.Timestamp(f'{reference_year}-12-31')
+
+        # 计算天数差
+        age_days = (end_of_year - created_at).days
+        age_years = age_days / 365.25  # 转换为年
+        return age_years
+    except Exception as e:
+        logger.error(f"计算项目年龄时出错: {e}, 原始数据: {created_at_str}")
+        return None
+
+
+def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_self_ref_ratio,
+                                               output_dir=None, with_replacement=True):
     """
     比较不同子领域（category_label）的外引比例随时间变化趋势
 
@@ -4028,12 +4135,16 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
     split_dfs_by_category_label: 按category_label划分的DataFrame字典 {label: df, ...}
     df_self_ref_ratio: 自引率数据DataFrame
     output_dir: 输出目录路径
+    with_replacement: bool
+        True: 有放回模式，仓库可被重复计入多个子领域（每行分配到所有标签）
+        False: 无放回模式，每个仓库只计入首次出现的子领域（每行只分配到首个标签）
 
     返回:
     dict: 包含子领域时间演化分析结果的字典
     """
     import numpy as np
     from scipy import stats
+    from collections import defaultdict
 
     logger.info("开始分析不同子领域的外引比例时间演化趋势...")
 
@@ -4049,15 +4160,31 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
         return {}
 
     # 1. 准备数据：将仓库映射到子领域
-    # 获取repo_name到category_label的映射
-    repo_to_category = {}
+    # 首先构建仓库到所有标签的完整映射
+    repo_to_all_categories = defaultdict(list)
     for category_label, df_category in split_dfs_by_category_label.items():
         for _, row in df_category.iterrows():
             repo_name = row['repo_name']
             if pd.notna(repo_name):
-                repo_to_category[repo_name] = category_label
+                repo_to_all_categories[repo_name].append(category_label)
 
-    logger.info(f"共映射了 {len(repo_to_category)} 个仓库到子领域")
+    # 根据with_replacement参数决定使用哪种映射
+    if with_replacement:
+        # 有放回模式：仓库可以分配到所有标签
+        repo_to_category = repo_to_all_categories
+        logger.info(f"有放回模式：仓库可重复计入多个子领域")
+        multi_label_count = sum(1 for cats in repo_to_all_categories.values() if len(cats) > 1)
+        logger.info(f"共 {len(repo_to_all_categories)} 个仓库，其中 {multi_label_count} 个仓库属于多个子领域")
+        logger.info(f"映射示例: {dict(list(repo_to_all_categories.items())[:3])}")
+    else:
+        # 无放回模式：每个仓库只取首个出现的标签
+        repo_to_category = {}
+        for repo_name, categories in repo_to_all_categories.items():
+            if categories:
+                repo_to_category[repo_name] = categories[0]
+        logger.info(f"无放回模式：每个仓库只计入首个子领域")
+        logger.info(f"共映射了 {len(repo_to_category)} 个仓库到单个子领域")
+        logger.info(f"映射示例: {dict(list(repo_to_category.items())[:3])}")
 
     # 2. 合并数据：自引率 + 仓库信息 + 子领域标签
     # 确保数据类型一致
@@ -4089,36 +4216,56 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
     logger.info(f"成功匹配 {len(df_merged)} 个项目的数据")
 
     # 添加子领域标签
-    df_merged['category_label'] = df_merged['repo_name'].map(repo_to_category)
-    df_merged = df_merged[df_merged['category_label'].notna()]
+    if with_replacement:
+        # 有放回模式：需要将每个仓库展开到多行，每行对应一个标签
+        expanded_rows = []
+        for _, row in df_merged.iterrows():
+            repo_name = row['repo_name']
+            categories = repo_to_category.get(repo_name, [])
+            for category in categories:
+                new_row = row.copy()
+                new_row['category_label'] = category
+                expanded_rows.append(new_row)
+
+        if expanded_rows:
+            df_merged_expanded = pd.DataFrame(expanded_rows)
+            logger.info(f"有放回模式：原始{len(df_merged)}行展开为{len(df_merged_expanded)}行")
+            df_merged = df_merged_expanded
+        else:
+            logger.warning("没有找到有子领域标签的项目数据")
+            return {}
+    else:
+        # 无放回模式：直接映射到单个标签
+        df_merged['category_label'] = df_merged['repo_name'].map(repo_to_category)
+        df_merged = df_merged[df_merged['category_label'].notna()]
+        logger.info(f"无放回模式：共{len(df_merged)}个项目有子领域标签")
 
     if len(df_merged) == 0:
         logger.warning("没有找到有子领域标签的项目数据")
         return {}
 
-    logger.info(f"有子领域标签的项目数量: {len(df_merged)}")
+    # 统计各子领域的项目数量
+    category_counts = df_merged['category_label'].value_counts()
+    # 子领域分布日志
+    # 有自引率数据的总仓库数
+    total_repos_with_self_ref = len(
+        df_self_ref_ratio['repo_name'].unique()) if 'repo_name' in df_self_ref_ratio.columns else 294
+    total_repos_with_age = df_merged['repo_name'].nunique()  # 有创建时间的总不重复仓库数 (291)
+
+    logger.info(f"子领域分布:")
+    logger.info(f"注: 覆盖率基于有自引率数据的总仓库数(294个)计算")
+    for category, count in category_counts.items():
+        if with_replacement:
+            unique_count = df_merged[df_merged['category_label'] == category]['repo_name'].nunique()
+            coverage_rate_294 = (unique_count / total_repos_with_self_ref * 100) if total_repos_with_self_ref > 0 else 0
+            coverage_rate_291 = (unique_count / total_repos_with_age * 100) if total_repos_with_age > 0 else 0
+            logger.info(f"  {category}: {unique_count} 个仓库, "
+                        f"覆盖率(总294): {coverage_rate_294:.1f}%, "
+                        f"覆盖率(有年龄291): {coverage_rate_291:.1f}%")
+        else:
+            logger.info(f"  {category}: {count} 个仓库")
 
     # 3. 计算项目年龄和外引比例（参考analyze_self_ref_time_evolution的实现）
-    def calculate_project_age(created_at_str, reference_year=2023):
-        """计算项目年龄（到参考年份年底的年数）"""
-        try:
-            # 转换时间戳，统一时区处理
-            created_at = pd.to_datetime(created_at_str)
-
-            # 如果时间戳带有时区，转换为UTC并移除时区信息
-            if created_at.tz is not None:
-                created_at = created_at.tz_convert('UTC').tz_localize(None)
-
-            # 创建参考时间（2023年底），确保不带时区
-            end_of_year = pd.Timestamp(f'{reference_year}-12-31')
-
-            # 计算天数差
-            age_days = (end_of_year - created_at).days
-            age_years = age_days / 365.25  # 转换为年
-            return age_years
-        except Exception as e:
-            logger.error(f"计算项目年龄时出错: {e}, 原始数据: {created_at_str}")
-            return None
 
     df_merged['project_age_years'] = df_merged['repo_created_at'].apply(
         lambda x: calculate_project_age(x, reference_year=2023)
@@ -4143,7 +4290,13 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
 
     for category in categories:
         df_subdomain = df_merged[df_merged['category_label'] == category]
-
+        # ===================================================
+        # 【对比分析过滤条件】
+        # 阈值: 3个数据点
+        # 目的: 确保统计显著性，避免小样本导致的偏差
+        # 影响: 数据点 < 3 的子领域不会进入后续对比分析
+        # 状态: e.g. Native XML (2个数据点) 被主动排除
+        # ===================================================
         if len(df_subdomain) >= 3:  # 至少需要3个数据点进行有意义分析
             # 计算基本统计
             age_stats = {
@@ -4197,11 +4350,29 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
                 'sample_size': len(df_subdomain)
             }
         else:
-            logger.warning(f"子领域 {category} 数据点不足 ({len(df_subdomain)}个)，跳过详细分析")
+            logger.info(f"子领域 {category} 数据点不足 ({len(df_subdomain)}个)，跳过详细分析")
             subdomain_analysis[category] = {
                 'sample_size': len(df_subdomain),
-                'insufficient_data': True
+                'insufficient_data': True,
+                'excluded_from_comparison': True  # 明确标记
             }
+    if with_replacement:
+        for category in subdomain_analysis:
+            unique_repos = df_merged[df_merged['category_label'] == category]['repo_name'].nunique()
+            subdomain_analysis[category]['unique_repo_count'] = unique_repos
+            subdomain_analysis[category]['duplication_rate'] = (
+                subdomain_analysis[category]['sample_size'] / unique_repos
+                if unique_repos > 0 else 1.0
+            )
+    # 在添加去重计数后，输出汇总信息
+    if with_replacement:
+        total_unique_repos = df_merged['repo_name'].nunique()
+        total_appearances = len(df_merged)
+        logger.info("=" * 60)
+        logger.info(f"有放回模式汇总: {total_unique_repos} 个不重复仓库, "
+                    f"{total_appearances} 次总出现, "
+                    f"整体重复率: {total_appearances / total_unique_repos:.2f}")
+        logger.info("=" * 60)
 
     # 5. 可视化分析
     plt.figure(figsize=(18, 12))
@@ -4574,13 +4745,27 @@ def compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_s
     return {
         'analysis_report': analysis_report,
         'merged_data': df_merged,
-        'subdomain_analysis': subdomain_analysis
+        'subdomain_analysis': subdomain_analysis,
+
+        # 模式信息
+        'with_replacement': with_replacement,
+        'analysis_mode': 'with_replacement' if with_replacement else 'without_replacement',
+
+        # 总体统计
+        'total_stats': {
+            'unique_repos': df_merged['repo_name'].nunique(),
+            'total_observations': len(df_merged),
+            'duplication_rate': len(df_merged) / df_merged['repo_name'].nunique()
+                               if with_replacement and df_merged['repo_name'].nunique() > 0 else 1.0,
+            'categories_analyzed': len(subdomain_analysis)
+        }
     }
 
 
 def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict,
                                         use_repo_nodes_only=True,
-                                        output_dir=None, use_largest_component=True, only_dbms_repo=False, year=2023):
+                                        output_dir=None, use_largest_component=True, only_dbms_repo=False, year=2023,
+                                        with_replacement=True):  # 1. 新增参数，默认True（有放回）
     """
     比较不同子领域（category_label）的网络特征差异
 
@@ -4592,11 +4777,15 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
     use_largest_component: 是否使用最大连通子图计算网络特征
     only_dbms_repo: 是否只分析DBMS仓库
     year: 分析的年份
+    with_replacement: bool
+        True: 有放回模式，仓库可被重复计入多个子领域（每行分配到所有标签）
+        False: 无放回模式，每个仓库只计入首次出现的子领域（每行只分配到首个标签）
 
     返回:
     dict: 包含子领域网络特征分析结果的字典
     """
     import numpy as np
+    from collections import defaultdict  # 2. 添加defaultdict
 
     logger.info("开始分析不同子领域的网络特征差异...")
 
@@ -4613,8 +4802,10 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
         return {}
 
     # 1. 准备数据：将仓库映射到子领域
-    repo_to_category = {}
-    repo_key_to_category = {}
+    # 3. 构建完整的映射关系（始终保留所有标签）
+    repo_to_all_categories = defaultdict(list)
+    repo_key_to_all_categories = defaultdict(list)
+
     for category_label, df_category in split_dfs_by_category_label.items():
         for _, row in df_category.iterrows():
             repo_name = row['repo_name']
@@ -4622,50 +4813,127 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
                 repo_name_fileformat = get_repo_name_fileformat(repo_name)
                 filename = get_repo_year_filename(repo_name_fileformat, year)
                 repo_key = filename.rstrip('.csv')
-                repo_to_category[repo_name] = category_label
-                repo_key_to_category[repo_key] = category_label
 
-    logger.info(f"共映射了 {len(repo_to_category)} 个仓库到子领域")
+                repo_to_all_categories[repo_name].append(category_label)
+                repo_key_to_all_categories[repo_key].append(category_label)
 
-    # 2. 按子领域构建网络并计算特征
+    # 4. 根据with_replacement参数决定使用哪种映射
+    if with_replacement:
+        # 有放回模式：使用完整映射，仓库可以分配到所有标签
+        repo_to_category = repo_to_all_categories
+        repo_key_to_category = repo_key_to_all_categories
+        logger.info(f"有放回模式：仓库可重复计入多个子领域")
+        multi_label_count = sum(1 for cats in repo_to_all_categories.values() if len(cats) > 1)
+        logger.info(f"共映射了 {len(repo_to_all_categories)} 个仓库，其中 {multi_label_count} 个仓库属于多个子领域")
+    else:
+        # 无放回模式：每个仓库只取首个出现的标签
+        repo_to_category = {}
+        repo_key_to_category = {}
+
+        for repo_name, categories in repo_to_all_categories.items():
+            if categories:
+                repo_to_category[repo_name] = categories[0]
+
+        for repo_key, categories in repo_key_to_all_categories.items():
+            if categories:
+                repo_key_to_category[repo_key] = categories[0]
+
+        logger.info(f"无放回模式：每个仓库只计入首个子领域")
+        logger.info(f"共映射了 {len(repo_to_category)} 个仓库到单个子领域")
+
+    logger.info(f"最终用于分析的子领域标签映射完成")
+
+    # 5. 按子领域构建网络并计算特征
     subdomain_network_features = {}
 
     # 首先，为每个子领域构建聚合网络
     subdomain_networks = {}
+    # 6. 注意：这里需要使用split_dfs_by_category_label的keys，因为这是所有可能的子领域
     for category_label in split_dfs_by_category_label.keys():
         subdomain_networks[category_label] = nx.MultiDiGraph()
         logger.info(f"初始化子领域 '{category_label}' 的网络")
 
-    # 为每个仓库添加节点和边到对应的子领域网络
+    # 7. 为每个仓库添加节点和边到对应的子领域网络
+    # 创建一个集合来记录已处理的仓库-子领域对（避免重复处理，有放回模式下也需要去重）
+    processed_pairs = set()
+
     for repo_key, df_ref in df_dbms_repos_ref_node_agg_dict.items():
-        if repo_key not in repo_key_to_category:
-            continue
+        # 获取该repo_key所属的标签
+        if with_replacement:
+            # 有放回模式：获取所有标签
+            categories = repo_key_to_all_categories.get(repo_key, [])
+        else:
+            # 无放回模式：只获取首个标签
+            categories = [repo_key_to_category.get(repo_key)] if repo_key in repo_key_to_category else []
 
-        category_label = repo_key_to_category[repo_key]
-        base_graph = subdomain_networks[category_label]
+        # 处理每个标签
+        for category_label in categories:
+            if not category_label:  # 跳过空标签
+                continue
 
-        if df_ref is not None and len(df_ref) > 0:
-            try:
-                # 过滤掉源节点或目标节点为空的记录
-                df_ref_filtered = df_ref.dropna(subset=['src_entity_id_agg', 'tar_entity_id_agg'], how='any')
+            # 检查是否已经处理过这个仓库-子领域对
+            pair_key = f"{repo_key}_{category_label}"
+            if pair_key in processed_pairs:
+                continue
+            processed_pairs.add(pair_key)
 
-                if len(df_ref_filtered) == 0:
-                    continue
+            base_graph = subdomain_networks[category_label]
 
-                # 构建协作网络
-                G = build_collab_net(df_ref_filtered,
-                                     src_tar_colnames=['src_entity_id_agg', 'tar_entity_id_agg'],
-                                     base_graph=base_graph,
-                                     default_node_types=['src_entity_type_agg', 'tar_entity_type_agg'],
-                                     default_edge_type="event_type",
-                                     init_record_as_edge_attrs=True,
-                                     use_df_col_as_default_type=True,
-                                     out_g_type='DG')
-                subdomain_networks[category_label] = G
+            if df_ref is not None and len(df_ref) > 0:
+                try:
+                    # 过滤掉源节点或目标节点为空的记录
+                    df_ref_filtered = df_ref.dropna(subset=['src_entity_id_agg', 'tar_entity_id_agg'], how='any')
 
-                logger.debug(f"为子领域 '{category_label}' 添加了仓库 '{repo_key}' 的网络: {len(df_ref_filtered)} 条边")
-            except Exception as e:
-                logger.warning(f"为仓库 '{repo_key}' 构建网络失败: {str(e)}")
+                    if len(df_ref_filtered) == 0:
+                        continue
+
+                    # 构建协作网络
+                    G = build_collab_net(df_ref_filtered,
+                                         src_tar_colnames=['src_entity_id_agg', 'tar_entity_id_agg'],
+                                         base_graph=base_graph,
+                                         default_node_types=['src_entity_type_agg', 'tar_entity_type_agg'],
+                                         default_edge_type="event_type",
+                                         init_record_as_edge_attrs=True,
+                                         use_df_col_as_default_type=True,
+                                         out_g_type='DG')
+                    subdomain_networks[category_label] = G
+
+                    logger.debug(
+                        f"为子领域 '{category_label}' 添加了仓库 '{repo_key}' 的网络: {len(df_ref_filtered)} 条边")
+                except Exception as e:
+                    logger.warning(f"为仓库 '{repo_key}' 构建网络失败: {str(e)}")
+
+    # 8. 统计各子领域的仓库数量信息（用于日志输出，不影响后续分析）
+    subdomain_repo_stat = {}
+    for category_label in subdomain_networks.keys():
+        subdomain_repo_stat[category_label] = {
+            'repo_count': 0,
+            'unique_repo_keys': set()
+        }
+
+    # 统计每个子领域关联的仓库
+    for repo_key, df_ref in df_dbms_repos_ref_node_agg_dict.items():
+        if with_replacement:
+            categories = repo_key_to_all_categories.get(repo_key, [])
+        else:
+            categories = [repo_key_to_category.get(repo_key)] if repo_key in repo_key_to_category else []
+
+        for category_label in categories:
+            if category_label and category_label in subdomain_repo_stat:
+                subdomain_repo_stat[category_label]['repo_count'] += 1
+                subdomain_repo_stat[category_label]['unique_repo_keys'].add(repo_key)
+
+    # 输出统计信息
+    total_unique_repos = len(repo_to_all_categories)  # 总不重复仓库数 (294)
+
+    for category_label, stat in subdomain_repo_stat.items():
+        unique_count = len(stat['unique_repo_keys'])
+        if with_replacement:
+            coverage_rate = (unique_count / total_unique_repos * 100) if total_unique_repos > 0 else 0
+            logger.info(f"子领域 '{category_label}': {unique_count} 个仓库, "
+                        f"覆盖率: {coverage_rate:.1f}% (总仓库数: {total_unique_repos})")
+        else:
+            logger.info(f"子领域 '{category_label}': {stat['repo_count']} 个仓库")
 
     # 如果只使用Repo节点，移除非Repo节点
     if use_repo_nodes_only:
@@ -4894,54 +5162,88 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
         df_comparison = pd.DataFrame()
         logger.warning("没有有效的网络特征数据用于对比分析")
 
-    # 5. 统计检验：检验不同子领域网络特征是否有显著差异
-    anova_results = {}
-    if len(subdomain_network_features) >= 2:
-        try:
-            # 准备特征数据
-            feature_data = {}
+    # 5. 子领域网络特征对比分析（替代每个仓库独立建图时的ANOVA检验）
+    logger.info("=" * 70)
+    logger.info("子领域网络特征对比分析（描述性统计）")
+    logger.info("=" * 70)
 
-            # 收集各子领域的特征数据
-            for category_label, features in subdomain_network_features.items():
-                # 直接使用特征值（每个子领域只有一个值）
-                for feature_name in ['avg_degree', 'avg_clustering', 'avg_path_length',
-                                     'intra_community_ratio', 'modularity', 'density', 'assortativity']:
-                    if feature_name in features:
-                        value = features[feature_name]
-                        if feature_name not in feature_data:
-                            feature_data[feature_name] = {}
-                        if category_label not in feature_data[feature_name]:
-                            feature_data[feature_name][category_label] = []
-                        feature_data[feature_name][category_label].append(value)
+    # 计算每个特征的统计描述
+    feature_stats = {}
+    for feature in ['num_nodes', 'avg_degree', 'avg_clustering', 'modularity', 'density']:
+        values = []
+        categories = []
+        repo_counts = []
 
-            # 对每个特征进行ANOVA检验
-            for feature_name, category_values in feature_data.items():
-                if len(category_values) >= 2:
-                    # 检查每个组是否有足够的数据
-                    group_sizes = [len(values) for values in category_values.values()]
-                    if min(group_sizes) >= 1 and len(category_values) >= 2:
-                        try:
-                            # 执行ANOVA检验
-                            f_stat, p_value = stats.f_oneway(*list(category_values.values()))
+        for category_label, features in subdomain_network_features.items():
+            if feature in features:
+                values.append(features[feature])
+                categories.append(category_label)
+                repo_counts.append(len(subdomain_repo_stat.get(category_label, {}).get('unique_repo_keys', [])))
 
-                            anova_results[feature_name] = {
-                                'f_statistic': float(f_stat),
-                                'p_value': float(p_value),
-                                'significant': bool(p_value < 0.05),
-                                'num_groups': len(category_values),
-                                'total_samples': sum(group_sizes)
-                            }
+        if values:
+            # 排序
+            sorted_indices = np.argsort(values)[::-1]  # 降序
+            top_3 = [(categories[i], values[i], repo_counts[i]) for i in sorted_indices[:3]]
 
-                            logger.info(f"ANOVA检验 {feature_name}: F={f_stat:.4f}, p={p_value:.4e}")
+            feature_stats[feature] = {
+                'mean': np.mean(values),
+                'std': np.std(values),
+                'min': np.min(values),
+                'max': np.max(values),
+                'top_3': top_3
+            }
 
-                        except Exception as e:
-                            logger.warning(f"ANOVA检验失败 {feature_name}: {str(e)}")
-                            anova_results[feature_name] = {'error': str(e)}
-        except Exception as e:
-            logger.error(f"统计检验过程中出错: {str(e)}")
-            traceback.print_exc()
-    else:
-        logger.warning("子领域数量不足，无法进行ANOVA检验")
+    # 添加子领域排名分析
+    subdomain_ranking = {}
+    for feature in feature_stats.keys():
+        values = []
+        for category_label, features in subdomain_network_features.items():
+            if feature in features:
+                values.append({
+                    'subdomain': category_label,
+                    'value': features[feature],
+                    'repo_count': len(subdomain_repo_stat.get(category_label, {}).get('unique_repo_keys', []))
+                })
+
+        if values:
+            # 降序排序
+            sorted_values = sorted(values, key=lambda x: x['value'], reverse=True)
+            subdomain_ranking[feature] = {
+                'top_3': [(item['subdomain'], round(item['value'], 4), item['repo_count'])
+                          for item in sorted_values[:3]],
+                'bottom_3': [(item['subdomain'], round(item['value'], 4), item['repo_count'])
+                             for item in sorted_values[-3:]]
+            }
+
+    # 输出对比分析摘要（只在这里输出一次）
+    for feature, stats in feature_stats.items():
+        logger.info(f"【{feature}】")
+
+        # 整数特征优化格式
+        if feature in ['num_nodes', 'num_edges', 'lcc_size', 'num_communities']:
+            logger.info(f"  范围: {int(stats['min'])} ~ {int(stats['max'])}")
+            logger.info(f"  均值±标准差: {stats['mean']:.1f} ± {stats['std']:.1f}")
+        else:
+            # 浮点特征保留3位小数
+            logger.info(f"  范围: {stats['min']:.3f} ~ {stats['max']:.3f}")
+            logger.info(f"  均值±标准差: {stats['mean']:.3f} ± {stats['std']:.3f}")
+
+        if 'top_3' in stats:
+            logger.info(f"  Top 3:")
+            for i, (sub, val, repos) in enumerate(stats['top_3'][:3], 1):
+                # Top值也按特征类型格式化
+                if feature in ['num_nodes', 'num_edges', 'lcc_size', 'num_communities']:
+                    logger.info(f"    {i}. {sub}: {int(val)} (仓库数: {repos})")
+                else:
+                    logger.info(f"    {i}. {sub}: {val:.3f} (仓库数: {repos})")
+
+    # 构建对比分析结果（供返回和保存）
+    subdomain_comparison = {
+        'feature_stats': feature_stats,
+        'ranking': subdomain_ranking,
+        'total_subdomains': len(subdomain_network_features),
+        'analysis_note': '描述性统计对比，每组仅1个样本，不进行显著性检验'
+    }
 
     # 6. 可视化分析 (修改为英文标签)
     plt.figure(figsize=(20, 16))
@@ -5345,8 +5647,8 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
     plt.tight_layout()
 
     # 保存可视化结果
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
-    fig_path = os.path.join(output_dir, f'subdomain_network_features_comparison_{timestamp}.png')
+    # timestamp = time.strftime("%Y%m%d_%H%M%S")
+    fig_path = os.path.join(output_dir, f'subdomain_network_features_comparison.png')
     plt.savefig(fig_path, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -5355,13 +5657,13 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
     # 7. 保存详细的网络特征数据
     if df_comparison is not None and not df_comparison.empty:
         # 保存DataFrame为CSV
-        csv_path = os.path.join(output_dir, f'subdomain_network_features_{timestamp}.csv')
+        csv_path = os.path.join(output_dir, f'subdomain_network_features.csv')
         df_comparison.to_csv(csv_path, index=False, encoding='utf-8')
         logger.info(f"已保存网络特征数据: {csv_path}")
 
         # 保存JSON格式的详细结果
         json_results = {
-            'timestamp': timestamp,
+            # 'timestamp': timestamp,
             'year': year,
             'use_repo_nodes_only': use_repo_nodes_only,
             'use_largest_component': use_largest_component,
@@ -5369,7 +5671,6 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
             'subdomain_count': len(subdomain_network_features),
             'subdomain_features': subdomain_network_features,
             'comparison_table': df_comparison.to_dict('records'),
-            'anova_results': anova_results,
             'repo_to_category_mapping': {k: v for i, (k, v) in enumerate(repo_to_category.items()) if i < 100}
             # 只保存前100个映射
         }
@@ -5377,7 +5678,7 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
         # 转换NumPy类型
         json_results = convert_numpy_types(json_results)
 
-        json_path = os.path.join(output_dir, f'subdomain_network_features_{timestamp}.json')
+        json_path = os.path.join(output_dir, f'subdomain_network_features.json')
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(json_results, f, ensure_ascii=False, indent=2)
         logger.info(f"已保存详细结果: {json_path}")
@@ -5414,17 +5715,6 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
             logger.info(
                 f"  Modularity Range: {df_comparison['modularity'].min():.3f} - {df_comparison['modularity'].max():.3f} (Avg: {df_comparison['modularity'].mean():.3f})")
 
-        # ANOVA检验结果摘要
-        if anova_results:
-            significant_features = [feat for feat, result in anova_results.items()
-                                    if isinstance(result, dict) and result.get('significant', False)]
-
-            if significant_features:
-                logger.info(
-                    f"  ANOVA found {len(significant_features)} features with significant differences: {', '.join(significant_features)}")
-            else:
-                logger.info("  ANOVA found no significant differences between groups")
-
         # 输出最大和最小网络的详细信息
         logger.info("\nLargest Network (by node count):")
         logger.info(f"  Subdomain: {max_nodes_row['category_label']}")
@@ -5445,11 +5735,12 @@ def compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_rep
         'subdomain_networks': subdomain_networks,
         'subdomain_features': subdomain_network_features,
         'comparison_dataframe': df_comparison,
-        'anova_results': anova_results,
+        'subdomain_comparison': subdomain_comparison,
         'repo_to_category': repo_to_category,
         'repo_key_to_category': repo_key_to_category,
         'output_dir': output_dir,
-        'visualization_path': fig_path
+        'visualization_path': fig_path,
+        'with_replacement': with_replacement
     }
 
     logger.info("Subdomain network features analysis completed")
@@ -5485,6 +5776,11 @@ if __name__ == '__main__':
     dbms_repos_gh_core_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_DIR]
     dbms_repos_gh_core_ref_node_agg_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_REF_NODE_AGG_DIR]
     graph_network_dir = filePathConf.absPathDict[filePathConf.GRAPH_NETWORK_DIR]
+    os.makedirs(dbms_repos_raw_content_dir, exist_ok=True)
+    os.makedirs(dbms_repos_dedup_content_dir, exist_ok=True)
+    os.makedirs(dbms_repos_gh_core_dir, exist_ok=True)
+    os.makedirs(dbms_repos_gh_core_ref_node_agg_dir, exist_ok=True)
+    os.makedirs(graph_network_dir, exist_ok=True)
     flag_skip_existing_files = True
     ref_dedup_by_event_id = False
 
@@ -5541,6 +5837,7 @@ if __name__ == '__main__':
         if ref_dedup_by_event_id:
             df_dbms_repos_ref_dict = {k: dedup_x_y_keep_na_by_z(df, subset=['src_entity_id', 'tar_entity_id', 'event_id'], keep='first') for k, df in df_dbms_repos_ref_dict.items()}
         # granularity aggregation
+        logger.info("Node granularity aggregation starts...")
         df_dbms_repos_ref_node_agg_dict = {}
         for repo_key, df_dbms_repo_ref in list(df_dbms_repos_ref_dict.items()):
             # get repo_id by repo_key using df_target_repos
@@ -5619,7 +5916,7 @@ if __name__ == '__main__':
             G_repo.nodes[node]["repo_name"] = repo_id_name_dict.get(repo_id, "")
 
     # filter nodes and edges
-    only_dbms_repo = False
+    only_dbms_repo = True
     drop_self_loop = True
     node_w_threshold = 1
     edge_w_threshold = 1
@@ -5647,60 +5944,59 @@ if __name__ == '__main__':
     # df_dbms_repos_ref_net_node_agg_feat.to_csv(df_dbms_repos_ref_net_node_agg_feat_path, header=False, index=True)
     # logger.info(f"{df_dbms_repos_ref_net_node_agg_feat_path} saved!")
 
-    # # 步骤4: 描述性指标分析
-    # logger.info(f"-------------Step 4. Descriptive indicator analysis-------------")
-    # logger.info("""
-    # 	 4.1 DBMS项目引用耦合模式的描述性分析（占全网络）
-	# 	 4.1.1 引用类型分布特征
-	# 		294个DBMS项目，施引涉及github通用服务unique项目数和用户数？
-	# 		引用关系识别数：？条，
-	# 		核心实体引用类型分布？
-	# 			Actor
-	# 			Issue/PR
-	# 			Commit
-	# 			File/Doc
-	# 			...
-	# 			GitHub_General_Service_Other_Links
-	# 			GitHub_Other_Service
-	# 			GitHub_Service_External_Links
-	# 		自引率分布统计描述
-	# 			平均数、中位数、最大、最小
-	# 	 4.1.2 活跃议题数、新增议评率、新增评引率分布统计描述
-	# 		活跃议题数（活跃Issue和pr数）
-	# 		新增议评率（含Issue和PR body的新增Comment事件数/活跃Issue和pr数）
-	# 		新增评引率（Comment事件中新增引用数/含Issue和PR body的新增Comment事件数）
-	# 	 4.1.3 自引率时间演化特征
-	# 		外引比率随项目年龄的散点图
-    # """)
+    # 步骤4: 描述性指标分析
+    logger.info(f"-------------Step 4. Descriptive indicator analysis-------------")
+    logger.info("""
+    	 4.1 DBMS项目引用耦合模式的描述性分析（占全网络）
+		 4.1.1 引用类型分布特征
+			294个DBMS项目，施引涉及github通用服务unique项目数和用户数？
+			引用关系识别数：？条，
+			核心实体引用类型分布？
+				Actor
+				Issue/PR
+				Commit
+				File/Doc
+				...
+				GitHub_General_Service_Other_Links
+				GitHub_Other_Service
+				GitHub_Service_External_Links
+			自引率分布统计描述
+				平均数、中位数、最大、最小
+		 4.1.2 活跃议题数、新增议评率、新增评引率分布统计描述
+			活跃议题数（活跃Issue和pr数）
+			新增议评率（含Issue和PR body的新增Comment事件数/活跃Issue和pr数）
+			新增评引率（Comment事件中新增引用数/含Issue和PR body的新增Comment事件数）
+		 4.1.3 自引率时间演化特征
+			外引比率随项目年龄的散点图
+    """)
     logger.info(f"Read data from {dbms_repos_gh_core_ref_node_agg_dir} and {dbms_repos_gh_core_dir}. This may take a lot of time...")
     df_dbms_repos_ref_node_agg_dict = read_csvs(dbms_repos_gh_core_ref_node_agg_dir, filenames=filenames, index_col=0)
-    # df_dbms_repos_ref_dict = read_csvs(dbms_repos_gh_core_dir, filenames=filenames, index_col=None)
+    df_dbms_repos_ref_dict = read_csvs(dbms_repos_gh_core_dir, filenames=filenames, index_col=None)
     logger.info(f"Read completed.")
     github_osdb_data_dir = filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR]
     repo_i_pr_rec_cnt_path = os.path.join(github_osdb_data_dir, 'repo_activity_statistics/repo_i_pr_rec_cnt.csv')
     df_repo_i_pr_rec_cnt = pd.read_csv(repo_i_pr_rec_cnt_path, index_col=None)
-    # analyze_referenced_type_distribution(df_dbms_repos_ref_node_agg_dict, df_repo_i_pr_rec_cnt)
-    # calculate_issue_referencing_metrics(df_dbms_repos_ref_dict, df_repo_i_pr_rec_cnt)
+    analyze_referenced_type_distribution(df_dbms_repos_ref_node_agg_dict, df_repo_i_pr_rec_cnt)
+    calculate_issue_referencing_metrics(df_dbms_repos_ref_dict, df_repo_i_pr_rec_cnt)
     df_self_ref_ratio = pd.read_csv(os.path.join(github_osdb_data_dir, f"analysis_results/ref_type_dist/df_self_ref_ratio.csv"), index_col=None)
-    # analyze_self_ref_time_evolution(df_self_ref_ratio, df_repo_i_pr_rec_cnt)
+    analyze_self_ref_time_evolution(df_self_ref_ratio, df_repo_i_pr_rec_cnt)
 
-    # # 步骤5: 网络拓扑特征分析
-    # logger.info(f"-------------Step 5. Network topology characteristics Analysis-------------")
-    # logger.info("""
-    # 	 4.2 引用耦合网络的拓扑特征分析（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
-	# 	 4.2.1 度分布与无标度特性
-	# 		DBMS项目引用耦合网络的度分布
-	# 	 4.2.2 中心性与关键节点识别
-	# 	 4.2.3 聚类系数与社区结构
-	# 		Louvain算法对网络进行社区检测
-    # """)
+    # 步骤5: 网络拓扑特征分析
+    logger.info(f"-------------Step 5. Network topology characteristics Analysis-------------")
+    logger.info("""
+    	 4.2 引用耦合网络的拓扑特征分析（github通用服务: row["tar_entity_type_fine_grained"] not in ["GitHub_Other_Service", "GitHub_Service_External_Links"]）
+		 4.2.1 度分布与无标度特性
+			DBMS项目引用耦合网络的度分布
+		 4.2.2 中心性与关键节点识别
+		 4.2.3 聚类系数与社区结构
+			Louvain算法对网络进行社区检测
+    """)
     rm_edges = [(u, v) for u, v, d in G_repo.edges(data=True) if d["tar_entity_type_fine_grained"] in ["GitHub_Other_Service", "GitHub_Service_External_Links"]]
     G_repo.remove_edges_from(rm_edges)
-    # G_repo_ud = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
-    # analyze_degree_distribution(G_repo_ud, only_dbms_repo=only_dbms_repo)
-    # calculate_centrality_measures(G_repo_ud, only_dbms_repo=only_dbms_repo)
-    # detect_community_structure(G_repo_ud, only_dbms_repo=only_dbms_repo)
-    # compute_clustering_coefficient(G_repo_ud, only_dbms_repo=only_dbms_repo)
+    G_repo_ud = DG2G(G_repo, only_upper_triangle=False, multiplicity=True, double_self_loop=True)
+    analyze_degree_distribution(G_repo_ud, only_dbms_repo=only_dbms_repo)
+    calculate_centrality_measures(G_repo_ud, only_dbms_repo=only_dbms_repo)
+    compute_clustering_coefficient(G_repo_ud, only_dbms_repo=only_dbms_repo)
 
     # 步骤6: 描述性指标分析
     logger.info(f"-------------Step 6. Analysis of differences in reference patterns among sub domains-------------")
@@ -5714,10 +6010,24 @@ if __name__ == '__main__':
 			网络参数：平均度 | 平均聚类系数 | 平均路径长度 | 社区内引用比例
     """)
     category_label_colname = "category_label"
+    with_replacement = True
+    # 添加日志说明，帮助理解统计结果
+    logger.info("=" * 60)
+    if with_replacement:
+        logger.info("【有放回模式】统计说明：")
+        logger.info("  • 同一个仓库可能被多个子领域重复计数")
+        logger.info("  • 各子领域的样本量是'出现次数'，可能大于实际仓库数")
+        logger.info("  • 不同子领域之间的样本可能存在重叠")
+    else:
+        logger.info("【无放回模式】统计说明：")
+        logger.info("  • 每个仓库只分配给首次出现的子领域")
+        logger.info("  • 各子领域的样本量是实际仓库数")
+        logger.info("  • 不同子领域之间的样本互斥")
+    logger.info("=" * 60)
     df_repo_i_pr_rec_cnt_filtered = df_repo_i_pr_rec_cnt[df_repo_i_pr_rec_cnt["repo_name"].isin(repo_names)]
     df_repo_i_pr_rec_cnt_filtered = df_repo_i_pr_rec_cnt_filtered[df_repo_i_pr_rec_cnt_filtered[category_label_colname].notna()]
-    split_dfs_by_category_label = split_dataframe_by_column(df_repo_i_pr_rec_cnt_filtered, category_label_colname)
-    # compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict)
-    #  # compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_self_ref_ratio)  # 疑似独立
-    compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict, only_dbms_repo=only_dbms_repo)
+    split_dfs_by_category_label = split_dataframe_by_column(df_repo_i_pr_rec_cnt_filtered, category_label_colname, with_replacement=with_replacement)
+    compare_subdomains_referenced_type(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict, with_replacement=with_replacement)
+    compare_subdomains_self_ref_time_evolution(split_dfs_by_category_label, df_self_ref_ratio, with_replacement=with_replacement)  # 疑似独立
+    compare_subdomains_network_features(split_dfs_by_category_label, df_dbms_repos_ref_node_agg_dict, only_dbms_repo=only_dbms_repo, with_replacement=with_replacement)
 

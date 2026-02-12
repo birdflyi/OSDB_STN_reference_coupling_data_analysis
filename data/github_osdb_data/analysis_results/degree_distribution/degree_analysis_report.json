@@ -15,7 +15,7 @@
         "kurtosis": 270.0995021709348
     },
     "scale_free_properties": {
-        "gamma_estimate": 3.227427937493777,
+        "gamma_estimate": 3.227427937328529,
         "r_squared": 0.9996276331814119,
         "is_scale_free": true
     },

@@ -387,7 +387,7 @@
         "top_nodes": [
             {
                 "node_id": "R_16563587",
-                "centrality_value": 0.06025106047014059,
+                "centrality_value": 0.05445301509666329,
                 "in_lcc": true,
                 "repo_name": "cockroachdb/cockroach",
                 "repo_id": "16563587",
@@ -396,7 +396,7 @@
             },
             {
                 "node_id": "R_60246359",
-                "centrality_value": 0.04895168024959037,
+                "centrality_value": 0.051258191778219345,
                 "in_lcc": true,
                 "repo_name": "ClickHouse/ClickHouse",
                 "repo_id": "60246359",
@@ -405,7 +405,7 @@
             },
             {
                 "node_id": "R_6934395",
-                "centrality_value": 0.04874101012641662,
+                "centrality_value": 0.04400351502609804,
                 "in_lcc": true,
                 "repo_name": "facebook/rocksdb",
                 "repo_id": "6934395",
@@ -413,17 +413,8 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_927442",
-                "centrality_value": 0.03832439499390357,
-                "in_lcc": true,
-                "repo_name": "postgres/postgres",
-                "repo_id": "927442",
-                "degree": 23,
-                "node_type": "Repo"
-            },
-            {
                 "node_id": "R_507775",
-                "centrality_value": 0.03370844371919441,
+                "centrality_value": 0.036604781047225414,
                 "in_lcc": true,
                 "repo_name": "elastic/elasticsearch",
                 "repo_id": "507775",
@@ -431,17 +422,17 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_33745913",
-                "centrality_value": 0.0244431252914127,
+                "node_id": "R_927442",
+                "centrality_value": 0.033589732422366896,
                 "in_lcc": true,
-                "repo_name": "h2database/h2database",
-                "repo_id": "33745913",
-                "degree": 36,
+                "repo_name": "postgres/postgres",
+                "repo_id": "927442",
+                "degree": 23,
                 "node_type": "Repo"
             },
             {
                 "node_id": "R_166515022",
-                "centrality_value": 0.02348840679217728,
+                "centrality_value": 0.02363403580986701,
                 "in_lcc": true,
                 "repo_name": "trinodb/trino",
                 "repo_id": "166515022",
@@ -449,17 +440,8 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_11225014",
-                "centrality_value": 0.022460647606254155,
-                "in_lcc": true,
-                "repo_name": "etcd-io/etcd",
-                "repo_id": "11225014",
-                "degree": 238,
-                "node_type": "Repo"
-            },
-            {
                 "node_id": "R_138754790",
-                "centrality_value": 0.015370982570021828,
+                "centrality_value": 0.022981662769480143,
                 "in_lcc": true,
                 "repo_name": "duckdb/duckdb",
                 "repo_id": "138754790",
@@ -467,8 +449,17 @@
                 "node_type": "Repo"
             },
             {
+                "node_id": "R_33745913",
+                "centrality_value": 0.022520720777571855,
+                "in_lcc": true,
+                "repo_name": "h2database/h2database",
+                "repo_id": "33745913",
+                "degree": 36,
+                "node_type": "Repo"
+            },
+            {
                 "node_id": "R_105944401",
-                "centrality_value": 0.013954389879574078,
+                "centrality_value": 0.020244241033961868,
                 "in_lcc": true,
                 "repo_name": "yugabyte/yugabyte-db",
                 "repo_id": "105944401",
@@ -476,44 +467,8 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_48833910",
-                "centrality_value": 0.0138279305422094,
-                "in_lcc": true,
-                "repo_name": "tikv/tikv",
-                "repo_id": "48833910",
-                "degree": 74,
-                "node_type": "Repo"
-            },
-            {
-                "node_id": "R_9342529",
-                "centrality_value": 0.013762913442912765,
-                "in_lcc": true,
-                "repo_name": "crate/crate",
-                "repo_id": "9342529",
-                "degree": 64,
-                "node_type": "Repo"
-            },
-            {
-                "node_id": "R_6838921",
-                "centrality_value": 0.013254589921024225,
-                "in_lcc": true,
-                "repo_name": "prometheus/prometheus",
-                "repo_id": "6838921",
-                "degree": 193,
-                "node_type": "Repo"
-            },
-            {
-                "node_id": "R_150954997",
-                "centrality_value": 0.013248773527031603,
-                "in_lcc": true,
-                "repo_name": "VictoriaMetrics/VictoriaMetrics",
-                "repo_id": "150954997",
-                "degree": 122,
-                "node_type": "Repo"
-            },
-            {
                 "node_id": "R_77385607",
-                "centrality_value": 0.01209745524066588,
+                "centrality_value": 0.01837383009046048,
                 "in_lcc": true,
                 "repo_name": "JanusGraph/janusgraph",
                 "repo_id": "77385607",
@@ -521,17 +476,8 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_453068084",
-                "centrality_value": 0.011957815970206082,
-                "in_lcc": true,
-                "repo_name": "risingwavelabs/risingwave",
-                "repo_id": "453068084",
-                "degree": 321,
-                "node_type": "Repo"
-            },
-            {
                 "node_id": "R_358917318",
-                "centrality_value": 0.011610407085090499,
+                "centrality_value": 0.015519289302549978,
                 "in_lcc": true,
                 "repo_name": "apache/arrow-datafusion",
                 "repo_id": "358917318",
@@ -539,17 +485,8 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_17165658",
-                "centrality_value": 0.01131802873354013,
-                "in_lcc": true,
-                "repo_name": "apache/spark",
-                "repo_id": "17165658",
-                "degree": 317,
-                "node_type": "Repo"
-            },
-            {
                 "node_id": "R_422821402",
-                "centrality_value": 0.010274673897797931,
+                "centrality_value": 0.015291738744214313,
                 "in_lcc": true,
                 "repo_name": "FerretDB/FerretDB",
                 "repo_id": "422821402",
@@ -557,20 +494,83 @@
                 "node_type": "Repo"
             },
             {
-                "node_id": "R_388946490",
-                "centrality_value": 0.009903211534070202,
+                "node_id": "R_156018",
+                "centrality_value": 0.015126436394371673,
                 "in_lcc": true,
-                "repo_name": "facebookincubator/velox",
-                "repo_id": "388946490",
-                "degree": 126,
+                "repo_name": "redis/redis",
+                "repo_id": "156018",
+                "degree": 113,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_453068084",
+                "centrality_value": 0.014607734928824133,
+                "in_lcc": true,
+                "repo_name": "risingwavelabs/risingwave",
+                "repo_id": "453068084",
+                "degree": 321,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_9342529",
+                "centrality_value": 0.014137002344458952,
+                "in_lcc": true,
+                "repo_name": "crate/crate",
+                "repo_id": "9342529",
+                "degree": 64,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_11225014",
+                "centrality_value": 0.013972243063491837,
+                "in_lcc": true,
+                "repo_name": "etcd-io/etcd",
+                "repo_id": "11225014",
+                "degree": 238,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_24494032",
+                "centrality_value": 0.013155289548064058,
+                "in_lcc": true,
+                "repo_name": "mysql/mysql-server",
+                "repo_id": "24494032",
+                "degree": 23,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_48833910",
+                "centrality_value": 0.012958297138615781,
+                "in_lcc": true,
+                "repo_name": "tikv/tikv",
+                "repo_id": "48833910",
+                "degree": 74,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_49412556",
+                "centrality_value": 0.012857096269275265,
+                "in_lcc": true,
+                "repo_name": "quickwit-oss/tantivy",
+                "repo_id": "49412556",
+                "degree": 55,
+                "node_type": "Repo"
+            },
+            {
+                "node_id": "R_17165658",
+                "centrality_value": 0.011943268241895266,
+                "in_lcc": true,
+                "repo_name": "apache/spark",
+                "repo_id": "17165658",
+                "degree": 317,
                 "node_type": "Repo"
             }
         ],
         "statistics": {
-            "mean": 0.002459441769133667,
+            "mean": 0.002572934686053579,
             "median": 0.0,
-            "std": 0.007010907255650392,
-            "max": 0.06025106047014059,
+            "std": 0.00695385778242003,
+            "max": 0.05445301509666329,
             "min": 0.0
         },
         "based_on_all_nodes": true
