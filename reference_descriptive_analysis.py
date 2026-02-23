@@ -240,9 +240,42 @@ def is_reponame_repokey_matched(repo_name: str, repo_key: str, year=2023):
     return match_flag
 
 
+def parse_tar_entity_objnt_prop_dict(tar_entity_objnt_prop_dict_raw):
+    tar_entity_objnt_prop_dict = None
+    try:
+        if np.isnan(float(tar_entity_objnt_prop_dict_raw)):
+            tar_entity_objnt_prop_dict = None
+    except:
+        pass
+
+    if pd.isna(tar_entity_objnt_prop_dict_raw):  # all of GitHub_Other_Service, GitHub_Service_External_Links
+        pass
+    else:
+        try:
+            tar_entity_objnt_prop_dict = dict(tar_entity_objnt_prop_dict_raw)
+        except Exception:
+            prop_str = str(tar_entity_objnt_prop_dict_raw)
+            try:
+                tar_entity_objnt_prop_dict = json.loads(prop_str)
+            except json.JSONDecodeError:
+                # Swap the two quotation marks and try to parse again
+                prop_str = prop_str.replace('"', '$').replace("'", '"').replace('$', "'")
+                try:
+                    # if prop_str.startswith("'") and prop_str.endswith("'"):
+                    #     prop_str = prop_str[1:-1].replace("'", '"')
+                    tar_entity_objnt_prop_dict = json.loads(prop_str)
+                except json.JSONDecodeError:
+                    try:
+                        tar_entity_objnt_prop_dict = dict(eval(prop_str))
+                    except Exception:
+                        prop_str = prop_str.replace("'", '"')  # Forced analysis with [\', \"] mixed mode
+                        tar_entity_objnt_prop_dict = json.loads(prop_str)
+    return tar_entity_objnt_prop_dict
+
+
 def get_repo_id_by_repo_key(repo_key, df_repo_i_pr_rec_cnt, year=2023):
     repo_id_match_flags = df_repo_i_pr_rec_cnt.apply(
-        lambda row: row['repo_id'] if is_reponame_repokey_matched(row['repo_name'], repo_key, year) else None, axis=1)
+        lambda row: str(row['repo_id']) if is_reponame_repokey_matched(row['repo_name'], repo_key, year) else None, axis=1)
     repo_id = repo_id_match_flags.dropna().iloc[0] if not repo_id_match_flags.dropna().empty else None
     return repo_id
 
@@ -257,33 +290,8 @@ def granu_agg(row: pd.Series, repo_id=None):
 
     tar_entity_id_agg = None
     tar_entity_type_agg = "Object"
-    tar_entity_objnt_prop_dict = row["tar_entity_objnt_prop_dict"]
-    try:
-        if np.isnan(float(tar_entity_objnt_prop_dict)):
-            tar_entity_objnt_prop_dict = None
-    except:
-        pass
-
-    if tar_entity_objnt_prop_dict is None:  # all of GitHub_Other_Service, GitHub_Service_External_Links
-        pass
-    else:
-        try:
-            tar_entity_objnt_prop_dict = dict(tar_entity_objnt_prop_dict)
-        except Exception:
-            prop_str = str(tar_entity_objnt_prop_dict)
-            try:
-                tar_entity_objnt_prop_dict = json.loads(prop_str)
-            except json.JSONDecodeError:
-                # Swap the two quotation marks and try to parse again
-                prop_str = prop_str.replace('"', '$').replace("'", '"').replace('$', "'")
-                try:
-                    tar_entity_objnt_prop_dict = json.loads(prop_str)
-                except json.JSONDecodeError:
-                    try:
-                        tar_entity_objnt_prop_dict = dict(eval(prop_str))
-                    except Exception:
-                        prop_str = prop_str.replace("'", '"')  # Forced analysis with [\', \"] mixed mode
-                        tar_entity_objnt_prop_dict = json.loads(prop_str)
+    tar_entity_objnt_prop_dict = parse_tar_entity_objnt_prop_dict(row["tar_entity_objnt_prop_dict"])
+    if tar_entity_objnt_prop_dict:
         if "repo_id" in tar_entity_objnt_prop_dict.keys():
             if tar_entity_objnt_prop_dict["repo_id"] is not None:  # Except for unknown sha like fragment
                 tar_entity_id_agg = "R_" + str(tar_entity_objnt_prop_dict["repo_id"])
@@ -301,7 +309,9 @@ def granu_agg(row: pd.Series, repo_id=None):
 
 def set_entity_type_fine_grained(row: pd.Series):
     ent_type = "GitHub_Service_External_Links"
-    if row["tar_entity_type_agg"] == "Object":  # GitHub_Other_Service and GitHub_Service_External_Links and other wrong pattern has no id
+    tar_entity_objnt_prop_dict = parse_tar_entity_objnt_prop_dict(row["tar_entity_objnt_prop_dict"])
+    need_check_objnt_prop = isinstance(tar_entity_objnt_prop_dict, dict) and ("repo_id" in tar_entity_objnt_prop_dict.keys() or "actor_id" in tar_entity_objnt_prop_dict.keys())
+    if not need_check_objnt_prop:  # GitHub_Other_Service and GitHub_Service_External_Links and other wrong pattern has no id
         if row["tar_entity_match_pattern_type"] in ["GitHub_Other_Service", "GitHub_Service_External_Links"]:
             ent_type = row["tar_entity_match_pattern_type"]
         else:
@@ -310,10 +320,6 @@ def set_entity_type_fine_grained(row: pd.Series):
         if row["tar_entity_type"] == "Object":
             ent_type = row["tar_entity_match_pattern_type"]
             if ent_type == "Issue_PR":
-                try:
-                    tar_entity_objnt_prop_dict = eval(row["tar_entity_objnt_prop_dict"])
-                except:
-                    tar_entity_objnt_prop_dict = {}
                 if isinstance(tar_entity_objnt_prop_dict, dict):
                     repo_id = tar_entity_objnt_prop_dict.get("repo_id")
                     issue_number = tar_entity_objnt_prop_dict.get("issue_number")
