@@ -6,4 +6,4 @@ Campus intranet or logged in vpn:
 curl --output-dir "/path/to/your/Downloads_folder" -O http://49.52.27.60:8000/github_osdb_data-GH_CoRE-2.3.0-Pub-Alpha.tar.gz
 ```
 Public access:
-[Google Drive](https://drive.google.com/file/d/1gBUOnCO1FmEbzF018BOt2H3Y1VIn5MbR/view?usp=sharing)
+[Google Drive](https://drive.google.com/file/d/1gBUOnCO1FmEbzF018BOt2H3Y1VIn5MbR/view?usp=sharing), [Zenodo](https://doi.org/10.5281/zenodo.18817348)
