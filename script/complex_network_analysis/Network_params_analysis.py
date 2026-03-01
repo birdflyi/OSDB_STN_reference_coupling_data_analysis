@@ -5,21 +5,44 @@
 # @Time   : 2024/11/17 19:47
 # @Author : 'Lou Zehua'
 # @File   : Network_params_analysis.py
+
 import os
+import sys
+
+if '__file__' not in globals():
+    # !pip install ipynbname  # Remove comment symbols to solve the ModuleNotFoundError
+    import ipynbname
+
+    nb_path = ipynbname.path()
+    __file__ = str(nb_path)
+cur_dir = os.path.dirname(__file__)
+pkg_rootdir = os.path.dirname(os.path.dirname(cur_dir))  # os.path.dirname()向上一级，注意要对应工程root路径
+if pkg_rootdir not in sys.path:  # 解决ipynb引用上层路径中的模块时的ModuleNotFoundError问题
+    sys.path.append(pkg_rootdir)
+    print('-- Add root directory "{}" to system path.'.format(pkg_rootdir))
+
+
+import logging
 import math
 import traceback
 
 import networkx as nx
 import numpy as np
 import pandas as pd
+from GH_CoRE.utils.logUtils import setup_logging
 from GH_CoRE.working_flow import get_repo_name_fileformat, get_repo_year_filename, read_csvs
 from matplotlib import pyplot as plt
 
+from reference_descriptive_analysis import set_entity_type_fine_grained
+from script.build_dataset.granular_aggregation import granu_agg
 from script.complex_network_analysis.build_network.build_Graph import DG2G
 from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
 from script.utils.timeout import timeout
 
 plt.switch_backend('TkAgg')
+
+setup_logging(base_dir=pkg_rootdir)
+logger = logging.getLogger(__name__)
 
 
 def get_graph_feature(G, feat=None, timeout_sec=10*60):
@@ -469,8 +492,16 @@ def read_graph(graph_path):
 if __name__ == '__main__':
     from etc import filePathConf
 
-    repo_names = ["TuGraph-family/tugraph-db", "neo4j/neo4j", "facebook/rocksdb", "cockroachdb/cockroach"][0:2]
     year = 2023
+    top_k = 5
+    df_repo_i_pr_rec_cnt = pd.read_csv(os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR], "repo_activity_statistics/repo_i_pr_rec_cnt.csv"), index_col=None)
+    dbms_repos_gh_core_ref_node_agg_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_REF_NODE_AGG_DIR]
+
+    df_repo_i_pr_rec_cnt_filtered = df_repo_i_pr_rec_cnt.dropna(subset=['repo_name']).head(top_k)
+    repo_names = df_repo_i_pr_rec_cnt_filtered['repo_name'].tolist()
+    repo_id_name_dict = df_repo_i_pr_rec_cnt_filtered.set_index('repo_id')['repo_name'].to_dict()
+    repo_key_id_dict = {f"{get_repo_name_fileformat(repo_name)}_{str(year)}": repo_id for repo_id, repo_name in repo_id_name_dict.items()}
+    repo_keys = list(repo_key_id_dict.keys())
     relation_extraction_save_dir = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
                                               'repos_GH_CoRE')
     filenames_exists = os.listdir(relation_extraction_save_dir)
@@ -481,11 +512,35 @@ if __name__ == '__main__':
     else:
         filenames = filenames_exists
 
-    df_dbms_repos_dict_tmp = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
-    df_dbms_repos_dict = {k: df_dbms_repos_dict_tmp[k] for k in sorted(df_dbms_repos_dict_tmp)}
+    df_dbms_repos_dict = read_csvs(relation_extraction_save_dir, filenames=filenames, index_col=None)
+    df_dbms_repos_ref_dict = {k: df[df["relation_type"] == "Reference"] for k, df in df_dbms_repos_dict.items()}
+    flag_skip_existing_files = True
+    if not flag_skip_existing_files:
+        # granularity aggregation
+        logger.info("Node granularity aggregation starts...")
+        df_dbms_repos_ref_node_agg_dict = {}
+        for repo_key, df_dbms_repo_ref in list(df_dbms_repos_ref_dict.items()):
+            # get repo_id by repo_key using df_target_repos
+            repo_id = repo_key_id_dict[repo_key]
+            df_dbms_repo_ref_node_agg = df_dbms_repo_ref.apply(granu_agg, axis=1, repo_id=repo_id)  # repo_id as source repo id
+            df_dbms_repo_ref_node_agg = df_dbms_repo_ref_node_agg.apply(set_entity_type_fine_grained, axis=1)
+            temp_save_path = os.path.join(dbms_repos_gh_core_ref_node_agg_dir, f'{repo_key}.csv')
+            df_dbms_repo_ref_node_agg.to_csv(temp_save_path, header=True, index=False, encoding='utf-8')
+            df_dbms_repos_ref_node_agg_dict[repo_key] = df_dbms_repo_ref_node_agg
+    else:
+        # read aggregated relations
+        df_dbms_repos_ref_node_agg_dict = read_csvs(dbms_repos_gh_core_ref_node_agg_dir, filenames=filenames, index_col=None)
+    # # descent order by reference records length(may different from i_pr_rec_cnt order)
+    # temp_repoKey_recLen_dict = {k: len(df) for k, df in df_dbms_repos_ref_node_agg_dict.items()}
+    # temp_repoKey_recLen_sorted_dict = dict(sorted(temp_repoKey_recLen_dict.items(), key=lambda x: x[1], reverse=True))
+    # repo_keys = list(temp_repoKey_recLen_sorted_dict.keys())
+    df_dbms_repos_ref_node_agg_dict = {k: df_dbms_repos_ref_node_agg_dict[k] for k in repo_keys}
+    # Merge the graph_network of multiple repos
+    base_graph = nx.MultiDiGraph()
+    G_repo = base_graph
+
     g_feat_path = os.path.join(filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR],
-                               'analysis_results/df_g_feat.csv')
-    repo_keys = list(df_dbms_repos_dict.keys())
+                               f'analysis_results/df_g_feat_top{top_k}.csv')
     if os.path.isfile(g_feat_path):
         df_g_feat_repo_key_as_index = pd.read_csv(g_feat_path, header="infer", index_col=None)
         repos_feat_dict_values = df_g_feat_repo_key_as_index.to_dict(orient="records")
@@ -494,6 +549,21 @@ if __name__ == '__main__':
     else:
         repos_feat_dict = {}
 
+    logger.info(f"Get graph features for {repo_keys}.")
+    feat = ["len_nodes",
+        "len_edges",
+        "edge_density",
+        "is_sparse",
+        "avg_deg",
+        "avg_clustering",
+        "lcc_node_coverage_ratio",
+        "lcc_len_nodes",
+        "lcc_len_edges",
+        "lcc_edge_density",
+        # "lcc_diameter",
+        # "lcc_assort_coe",
+        # "lcc_avg_dist",
+        ]
     for repo_key in repo_keys:
         if repo_key in repos_feat_dict.keys():
             continue
@@ -504,9 +574,10 @@ if __name__ == '__main__':
                              default_node_types=['src_entity_type', 'tar_entity_type'],
                              default_edge_type="event_type",
                              init_record_as_edge_attrs=True, use_df_col_as_default_type=True, out_g_type='G')
-        graph_feature_record_complex_network = get_graph_feature(G)
+        graph_feature_record_complex_network = get_graph_feature(G, feat=feat, timeout_sec=60*60)
         graph_feature_record.update(graph_feature_record_complex_network)
         repos_feat_dict[repo_key] = graph_feature_record
         df_g_feat = pd.DataFrame.from_dict(repos_feat_dict, orient='index')
         df_g_feat.to_csv(g_feat_path, index=False)
-        print(f"{repo_key} saved into df_g_feat!")
+        logger.info(f"{repo_key} saved into df_g_feat!")
+    logger.info(f"Get graph features task done!")
