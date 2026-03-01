@@ -5706,7 +5706,9 @@ if __name__ == '__main__':
 
     # 步骤1: 数据收集与预处理
     logger.info(f"-------------Step 1. Data preprocessing-------------")
-    df_target_repos = select_target_repos(dbms_repos_key_feats_path, year, re_preprocess=False, ret="dataframe")
+    i_pr_rec_cnt_threshold = 10
+    # i_pr_rec_cnt_threshold = 1
+    df_target_repos = select_target_repos(dbms_repos_key_feats_path, year, re_preprocess=False, i_pr_rec_cnt_threshold=i_pr_rec_cnt_threshold, ret="dataframe")
     repo_names = df_target_repos["repo_name"].to_list()
     logger.info(f"Selected {len(repo_names)} DBMS projects.")
 
