@@ -7,7 +7,6 @@
 # @File   : data_preprocess.py
 
 import os
-import re
 import sys
 
 if '__file__' not in globals():
@@ -27,8 +26,6 @@ import json
 import pandas as pd
 
 from etc import filePathConf
-from langchain.schema import Document
-from reference_descriptive_analysis import set_entity_type_fine_grained, get_repo_id_by_repo_key
 from typing import Dict, Any
 
 # # --- 1. 使用你提供的最新映射表 ---
@@ -614,8 +611,28 @@ def parse_entity_string(tar_entity_name: str) -> dict:
 
     return result
 
+def is_reponame_repokey_matched(repo_name: str, repo_key: str, year=2023):
+    from GH_CoRE.working_flow import get_repo_name_fileformat, get_repo_year_filename
+        
+    match_flag = False
+    repo_name_fileformat = get_repo_name_fileformat(repo_name)
+    filename = get_repo_year_filename(repo_name_fileformat, year)
+    if filename == repo_key + '.csv':
+        match_flag = True
+    return match_flag
+    
+
+def get_repo_id_by_repo_key(repo_key, df_repo_i_pr_rec_cnt, year=2023):
+    repo_id_match_flags = df_repo_i_pr_rec_cnt.apply(
+        lambda row: str(row['repo_id']) if is_reponame_repokey_matched(row['repo_name'], repo_key, year) else None, axis=1)
+    repo_id = repo_id_match_flags.dropna().iloc[0] if not repo_id_match_flags.dropna().empty else None
+    return repo_id
+    
 
 def load_and_transform_csv(csv_path: str, year=2023, only_ref_relation=True):
+    from langchain.schema import Document
+    from script.build_dataset.granular_aggregation import set_entity_type_fine_grained
+    
     repo_key = os.path.splitext(os.path.basename(csv_path))[0]
     github_osdb_data_dir = filePathConf.absPathDict[filePathConf.GITHUB_OSDB_DATA_DIR]
     repo_i_pr_rec_cnt_path = os.path.join(github_osdb_data_dir, 'repo_activity_statistics/repo_i_pr_rec_cnt.csv')

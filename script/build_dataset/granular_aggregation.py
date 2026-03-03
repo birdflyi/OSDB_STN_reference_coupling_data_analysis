@@ -6,21 +6,14 @@
 # @Author : 'Lou Zehua'
 # @File   : granular_aggregation.py
 
-import logging
 import json
 
 import numpy as np
 import pandas as pd
 from GH_CoRE.model import Attribute_getter, ObjEntity
-from GH_CoRE.utils.logUtils import setup_logging
 from GH_CoRE.working_flow.body_content_preprocessing import read_csvs
 
 from etc import filePathConf
-from script import pkg_rootdir
-from script.build_dataset.repo_filter import get_filenames_by_repo_names
-
-setup_logging(base_dir=pkg_rootdir)
-logger = logging.getLogger(__name__)
 
 
 def granu_agg(row: pd.Series, repo_id=None):
@@ -118,7 +111,7 @@ if __name__ == '__main__':
     # dbms_repos_dedup_content_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_DEDUP_CONTENT_DIR]
     collaboration_relation_extraction_dir = filePathConf.absPathDict[filePathConf.DBMS_REPOS_GH_CORE_DIR]
     repo_names = ["pingcap/tidb", "tikv/tikv"]
-    filenames = get_filenames_by_repo_names(repo_names, year)
+    filenames = [f"{name.replace('/', '_')}_{str(year)}" for name in repo_names]
     df_dbms_repos_dict = read_csvs(collaboration_relation_extraction_dir, filenames=filenames, index_col=None)
     df_dbms_repo = df_dbms_repos_dict[filenames[0]]
     # relation filter
