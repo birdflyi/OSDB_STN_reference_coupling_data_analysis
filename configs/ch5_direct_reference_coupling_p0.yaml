@@ -1,0 +1,35 @@
+# Chapter 5 Direct Reference Coupling P0 preparation config.
+# Values mirror the legacy main flow audited on 2026-07-31; this file is not a frozen result manifest.
+
+study_year: 2023
+candidate_seed_source: "DBMS_REPOS_KEY_FEATS_PATH"
+analysis_seed_activity_threshold: 10
+event_types: ["IssueCommentEvent", "IssuesEvent", "PullRequestEvent", "PullRequestReviewCommentEvent", "PullRequestReviewEvent"]
+relation_type: "Reference"
+reference_dedup_rule: "none"
+legacy_ref_dedup_by_event_id: false
+source_granularity: "repo"
+target_granularity: "repo"
+include_self_reference_in_behavior_view: true
+drop_self_loop_in_cross_project_network: true
+repo_nodes_only: true
+only_dbms_repo_with_repo_name: true
+external_service_filter: ["GitHub_Other_Service", "GitHub_Service_External_Links"]
+node_weight_threshold: 1
+edge_weight_threshold: 1
+category_assignment_mode: "include_mixed"
+random_seed: 20260731
+run_id_prefix: "ch5_drc"
+require_execute_for_full_run: true
+
+input_paths:
+  dbms_repos_key_features: "data/github_osdb_data/dbfeatfusion_records_202410_automerged_manulabeled_with_repoid.csv"
+  repo_activity_statistics: "data/github_osdb_data/repo_activity_statistics/repo_i_pr_rec_cnt.csv"
+  raw_repos_dir: "data/github_osdb_data/repos"
+  dedup_content_dir: "data/github_osdb_data/repos_dedup_content"
+  gh_core_relations_dir: "data/github_osdb_data/repos_GH_CoRE"
+  gh_core_ref_node_agg_dir: "data/github_osdb_data/repos_GH_CoRE_ref_node_agg"
+  graph_network_dir: "data/github_osdb_data/graph_network"
+  historical_analysis_results_dir: "data/github_osdb_data/analysis_results"
+
+staging_output_root: "data/github_osdb_data/analysis_results/ch5_direct_reference_coupling/staging"
