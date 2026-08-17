@@ -33,8 +33,7 @@ from GH_CoRE.utils.logUtils import setup_logging
 from GH_CoRE.working_flow import get_repo_name_fileformat, get_repo_year_filename, read_csvs
 from matplotlib import pyplot as plt
 
-from reference_descriptive_analysis import set_entity_type_fine_grained
-from script.build_dataset.granular_aggregation import granu_agg
+from script.build_dataset.granular_aggregation import granu_agg, set_entity_type_fine_grained
 from script.complex_network_analysis.build_network.build_Graph import DG2G
 from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
 from script.utils.timeout import timeout

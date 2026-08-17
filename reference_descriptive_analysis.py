@@ -51,7 +51,6 @@ from script.build_dataset.granular_aggregation import granu_agg, set_entity_type
 from script.build_dataset.repo_filter import get_filenames_by_repo_names
 from script.complex_network_analysis.build_network.build_Graph import DG2G
 from script.complex_network_analysis.build_network.build_gh_collab_net import build_collab_net
-from script.complex_network_analysis.Network_params_analysis import get_graph_feature
 from script.utils.validate import ValidateFunc, complete_license_info, complete_github_repo_id, complete_repo_created_at
 
 setup_logging(base_dir=pkg_rootdir)
