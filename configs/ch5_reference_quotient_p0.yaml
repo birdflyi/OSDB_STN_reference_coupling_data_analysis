@@ -1,0 +1,34 @@
+# Chapter 5 Reference Quotient P0 frozen-run configuration.
+
+study_year: 2023
+data_version: "refq_p0_2023_seed_observation_v1"
+analysis_seed_activity_threshold: 10
+expected_candidate_seed_count: 301
+expected_analysis_seed_count: 294
+relation_type: "Reference"
+reference_dedup_rule: "none"
+membership_prefix: "R_"
+membership_rule: "retained endpoints must have exactly one R_<repo_id> membership; missing/placeholder fine-grained IDs use the unique aggregate project node as canonical identity"
+quotient_self_loop_policy: "preserve"
+rq2_cross_project_self_loop_policy: "exclude"
+edge_aggregation_rule: "sum one unit per retained fine-grained Reference record by ordered source/target membership pair"
+category_assignment_mode: "include_mixed"
+rq3_min_group_size: 5
+random_seed: 20260731
+brokerage_sample_size: 500
+provenance_sample_size: 100
+csv_chunk_size: 100000
+run_id_prefix: "ch5_refq_p0"
+
+source_repository:
+  path: "D:/github_repo/OSDB_STN_reference_coupling_data_analysis"
+  branch: "ch5-direct-reference-coupling-prep"
+  commit: "2944ab7ee828c1af427115d0808d4d62e5ac725e"
+  backup_inventory: "D:/github_repo/OSDB_STN_temp/modified.txt"
+
+input_paths:
+  dbms_repos_key_features: "D:/github_repo/OSDB_STN_reference_coupling_data_analysis/data/github_osdb_data/dbfeatfusion_records_202410_automerged_manulabeled_with_repoid.csv"
+  repo_activity_statistics: "D:/github_repo/OSDB_STN_reference_coupling_data_analysis/data/github_osdb_data/repo_activity_statistics/repo_i_pr_rec_cnt.csv"
+  gh_core_ref_node_agg_dir: "D:/github_repo/OSDB_STN_reference_coupling_data_analysis/data/github_osdb_data/repos_GH_CoRE_ref_node_agg"
+
+frozen_output_root: "outputs/reference_quotient_p0_frozen"
