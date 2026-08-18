@@ -42,7 +42,7 @@ Target projects may enter the expanded network because they are referenced by se
 
 ## Reproducibility
 
-The upstream [open-source DBMS project list](https://github.com/birdflyi/wiget_autogen_issue_body_for_opendigger_submiting_labeled_data_issue/tree/main/data/database_repo_label_dataframe) is updated monthly and may continue to evolve. It is separate from the frozen inputs used for the Chapter 5 P0 results.
+The upstream [open-source DBMS project list](https://github.com/birdflyi/od_label_issue_gen/tree/main/data/database_repo_label_dataframe) is updated monthly and may continue to evolve. It is separate from the frozen inputs used for the Chapter 5 P0 results.
 
 The P0 results are reproduced from the frozen 2023 seed manifest, checksummed inputs, analytical configuration, and implementation provenance recorded by the generated P0 `manifest.json`. The frozen settings and source snapshot are declared in [`configs/ch5_reference_quotient_p0.yaml`](configs/ch5_reference_quotient_p0.yaml).
 
