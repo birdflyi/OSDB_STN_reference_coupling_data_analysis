@@ -25,7 +25,7 @@ from .membership import (
     unique_project_membership,
 )
 from .network_views import analyze_undirected_view, cross_project_edges, directed_to_undirected_edges
-from .seed_selection import assert_seed_boundary, build_seed_manifests
+from .seed_selection import assert_seed_boundary, build_seed_manifests, relative_evidence_path
 from .statistics import describe_columns, kruskal_fdr
 
 
@@ -96,8 +96,17 @@ class RefQPipeline:
             self.config.get_int("expected_analysis_seed_count"),
             self.config.get_int("expected_candidate_seed_count"),
         )
-        seeds.to_csv(self.staging_root / "analysis_seed_manifest_294.csv", index=False)
-        candidates.to_csv(self.staging_root / "candidate_seed_observation_audit.csv", index=False)
+        source_root = self.config.source_repository["path"]
+        seed_output = seeds.copy()
+        candidate_output = candidates.copy()
+        seed_output["evidence_path"] = seed_output["evidence_path"].map(
+            lambda path: relative_evidence_path(path, source_root)
+        )
+        candidate_output["evidence_path"] = candidate_output["evidence_path"].map(
+            lambda path: relative_evidence_path(path, source_root)
+        )
+        seed_output.to_csv(self.staging_root / "analysis_seed_manifest_294.csv", index=False)
+        candidate_output.to_csv(self.staging_root / "candidate_seed_observation_audit.csv", index=False)
         return seeds, candidates
 
     def _audit_memberships(self, seeds: pd.DataFrame, registry: MembershipRegistry) -> None:

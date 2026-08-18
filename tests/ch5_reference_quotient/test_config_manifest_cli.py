@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 import GH_CoRE
 
@@ -28,3 +29,27 @@ def test_cli_dry_run_uses_reference_quotient_names():
 
 def test_runtime_manifest_records_gh_core_version():
     assert runtime_versions()["gh_core"] == GH_CoRE.__version__
+
+
+def test_p0_runtime_lock_matches_current_environment():
+    lock_text = Path("environment/p0-requirements-lock.txt").read_text(encoding="utf-8")
+    expected = {
+        "python": "3.9.13",
+        "numpy": "1.26.4",
+        "pandas": "1.4.4",
+        "scipy": "1.13.1",
+        "networkx": "3.1",
+        "gh-core": "2.3.1",
+    }
+    assert f"Python: {expected['python']}" in lock_text
+    for package, version in expected.items():
+        if package == "python":
+            continue
+        assert re.search(rf"^{re.escape(package)}=={re.escape(version)}$", lock_text, re.MULTILINE)
+    runtime = runtime_versions()
+    assert runtime["python"] == expected["python"]
+    assert runtime["numpy"] == expected["numpy"]
+    assert runtime["pandas"] == expected["pandas"]
+    assert runtime["scipy"] == expected["scipy"]
+    assert runtime["networkx"] == expected["networkx"]
+    assert runtime["gh_core"] == expected["gh-core"]

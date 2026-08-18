@@ -16,6 +16,13 @@ def repo_filename(repo_name: str, year: int) -> str:
     return get_repo_year_filename(get_repo_name_fileformat(str(repo_name)), year)
 
 
+def relative_evidence_path(path: str | Path, source_root: str | Path) -> str:
+    """Return a stable source-root-relative path for frozen seed outputs."""
+    if not str(path):
+        return ""
+    return Path(path).resolve().relative_to(Path(source_root).resolve()).as_posix()
+
+
 def build_seed_manifests(
     activity_path: str | Path,
     evidence_dir: str | Path,
